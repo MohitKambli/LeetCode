@@ -1,0 +1,21 @@
+class Solution {
+    public int findMax(int x, int y) {
+        return x > y ? x : y;
+    }
+    public int longestConsecutive(int[] nums) {
+        Set<Integer> set = new HashSet<Integer>();
+        int longest = 0;
+        for(int num : nums)
+            set.add(num);
+        for(int num : nums) {
+            int len;
+            if(!set.contains(num-1)) {
+                len = 0;
+                while(set.contains(len + num))
+                    len += 1;
+                longest = findMax(len, longest);
+            }
+        }
+        return longest;
+    }
+}
