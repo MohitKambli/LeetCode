@@ -1,0 +1,13 @@
+class Solution {
+    public boolean validate(TreeNode node, long left, long right) {
+        if(node == null)
+            return true;
+        else if(!((node.val < right) && (node.val > left)))
+            return false;
+        else
+            return (validate(node.left, left, node.val) && validate(node.right, node.val, right));
+    }
+    public boolean isValidBST(TreeNode root) {
+        return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+}
