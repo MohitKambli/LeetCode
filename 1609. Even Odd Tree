@@ -1,6 +1,6 @@
 class Solution {
     public boolean isEvenOddTree(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<>();
+        List<List<Integer>> bfsResult = new ArrayList<>();
         List<TreeNode> queue = new ArrayList<>();
         queue.add(root);
         while(queue.size() != 0) {
@@ -15,12 +15,12 @@ class Solution {
                 }
             }
             if(level.size() != 0)
-                result.add(level);
+                bfsResult.add(level);
         }
-        if(result.get(0).get(0) % 2 == 0)
+        if(bfsResult.get(0).get(0) % 2 == 0)
             return false;
-        for(int i=1;i<result.size();i++) {
-            List<Integer> level = result.get(i);
+        for(int i=1;i<bfsResult.size();i++) {
+            List<Integer> level = bfsResult.get(i);
             if(i % 2 == 0) {
                 for(int j=0;j<level.size();j++)
                     if(level.get(j) % 2 == 0)
