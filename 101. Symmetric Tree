@@ -4,9 +4,7 @@ class Solution {
             return true;
         if(left == null || right == null)
             return false;
-        if(left.val != right.val)
-            return false;
-        return isSymmetricHelper(left.left, right.right) && isSymmetricHelper(left.right, right.left);
+        return (left.val == right.val) && isSymmetricHelper(left.left, right.right) && isSymmetricHelper(left.right, right.left);
     }
     public boolean isSymmetric(TreeNode root) {
         if(root == null)
