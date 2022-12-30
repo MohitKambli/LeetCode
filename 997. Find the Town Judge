@@ -1,0 +1,20 @@
+class Solution {
+    public int findJudge(int n, int[][] trust) {
+        if(n == 1 && trust.length == 0)
+            return n;
+        else if(n == 2 && trust.length == 0)
+            return -1;
+        Map<Integer,Integer> map = new HashMap<>();
+        for(int[] x : trust)
+            map.put(x[1], (!map.containsKey(x[1])) ? 1 : map.get(x[1]) + 1);
+        int maxValue = Integer.MIN_VALUE;
+        int judge = -1;
+        for(Map.Entry<Integer,Integer> e : map.entrySet())
+            if(e.getValue() == n-1)
+                judge = e.getKey();
+        for(int[] x : trust)
+            if(x[0] == judge)
+                return -1;
+        return judge;
+    }
+}
