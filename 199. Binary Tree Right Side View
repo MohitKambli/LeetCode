@@ -1,0 +1,22 @@
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        List<TreeNode> queue = new ArrayList<>();
+        queue.add(root);
+        while(queue.size() != 0) {
+            TreeNode rightNode = null;
+            int queueSize = queue.size();
+            for(int i=0;i<queueSize;i++) {
+                TreeNode node = queue.remove(0);
+                if(node != null) {
+                    rightNode = node;
+                    queue.add(node.left);
+                    queue.add(node.right);
+                }
+            }
+            if(rightNode != null)
+                result.add(rightNode.val);
+        }
+        return result;
+    }
+}
