@@ -1,0 +1,22 @@
+class Solution {
+    public void inOrderTraversal(TreeNode node, List<Integer> nodes) {
+        if(node == null)
+            return;
+        inOrderTraversal(node.left, nodes);
+        nodes.add(node.val);
+        inOrderTraversal(node.right, nodes);
+    }
+    public List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
+        List<Integer> nodes1 = new ArrayList<>();
+        List<Integer> nodes2 = new ArrayList<>();
+        List<Integer> result = new ArrayList<>();
+        inOrderTraversal(root1, nodes1);
+        inOrderTraversal(root2, nodes2);
+        for(int x : nodes1)
+            result.add(x);
+        for(int x : nodes2)
+            result.add(x);
+        Collections.sort(result);
+        return result;
+    }
+}
