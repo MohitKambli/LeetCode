@@ -1,0 +1,30 @@
+class Solution {
+    public int findMin(List<Integer> nums) {
+        int min = nums.get(0);
+        for(int i=1;i<nums.size();i++)
+            if(nums.get(i) < min)
+                min = nums.get(i);
+        return min;
+    }
+    public int findMax(List<Integer> nums) {
+        int max = nums.get(0);
+        for(int i=1;i<nums.size();i++)
+            if(nums.get(i) > max)
+                max = nums.get(i);
+        return max;
+    }
+    public int distinctAverages(int[] nums) {
+        List<Integer> arr = new ArrayList<Integer>();
+        Set<Double> set = new HashSet<Double>();
+        for(int x : nums)
+            arr.add(x);
+        while(!arr.isEmpty()) {
+            int min = findMin(arr);
+            int max = findMax(arr);
+            set.add(((double)min + (double)max) / 2);
+            arr.remove(Integer.valueOf(min));
+            arr.remove(Integer.valueOf(max));
+        }
+        return set.size();
+    }
+}
