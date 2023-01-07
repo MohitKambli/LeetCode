@@ -1,0 +1,13 @@
+class Solution {
+    public int fib(int n) {
+        int f = 1, s = 1, t = 0;
+        if(n == 1 || n == 2)
+            return f;
+        for(int i=3;i<=n;i++) {
+            t = f + s;
+            f = s;
+            s = t;
+        }
+        return t;
+    }
+}
