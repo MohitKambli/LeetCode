@@ -1,0 +1,19 @@
+class Solution {
+    public boolean checkString(String s) {
+        if(!s.contains("b"))
+            return true;
+        int pos = 0;
+        for(int i=0;i<s.length();i++) {
+            if(s.charAt(i) == 'b') {
+                pos = i;
+                break;
+            }
+        }
+        while(pos < s.length()) {
+            if(s.charAt(pos) == 'a')
+                return false;
+            pos++;
+        }
+        return true;
+    }
+}
