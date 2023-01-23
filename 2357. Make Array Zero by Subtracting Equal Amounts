@@ -1,0 +1,28 @@
+class Solution {
+    public int findMin(int[] nums) {
+        int min = Integer.MAX_VALUE;
+        for(int i=0;i<nums.length;i++)
+            if(nums[i] > 0 && nums[i] < min)
+                min = nums[i];
+        return min;
+    }
+    public boolean isArrayNotZero(int[] nums) {
+        for(int x : nums)
+            if(x != 0)
+                return true;
+        return false;
+    }
+    public int minimumOperations(int[] nums) {
+        int count = 0;
+        while(isArrayNotZero(nums)) {
+            int min = findMin(nums);
+            for(int i=0;i<nums.length;i++)
+                if(min > nums[i])
+                    nums[i] = 0;
+                else
+                    nums[i] -= min;
+            count++;
+        }
+        return count;
+    }
+}
