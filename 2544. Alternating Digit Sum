@@ -1,0 +1,20 @@
+class Solution {
+    public int alternateDigitSum(int n) {
+        int temp = n;
+        int rev = 0;
+        while(n > 0) {
+            int x = n % 10;
+            rev = rev * 10 + x;
+            n /= 10;
+        }
+        int sum = 0;
+        boolean check = false;
+        while(rev > 0) {
+            int x = rev % 10;
+            sum += (!check ? (x) : (x * -1));
+            check = !check;
+            rev /= 10;
+        }
+        return sum;
+    }
+}
