@@ -1,0 +1,19 @@
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if(head == null || head.next == null)
+            return false;
+        ListNode current = head;
+        List<ListNode> nodeList = new ArrayList<>();
+        boolean isCycle = false;
+        while(current != null) {
+            if(!nodeList.contains(current))
+                nodeList.add(current);
+            else {
+                isCycle = true;
+                break;
+            }
+            current = current.next;
+        }
+        return isCycle;
+    }
+}
