@@ -1,0 +1,15 @@
+class Solution {
+    public int kItemsWithMaximumSum(int numOnes, int numZeros, int numNegOnes, int k) {
+        List<Integer> arr = new ArrayList<>();
+        for(int i=1;i<=numOnes;i++)
+            arr.add(1);
+        for(int i=1;i<=numZeros;i++)
+            arr.add(0);
+        for(int i=1;i<=numNegOnes;i++)
+            arr.add(-1);
+        int result = 0;
+        for(int i=1;i<=k;i++)
+            result += arr.get(i-1);
+        return result;
+    }
+}
