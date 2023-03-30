@@ -1,0 +1,24 @@
+class Solution {
+    public int findMax(List<Integer> arr) {
+        int max = arr.get(0);
+        for(int i=0;i<arr.size();i++)
+            if(arr.get(i) > max)
+                max = arr.get(i);
+        return max;
+    }
+    public int findMaxConsecutiveOnes(int[] nums) {
+        int count = 0;
+        List<Integer> arr = new ArrayList<Integer>();
+        for(int x : nums) {
+            if(x == 1) {
+                count++;
+            }
+            else {
+                arr.add(count);
+                count = 0;
+            }
+        }
+        arr.add(count);
+        return findMax(arr);
+    }
+}
