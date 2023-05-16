@@ -11,10 +11,10 @@ class Solution {
             for(int j=nums.length-1;j>i;j--) 
                 rSum[i] += nums[j];
         for(int i=0;i<nums.length;i++) {        
-            int diff = lSum[i] - rSum[i];
-            if(diff < 0)
-                diff *= -1;
-            ans[i] = diff;  
+            int difference = lSum[i] - rSum[i];
+            if(difference < 0)
+                difference *= -1;
+            ans[i] = difference;  
         }      
         return ans;
     }
