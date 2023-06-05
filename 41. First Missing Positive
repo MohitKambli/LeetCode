@@ -1,0 +1,10 @@
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        Arrays.sort(nums);
+        int value = 1;
+        for(int x : nums)
+            if(x == value)
+                value++;
+        return value;
+    }
+}
