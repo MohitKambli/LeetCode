@@ -1,0 +1,13 @@
+class Solution {
+    public char nextGreatestLetter(char[] letters, char target) {
+        int diff = Integer.MAX_VALUE;
+        int index = -1;
+        for(int i=0;i<letters.length;i++) {
+            if(target != letters[i] && letters[i] > target && letters[i] - target < diff) {
+                diff = letters[i] - target;
+                index = i;
+            }
+        }
+        return index == -1 ? letters[0] : letters[index];
+    }
+}
