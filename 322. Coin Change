@@ -1,0 +1,22 @@
+class Solution {
+    public int helper(int index, int[] coins, int amount, int[][] dp) {
+        if(index == 0) {
+            if(amount % coins[index] == 0)
+                return amount / coins[index];
+            else
+                return 50000;
+        }
+        if(dp[index][amount] != 0)
+            return dp[index][amount];
+        int notPick = 0 + helper(index-1, coins, amount, dp);
+        int pick = 50000;
+        if(coins[index] <= amount)
+            pick = 1 + helper(index, coins, amount - coins[index], dp);
+        return dp[index][amount] = notPick < pick ? notPick : pick;
+    }
+    public int coinChange(int[] coins, int amount) {
+        int[][] dp = new int[coins.length][amount+1];
+        int answer = helper(coins.length-1, coins, amount, dp);
+        return answer >= 50000 ? -1 : answer;
+    }
+}
