@@ -1,0 +1,25 @@
+class Solution {
+    List<List<Integer>> subsets = new ArrayList<>();
+    public void helper(int index, int[] nums, List<Integer> temp) {
+        if(index >= nums.length) {
+            subsets.add(new ArrayList<>(temp));
+            return;
+        }
+        temp.add(nums[index]);
+        helper(index+1, nums, temp);
+        temp.remove(temp.size()-1);
+        helper(index+1, nums, temp);
+    }
+    public int subsetXORSum(int[] nums) {
+        List<Integer> temp = new ArrayList<>();
+        helper(0, nums, temp);
+        int sum = 0;
+        for(List<Integer> subset : subsets) {
+            int value = 0;
+            for(int i=0;i<subset.size();i++)
+                value ^= subset.get(i);
+            sum += value;
+        }
+        return sum;
+    }
+}
