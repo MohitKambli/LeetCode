@@ -1,0 +1,16 @@
+class Solution {
+    public int helper(int index, int n, int[] dp) {
+        if(index == n)
+            return 1;
+        if(index > n)
+            return 0;
+        if(dp[index] != -1)
+            return dp[index];
+        return dp[index] = helper(index+1, n, dp) + helper(index+2, n, dp);
+    }
+    public int climbStairs(int n) {
+        int[] dp = new int[n];
+        Arrays.fill(dp, -1);
+        return helper(0, n, dp);
+    }
+}
