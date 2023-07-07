@@ -1,0 +1,24 @@
+class Solution {
+    public int helper(int i, int j, List<List<Integer>> triangle, int[][] dp) {
+        if(i == 0)
+            return triangle.get(0).get(0);
+        if(j < 0 || j >= triangle.get(i).size())
+            return 10000;
+        if(dp[i][j] != 10001)
+            return dp[i][j];
+        int left = triangle.get(i).get(j) + helper(i-1, j-1, triangle, dp);
+        int up = triangle.get(i).get(j) + helper(i-1, j, triangle, dp);
+        return dp[i][j] = Math.min(left, up);
+    }
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int n = triangle.size();
+        int m = triangle.get(n-1).size();
+        int[][] dp = new int[n][m];
+        for(int[] row : dp)
+            Arrays.fill(row, 10001);
+        int sum = 10000;
+        for(int i=0;i<m;i++)
+            sum = Math.min(sum, helper(n-1, i, triangle, dp));
+        return sum;
+    }
+}
