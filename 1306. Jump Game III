@@ -1,0 +1,15 @@
+class Solution {
+    public boolean helper(int index, int[] arr, boolean[] visited) {
+        if(index < 0 || index > arr.length-1 || visited[index] == true)
+            return false;
+        if(arr[index] == 0)
+            return true;
+        
+        visited[index] = true;
+        return helper(index - arr[index], arr, visited) || helper(index + arr[index], arr, visited);
+    }
+    public boolean canReach(int[] arr, int start) {
+        boolean[] visited = new boolean[arr.length];
+        return helper(start, arr, visited);
+    }
+}
