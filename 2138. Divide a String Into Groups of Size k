@@ -1,0 +1,30 @@
+class Solution {
+    public String[] divideString(String s, int k, char fill) {
+        int size = 0;
+        if(s.length() % k == 0)
+            size = s.length() / k;
+        else
+            size = s.length() / k + 1;
+        String[] result = new String[size];
+        int j = 0;
+        
+        int index = 0;
+        while(index < s.length()) {
+            int count = 0;
+            String temp = "";
+            for(int i=index;i<Math.min(s.length(), index+k);i++) {
+                temp += s.charAt(i);
+                count++;
+            }
+            if(count == k) {
+                count = 0;
+            } else {
+                for(int i=1;i<=(k-count);i++)
+                    temp += fill;
+            }
+            result[j++] = temp;
+            index += k;
+        }
+        return result;
+    }
+}
