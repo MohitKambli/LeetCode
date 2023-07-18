@@ -1,0 +1,19 @@
+class Solution {
+    public String replaceWords(List<String> dictionary, String sentence) {
+        String[] words = sentence.split(" ");
+        String ans = "";
+        for(int i=0;i<dictionary.size();i++) {
+            for(int j=0;j<words.length;j++) {
+                if(words[j].length() >= dictionary.get(i).length() && dictionary.get(i).equals(words[j].substring(0, dictionary.get(i).length()))) {
+                    words[j] = dictionary.get(i);
+                }
+            }
+        }
+        for(int i=0;i<words.length;i++) {
+            ans += words[i];
+            if(i != words.length-1)
+                ans += " ";
+        }
+        return ans;
+    }
+}
