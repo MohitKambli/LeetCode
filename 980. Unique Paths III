@@ -1,0 +1,41 @@
+class Solution {
+    int count = 0;
+    public void helper(int i, int j, int[][] grid, boolean[][] visited, int steps) {
+        if(i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || visited[i][j])
+            return;
+        if(grid[i][j] == 2 && steps == -1) {
+            count++;
+            return;
+        }
+
+        visited[i][j] = true;
+        steps--;
+        helper(i, j-1, grid, visited, steps);
+        helper(i, j+1, grid, visited, steps);
+        helper(i-1, j, grid, visited, steps);
+        helper(i+1, j, grid, visited, steps);
+        steps++;
+        visited[i][j] = false;
+    }
+    public int uniquePathsIII(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int steps = 0;
+        int startI = 0, startJ = 0;
+        boolean[][] visited = new boolean[m][n];
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(grid[i][j] == 1) {
+                    startI = i;
+                    startJ = j;
+                } else if(grid[i][j] == 0) {
+                    steps++;
+                } else if(grid[i][j] == -1) {
+                    visited[i][j] = true;;
+                }
+            }
+        }
+        helper(startI, startJ, grid, visited, steps);
+        return count;
+    }
+}
