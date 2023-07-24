@@ -1,0 +1,26 @@
+class Solution {
+    public int helper(int i, int j, int oldElement, int[][] matrix, int[][] dp) {
+        if(i < 0 || i > matrix.length-1 || j < 0 || j > matrix[0].length-1 ||  matrix[i][j] <= oldElement)
+            return 0;
+        if(dp[i][j] != -1)
+            return dp[i][j];
+        
+        int up = 1 + helper(i-1, j, matrix[i][j], matrix, dp);
+        int left = 1 + helper(i, j-1, matrix[i][j], matrix, dp);
+        int down = 1 + helper(i+1, j, matrix[i][j], matrix, dp);
+        int right = 1 + helper(i, j+1, matrix[i][j], matrix, dp);
+        return dp[i][j] = Math.max(up, Math.max(down, Math.max(left, right)));
+    }
+    public int longestIncreasingPath(int[][] matrix) {
+        int n = matrix.length;
+        int m = matrix[0].length;
+        int[][] dp = new int[n][m];
+        for(int[] row : dp)
+            Arrays.fill(row, -1);
+        int ans = Integer.MIN_VALUE;
+        for(int i=0;i<n;i++)
+            for(int j=0;j<m;j++)
+                ans = Math.max(ans, helper(i, j, -1, matrix, dp));
+        return ans;
+    }
+}
