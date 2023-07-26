@@ -1,0 +1,29 @@
+class Solution {
+    public void helper(int r, int c, boolean[][] visited, char[][] grid) {
+        if(r < 0 || r == grid.length || c < 0 || c == grid[0].length)
+            return;
+        
+        if(!visited[r][c] && grid[r][c] == '1') {
+            visited[r][c] = true;
+            helper(r+1, c, visited, grid);
+            helper(r-1, c, visited, grid);
+            helper(r, c+1, visited, grid);
+            helper(r, c-1, visited, grid);
+        }
+    }
+    public int numIslands(char[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+        boolean[][] visited = new boolean[n][m];
+        int count = 0;
+        for(int i=0;i<n;i++) {
+            for(int j=0;j<m;j++) {
+                if(!visited[i][j] && grid[i][j] == '1') {
+                    count++;
+                    helper(i, j, visited, grid);
+                }
+            }
+        }
+        return count;
+    }
+}
