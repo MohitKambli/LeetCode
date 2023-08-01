@@ -1,0 +1,21 @@
+class Solution {
+    public int[][] construct2DArray(int[] original, int m, int n) {
+        if(original.length != m * n) {
+            int[][] empty = new int[0][0];
+            return empty;
+        } else {
+            int[][] arr = new int[m][n];
+            int p = 0, q = 0;
+            for(int x : original) {
+                arr[p][q] = x;
+                if(q == n-1) {
+                    q = 0;
+                    p++;
+                }
+                else
+                    q++;
+            }
+            return arr;
+        }
+    }
+}
