@@ -35,35 +35,34 @@ class Driverclass
 class Solution
 {
     //Function to check if brackets are balanced or not.
-    static boolean ispar(String s)
+    static boolean ispar(String x)
     {
         // add your code here
         List<Character> stack = new ArrayList<>();
-         for(int i=0;i<s.length();i++) {
-            if(s.charAt(i) == '{' || s.charAt(i) == '[' || s.charAt(i) == '(') {
-                stack.add(s.charAt(i));
+        int n = x.length();
+        for(int i=0;i<n;i++) {
+            char temp = x.charAt(i);
+            if(temp == '{' || temp == '[' || temp == '(') {
+                stack.add(temp);
             }
-            if(stack.size() == 0)
+            if(stack.isEmpty())
                 return false;
-            char x;
-            switch(s.charAt(i)) {
-                case ']' :  x = stack.remove(stack.size()-1);
-                            if(x == '(' || x == '{') {
+            char tos;
+            switch(temp) {
+                case '}' :  tos = stack.remove(stack.size()-1);
+                            if(tos == '[' || tos == '(')
                                 return false;
-                            }
                             break;
-                case '}' :  x = stack.remove(stack.size()-1);
-                            if(x == '(' || x == '[') {
+                case ']' :  tos = stack.remove(stack.size()-1);
+                            if(tos == '(' || tos == '{')
                                 return false;
-                            }
                             break;
-                case ')' :  x = stack.remove(stack.size()-1);
-                            if(x == '[' || x == '{') {
+                case ')' :  tos = stack.remove(stack.size()-1);
+                            if(tos == '{' || tos == '[')
                                 return false;
-                            }
                             break;
-            }                
+            }
         }
-        return stack.size() == 0 ? true : false;
+        return stack.isEmpty() ? true : false;
     }
 }
