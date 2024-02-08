@@ -1,0 +1,15 @@
+class Solution {
+    public int[] sumEvenAfterQueries(int[] nums, int[][] queries) {
+        int[] answer = new int[nums.length];
+        int i = 0;
+        for(int[] query : queries) {
+            nums[query[1]] += query[0];
+            int sum = 0;
+            for(int x : nums)
+                if(x % 2 == 0)
+                    sum += x;
+            answer[i++] = sum;
+        }
+        return answer;
+    }
+}
