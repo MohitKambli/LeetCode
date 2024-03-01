@@ -1,0 +1,20 @@
+class Solution {
+    public void helper(int index, int n, int[] nums, List<Integer> subset, List<List<Integer>> subsets) {
+        if(index == n) {
+            subsets.add(new ArrayList<>(subset));
+            return;
+        }
+
+        subset.add(nums[index]);
+        helper(index+1, n, nums, subset, subsets);
+        subset.remove(subset.size()-1);
+        helper(index+1, n, nums, subset, subsets);
+    }
+    public List<List<Integer>> subsets(int[] nums) {
+        int n = nums.length;
+        List<List<Integer>> subsets = new ArrayList<>();
+        List<Integer> subset = new ArrayList<>();
+        helper(0, n, nums, subset, subsets);
+        return subsets;
+    }
+}
