@@ -1,0 +1,28 @@
+class Solution {
+    public void helper(int openCount, int closedCount, int n, String temp, List<String> answer) {
+        // Valid if and only if openCount = n & closedCount = n
+        if(openCount == n && closedCount == n) {
+            answer.add(temp);
+            return;
+        }
+
+        // Add Open Parenthesis only if openCount < n
+        if(openCount < n) {
+            temp += "(";
+            helper(openCount+1, closedCount, n, temp, answer);
+            temp = temp.substring(0, temp.length()-1);
+        }
+
+        // Add Closed Parenthesis only if closedCount < openCount
+        if(closedCount < openCount) {
+            temp += ")";
+            helper(openCount, closedCount+1, n, temp, answer);
+            temp = temp.substring(0, temp.length()-1);
+        }
+    }
+    public List<String> generateParenthesis(int n) {
+        List<String> answer = new ArrayList<>();
+        helper(0, 0, n, "", answer);
+        return answer;
+    }
+}
