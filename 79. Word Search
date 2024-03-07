@@ -1,0 +1,36 @@
+class Solution {
+    public boolean helper(char[][] board, String word, int i, int j, int index, boolean[][] isVisited) {
+        if(index == word.length())
+            return true;
+        if(
+            i < 0 || 
+            j < 0 || 
+            i >= board.length || 
+            j >= board[0].length || 
+            word.charAt(index) != board[i][j] ||
+            isVisited[i][j]
+        )
+            return false;
+        
+        isVisited[i][j] = true;
+        boolean ans = 
+            helper(board, word, i-1, j, index+1, isVisited) | 
+            helper(board, word, i+1, j, index+1, isVisited) |
+            helper(board, word, i, j-1, index+1, isVisited) |
+            helper(board, word, i, j+1, index+1, isVisited);
+        isVisited[i][j] = false;
+        return ans;
+    }
+    public boolean exist(char[][] board, String word) {
+        int r = board.length;
+        int c = board[0].length;
+        boolean[][] isVisited = new boolean[r][c];
+        for(int i=0;i<r;i++) {
+            for(int j=0;j<c;j++) {
+                if(helper(board, word, i, j, 0, isVisited))
+                    return true;
+            }
+        }
+        return false;
+    }
+}
