@@ -1,0 +1,24 @@
+class Solution {
+    public String customSortString(String order, String s) {
+        // Populate HashMap with the count of all characters in s
+        Map<Character,Integer> map = new HashMap<>();
+        String res = "";
+        for(char ch : s.toCharArray())
+            map.put(ch, !map.containsKey(ch) ? 1 : map.get(ch) + 1);
+        // Iterate over order characters and append the characters count/value times into result
+        for(char ch : order.toCharArray()) {
+            if(s.contains(Character.toString(ch))) {
+                int times = map.get(ch);
+                for(int i=1;i<=times;i++)
+                    res += ch;
+                // Make sure to remove that specific key-value pair from HashMap since it has been exhausted
+                map.remove(ch);
+            }
+        }
+        // Append remaining characters of s to res,  base on value/count
+        for(Map.Entry<Character,Integer> e : map.entrySet())
+            for(int i=1;i<=e.getValue();i++)
+                res += e.getKey();
+        return res;
+    }
+}
