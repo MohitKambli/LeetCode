@@ -1,0 +1,13 @@
+class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        int[] frequencies = new int[26];
+        for(char task : tasks)
+            frequencies[task - 'A']++;
+        Arrays.sort(frequencies);
+        int maxValue = frequencies[25] - 1;
+        int chunk = maxValue * n;
+        for(int i=24;i>=0;i--)
+            chunk -= Math.min(maxValue, frequencies[i]);
+        return chunk < 0 ? tasks.length : chunk + tasks.length;
+    }
+}
