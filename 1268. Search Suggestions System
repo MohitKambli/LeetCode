@@ -1,0 +1,19 @@
+class Solution {
+    public List<List<String>> suggestedProducts(String[] products, String searchWord) {
+        Arrays.sort(products);
+        List<List<String>> ans = new ArrayList<>();
+        int n = searchWord.length();
+        for(int i=0;i<n;i++) {
+            List<String> arr = new ArrayList<>();
+            String wordSubString = searchWord.substring(0, i+1);
+            int m = wordSubString.length();
+            for(String product : products) {
+                if(m <= product.length() && wordSubString.equals(product.substring(0, m)) && arr.size() < 3) {
+                    arr.add(product);
+                }
+            }
+            ans.add(arr);
+        }
+        return ans;
+    }
+}
