@@ -1,0 +1,25 @@
+class Solution {
+    public String sortVowels(String s) {
+        int n = s.length();
+        String vowels = "AEIOUaeiou";
+        List<Character> arr = new ArrayList<>();
+        for(int i=0;i<n;i++) {
+            char temp = s.charAt(i);
+            if(vowels.contains(Character.toString(temp))) {
+                arr.add(temp);
+            }
+        }
+        Collections.sort(arr);
+        String ans = "";
+        int j = 0;
+        for(int i=0;i<n;i++) {
+            char temp = s.charAt(i);
+            if(vowels.contains(Character.toString(temp))) {
+                ans += arr.get(j++);
+            } else {
+                ans += temp;
+            }
+        }
+        return ans;
+    }
+}
