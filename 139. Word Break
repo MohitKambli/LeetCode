@@ -1,0 +1,20 @@
+class Solution {
+    public boolean helper(int index, int n, String s, List<String> wordDict, Boolean[] dp) {
+        if(index == n)
+            return true;
+        if(dp[index] != null)
+            return dp[index];
+        
+        for(int i=index+1;i<=n;i++) {
+            String temp = s.substring(index, i);
+            if(wordDict.contains(temp) && helper(i, n, s, wordDict, dp))
+                return dp[index] = true;
+        }
+        return dp[index] = false;
+    }
+    public boolean wordBreak(String s, List<String> wordDict) {
+        int n = s.length();
+        Boolean[] dp = new Boolean[n];
+        return helper(0, n, s, wordDict, dp);
+    }
+}
