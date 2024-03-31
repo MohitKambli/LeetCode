@@ -1,0 +1,17 @@
+class Solution {
+    public void helper(int index, boolean[] visited, List<List<Integer>> rooms) {
+        if(visited[index])
+            return;
+        visited[index] = true;
+        for(int room : rooms.get(index))
+            helper(room, visited, rooms);
+    }
+    public boolean canVisitAllRooms(List<List<Integer>> rooms) {
+        boolean[] visited = new boolean[rooms.size()];
+        helper(0, visited, rooms);
+        for(boolean visitedValue : visited)
+            if(!visitedValue)
+                return false;
+        return true;
+    }
+}
