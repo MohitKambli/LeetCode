@@ -1,0 +1,21 @@
+class Solution {
+    public int sumOfEncryptedInt(int[] nums) {
+        int sum = 0;
+        for(int num : nums) {
+            int numTemp = num;
+            int max = -1, count = 0, newNum = 0;
+            while(num > 0) {
+                int x = num % 10;
+                max = Math.max(max, x);
+                num /= 10;
+                count++;
+            }
+            while(count > 0) {
+                newNum = newNum * 10 + max;
+                count--;
+            }
+            sum += newNum;
+        }
+        return sum;
+    }
+}
