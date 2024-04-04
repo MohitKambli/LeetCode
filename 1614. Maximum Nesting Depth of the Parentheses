@@ -1,0 +1,21 @@
+class Solution {
+    public int maxDepth(String s) {
+        List<Character> stack = new ArrayList<>();
+        int n = s.length();
+        int count = 0;
+        int ans = 0;
+        for(int i=0;i<n;i++) {
+            char temp = s.charAt(i);
+            if(temp == '(') {
+                count++;
+                stack.add(temp);
+            }
+            else if(temp == ')' && !stack.isEmpty()) {
+                count--;
+                stack.remove(stack.size()-1);
+            }
+            ans = Math.max(ans, count);
+        }
+        return ans;
+    }
+}
