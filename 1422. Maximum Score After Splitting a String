@@ -1,0 +1,19 @@
+class Solution {
+    public int maxScore(String s) {
+        int n = s.length();
+        int max = Integer.MIN_VALUE;
+        for(int i=0;i<n-1;i++) {
+            String leftSubstring = s.substring(0, i+1);
+            String rightSubstring = s.substring(i+1, n);
+            int leftCount = 0, rightCount = 0;
+            for(int j=0;j<leftSubstring.length();j++)
+                if(leftSubstring.charAt(j) == '0')
+                    leftCount++;
+            for(int j=0;j<rightSubstring.length();j++)
+                if(rightSubstring.charAt(j) == '1')
+                    rightCount++;
+            max = Math.max(max, leftCount + rightCount);
+        }
+        return max;
+    }
+}
