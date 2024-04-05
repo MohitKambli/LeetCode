@@ -1,0 +1,19 @@
+class Solution {
+    public int minAddToMakeValid(String s) {
+        List<Character> stack = new ArrayList<>();
+        int moves = 0;
+        int n = s.length();
+        for(int i=0;i<n;i++) {
+            char temp = s.charAt(i);
+            if(temp == '(')
+                stack.add(temp);
+            else {
+                if(!stack.isEmpty() && stack.get(stack.size()-1) == '(')
+                    stack.remove(stack.size()-1);
+                else
+                    moves++;
+            }
+        }
+        return moves + stack.size();
+    }
+}
