@@ -1,0 +1,18 @@
+import java.util.*;
+class Solution {
+    public int[][] kClosest(int[][] points, int k) {
+        int n = points.length;
+        double[][] distances = new double[n][2];
+        int p=0;
+        int q = 0;
+        for(int i=0;i<n;i++) {
+            distances[i][0] = i;
+            distances[i][1] = Math.sqrt(Math.pow(points[i][0], 2) + Math.pow(points[i][1], 2));
+        }
+        Arrays.sort(distances, (a, b) -> Double.compare(a[1], b[1]));
+        int[][] res = new int[k][2];
+        for(int i=0;i<k;i++)
+            res[i] = points[(int)distances[i][0]];
+        return res;
+    }
+}
