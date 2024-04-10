@@ -1,0 +1,16 @@
+class Solution {
+    public int[] deckRevealedIncreasing(int[] deck) {
+        Arrays.sort(deck);
+        int n = deck.length;
+        List<Integer> queue = new ArrayList<>();
+        int[] ans = new int[n];
+        for(int i=0;i<n;i++)
+            queue.add(i);
+        for(int i=0;i<n;i++) {
+            ans[queue.remove(0)] = deck[i];
+            if(!queue.isEmpty())
+                queue.add(queue.remove(0));
+        }
+        return ans;
+    }
+}
