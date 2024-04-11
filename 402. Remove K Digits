@@ -1,0 +1,19 @@
+import java.math.BigInteger;
+class Solution {
+    public String removeKdigits(String num, int k) {
+        List<Character> stack = new ArrayList<>();
+        for(char c : num.toCharArray()) {
+            while(k > 0 && !stack.isEmpty() && stack.get(stack.size()-1) > c) {
+                k--;
+                stack.remove(stack.size()-1);
+            }
+            stack.add(c);
+        }
+        String ans = "";
+        for(int i=0;i<stack.size()-k;i++)
+            ans += stack.get(i);
+        if(ans.equals(""))
+            return "0";
+        return new BigInteger(ans).toString();
+    }
+}
