@@ -1,6 +1,6 @@
 # LeetCode
 Hello Everyone!
-This repository would have solutions to LeetCode problems implemented in Java and Python.
+This repository would have solutions to LeetCode problems implemented in Java.
 I hope this helps you out in the best way possible.
 Thanks for visiting.!
 
