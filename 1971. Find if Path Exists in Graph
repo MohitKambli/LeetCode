@@ -1,16 +1,12 @@
 class Solution {
-    public boolean helper(Map<Integer, List<Integer>> graph, int n, int source, int destination, boolean[] visited) {
+    public boolean helper(Map<Integer, List<Integer>> graph, int source, int destination, boolean[] visited) {
         if(source == destination)
             return true;
         
         visited[source] = true;
-        for(int neighbour : graph.get(source)) {
-            if(!visited[neighbour]) {
-                if(helper(graph, n, neighbour, destination, visited)) {
-                    return true;
-                }
-            }
-        }
+        for(int neighbour : graph.get(source))
+            if(!visited[neighbour] && helper(graph, neighbour, destination, visited))
+                return true;
         return false;
     }
     public boolean validPath(int n, int[][] edges, int source, int destination) {
@@ -21,17 +17,19 @@ class Solution {
             if(graph.containsKey(u))
                 graph.get(u).add(v);
             else {
-                graph.put(u, new ArrayList<>());
+                List<Integer> arr = new ArrayList<>();
+                graph.put(u, arr);
                 graph.get(u).add(v);
             }
             if(graph.containsKey(v))
                 graph.get(v).add(u);
             else {
-                graph.put(v, new ArrayList<>());
+                List<Integer> arr = new ArrayList<>();
+                graph.put(v, arr);
                 graph.get(v).add(u);
-            }
+            }   
         }
         boolean[] visited = new boolean[n];
-        return helper(graph, n, source, destination, visited);
+        return helper(graph, source, destination, visited);
     }
 }
