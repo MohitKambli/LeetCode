@@ -1,0 +1,36 @@
+class Solution {
+    public int orangesRotting(int[][] grid) {
+        List<int[]> queue = new ArrayList<>();
+        int freshOranges = 0, time = 0;
+        int m = grid.length, n = grid[0].length;
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(grid[i][j] == 1)
+                    freshOranges++;
+                if(grid[i][j] == 2) {
+                    int[] rottenCell = new int[]{i, j};
+                    queue.add(rottenCell);
+                }
+            }
+        }
+        int[][] directions = new int[][]{{0,1},{0,-1},{1,0},{-1, 0}};
+        while(!queue.isEmpty() && freshOranges > 0) {
+            int queueSize = queue.size();
+            for(int i=0;i<queueSize;i++) {
+                int[] poppedCell = queue.remove(0);
+                for(int[] direction : directions) {
+                    int row = poppedCell[0] + direction[0];
+                    int col = poppedCell[1] + direction[1];
+                    if(row < 0 || row == m || col < 0 || col == n || grid[row][col] != 1)
+                        continue;
+                    freshOranges--;
+                    grid[row][col] = 2;
+                    int[] newCell = new int[]{row, col};
+                    queue.add(newCell);
+                }
+            }
+            time++;
+        }
+        return freshOranges == 0 ? time : -1;
+    }
+}
