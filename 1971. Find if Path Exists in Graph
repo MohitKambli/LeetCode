@@ -1,0 +1,37 @@
+class Solution {
+    public boolean helper(Map<Integer, List<Integer>> graph, int n, int source, int destination, boolean[] visited) {
+        if(source == destination)
+            return true;
+        
+        visited[source] = true;
+        for(int neighbour : graph.get(source)) {
+            if(!visited[neighbour]) {
+                if(helper(graph, n, neighbour, destination, visited)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    public boolean validPath(int n, int[][] edges, int source, int destination) {
+        Map<Integer, List<Integer>> graph = new HashMap<>();
+        for(int[] edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+            if(graph.containsKey(u))
+                graph.get(u).add(v);
+            else {
+                graph.put(u, new ArrayList<>());
+                graph.get(u).add(v);
+            }
+            if(graph.containsKey(v))
+                graph.get(v).add(u);
+            else {
+                graph.put(v, new ArrayList<>());
+                graph.get(v).add(u);
+            }
+        }
+        boolean[] visited = new boolean[n];
+        return helper(graph, n, source, destination, visited);
+    }
+}
