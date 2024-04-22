@@ -1,23 +1,23 @@
 class Solution {
-    public void fillNeighbours(List<String> queue, String curr, Set<String> visited) {
+    public void fillNeighbours(List<String> queue, Set<String> visited, String curr) {
         for(int i=0;i<4;i++) {
             char ch = curr.charAt(i);
+            int val = Integer.parseInt(String.valueOf(ch));
             
-            int val1 = Integer.parseInt(String.valueOf(ch)) + 1;
-            val1 = val1 % 10;
-            curr = curr.substring(0, i) + String.valueOf(val1) + curr.substring(i+1, 4);
+            int value1 = (val + 1) % 10;
+            curr = curr.substring(0, i) + String.valueOf(value1) + curr.substring(i+1, 4);
             if(!visited.contains(curr)) {
-                visited.add(curr);
                 queue.add(curr);
+                visited.add(curr);
             }
 
-            int val2 = Integer.parseInt(String.valueOf(ch)) - 1 + 10;
-            val2 = val2 % 10;
-            curr = curr.substring(0, i) + String.valueOf(val2) + curr.substring(i+1, 4);
+            int value2 = (val - 1 + 10) % 10;
+            curr = curr.substring(0, i) + String.valueOf(value2) + curr.substring(i+1, 4);
             if(!visited.contains(curr)) {
-                visited.add(curr);
                 queue.add(curr);
+                visited.add(curr);
             }
+
             curr = curr.substring(0, i) + String.valueOf(ch) + curr.substring(i+1, 4);
         }
     }
@@ -37,7 +37,7 @@ class Solution {
                 String curr = queue.remove(0);
                 if(curr.equals(target))
                     return level;
-                fillNeighbours(queue, curr, visited);
+                fillNeighbours(queue, visited, curr);
                 queueSize--;
             }
             level++;
