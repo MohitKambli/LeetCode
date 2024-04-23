@@ -1,25 +1,23 @@
 class Solution {
-    public void helper(int index, int[] candidates, List<Integer> combination, List<List<Integer>> combinations, int target, int sum) {
-        if(sum == target) {
+    public void helper(int index, int n, int[] candidates, int target, List<Integer> combination, List<List<Integer>> combinations) {
+        if(target < 0)
+            return;
+        if(target == 0)
             combinations.add(new ArrayList<>(combination));
-            return;
-        }
-        if(sum > target)
-            return;
-
-        for(int i=index;i<candidates.length;i++) {
-            if(i > index && candidates[i-1] == candidates[i]) 
+        for(int i=index;i<n;i++) {
+            if(i > index && candidates[i] == candidates[i-1])
                 continue;
             combination.add(candidates[i]);
-            helper(i+1, candidates, combination, combinations, target, sum + candidates[i]);
+            helper(i+1, n, candidates, target-candidates[i], combination, combinations);
             combination.remove(combination.size()-1);
         }
     }
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        List<List<Integer>> combinations = new ArrayList<>();
-        List<Integer> combination = new ArrayList<>();
+        int n = candidates.length;
         Arrays.sort(candidates);
-        helper(0, candidates, combination, combinations, target, 0);
+        List<Integer> combination = new ArrayList<>();
+        List<List<Integer>> combinations = new ArrayList<>();
+        helper(0, n, candidates, target, combination, combinations);
         return combinations;
     }
 }
