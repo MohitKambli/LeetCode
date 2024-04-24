@@ -1,0 +1,42 @@
+class Solution {
+    public boolean helper(Map<Integer, List<Integer>> map, int[] degree, int n) {
+        List<Integer> queue = new ArrayList<>();
+        int count = 0;
+        for(int i=0;i<n;i++) {
+            if(degree[i] == 0) {
+                count++;
+                queue.add(i);
+            }
+        }
+        while(!queue.isEmpty()) {
+            int node = queue.remove(0);
+            if(map.get(node) != null) {
+                for(int x : map.get(node)) {
+                    degree[x]--;
+                    if(degree[x] == 0) {
+                        count++;
+                        queue.add(x);
+                    }
+                }
+            }
+        }
+        return count == n;
+    }
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        int[] degree = new int[numCourses];
+        for(int[] edge : prerequisites) {
+            int u = edge[0];
+            int v = edge[1];
+            if(!map.containsKey(v)) {
+                List<Integer> arr = new ArrayList<>();
+                arr.add(u);
+                map.put(v, arr);
+            } else {
+                map.get(v).add(u);
+            }
+            degree[u]++;
+        }
+        return helper(map, degree, numCourses);
+    }
+}
