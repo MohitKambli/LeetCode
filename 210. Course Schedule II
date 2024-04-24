@@ -1,0 +1,53 @@
+class Solution {
+    public List<Integer> helper(Map<Integer, List<Integer>> map, int[] degree, int n) {
+        List<Integer> queue = new ArrayList<>();
+        List<Integer> res = new ArrayList<>();
+        int count = 0;
+        for(int i=0;i<n;i++) {
+            if(degree[i] == 0) {
+                count++;
+                res.add(i);
+                queue.add(i);
+            }
+        }
+        while(!queue.isEmpty()) {
+            int node = queue.remove(0);
+            if(map.get(node) != null) {
+                for(int x : map.get(node)) {
+                    degree[x]--;
+                    if(degree[x] == 0) {
+                        count++;
+                        res.add(x);
+                        queue.add(x);
+                    }
+                }
+            }
+        }
+        if(count == n)
+            return res;
+        return new ArrayList<>();
+    }
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        int[] degree = new int[numCourses];
+        for(int[] edge : prerequisites) {
+            int u = edge[0];
+            int v = edge[1];
+            if(!map.containsKey(v)) {
+                List<Integer> arr = new ArrayList<>();
+                arr.add(u);
+                map.put(v, arr);
+            } else {
+                map.get(v).add(u);
+            }
+            degree[u]++;
+        }
+        List<Integer> result = helper(map, degree, numCourses);
+        int size = result.size();
+        int[] ans = new int[size];
+        int k = 0;
+        for(int val : result)
+            ans[k++] = val;
+        return ans;
+    }
+}
