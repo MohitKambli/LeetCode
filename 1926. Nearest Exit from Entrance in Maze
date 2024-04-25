@@ -1,0 +1,31 @@
+class Solution {
+    public int nearestExit(char[][] maze, int[] entrance) {
+        int m = maze.length;
+        int n = maze[0].length;
+        int ans = 0;
+        List<int[]> queue = new ArrayList<>();
+        queue.add(new int[]{entrance[0], entrance[1]});
+        int[][] directions = new int[][]{{1,0},{-1,0},{0,1},{0,-1}};
+        while(!queue.isEmpty()) {
+            int queueSize = queue.size();
+            while(queueSize > 0) {
+                int[] cell = queue.remove(0);
+                int row = cell[0];
+                int col = cell[1];
+                if((row != entrance[0] || col != entrance[1]) && (row == 0 || row == m-1 || col == 0 || col == n-1))
+                    return ans;
+                for(int i=0;i<4;i++) {
+                    int newRow = row + directions[i][0];
+                    int newCol = col + directions[i][1];
+                    if(newRow >= 0 && newRow < m && newCol >= 0 && newCol < n && maze[newRow][newCol] == '.') {
+                        maze[newRow][newCol] = '+';
+                        queue.add(new int[]{newRow, newCol});
+                    }
+                }
+                queueSize--;
+            }
+            ans++;
+        }
+        return -1;
+    }
+}
