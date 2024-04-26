@@ -1,39 +1,28 @@
 class Solution {
-    public int helper(int i, int j, int[][] grid, int[][] dp) {
-        if(i < 0) {
+    public int helper(int row, int col, int n, int[][] grid, int[][] dp) {
+        if(col < 0 || col > n-1)
             return 0;
+        if(row == 0)
+            return grid[row][col];
+        if(dp[row][col] != -1)
+            return dp[row][col];
+        
+        int ans = Integer.MAX_VALUE;
+        for(int i=0;i<n;i++) {
+            if(i == col)
+                continue;
+            ans = Math.min(ans, grid[row][col] + helper(row-1, i, n, grid, dp));
         }
-        if(dp[i][j] != 100) {
-            return dp[i][j];
-        }
-        List<Integer> arr = new ArrayList<>();
-        for(int p=0;p<grid[0].length;p++) {
-            if(p != j) {
-                int temp = grid[i][p] + helper(i-1, p, grid, dp);
-                arr.add(temp);
-            }
-        }
-        if(!arr.isEmpty()) {
-            int min = arr.get(0);
-            for(int q=0;q<arr.size();q++)
-                if(arr.get(q) < min)
-                    min = arr.get(q);
-            return dp[i][j] = min;
-        } else {
-            return dp[i][j] = 100;
-        }
+        return dp[row][col] = ans;
     }
     public int minFallingPathSum(int[][] grid) {
         int n = grid.length;
-        int m = grid[0].length;
-        if(n == 1 && m == 1)
-            return grid[0][0];
-        int[][] dp = new int[n][m];
-        for(int[] row : dp)
-            Arrays.fill(row, 100);
-        int sum = Integer.MAX_VALUE;
-        for(int i=0;i<m;i++)
-            sum = Math.min(sum, helper(n-1, i, grid, dp));
-        return sum;
+        int[][] dp = new int[n][n];
+        for(int[] arr : dp)
+            Arrays.fill(arr, -1);
+        int min = Integer.MAX_VALUE;
+        for(int i=0;i<n;i++)
+            min = Math.min(min, helper(n-1, i, n, grid, dp));
+        return min;
     }
 }
