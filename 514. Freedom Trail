@@ -1,0 +1,25 @@
+class Solution {
+    public int helper(int index, int pointer, int m, int n, String ring, String key, int[][] dp) {
+        if(index == n)
+            return 0;
+        if(dp[pointer][index] != -1)
+            return dp[pointer][index];
+        
+        int min = Integer.MAX_VALUE;
+        for(int i=0;i<m;i++) {
+            if(ring.charAt(i) == key.charAt(index)) {
+                int minDistance = Math.min(Math.abs(i-pointer), m-Math.abs(i-pointer));
+                min = Math.min(min, minDistance + 1 + helper(index+1, i, m, n, ring, key, dp));
+            }
+        }
+        return dp[pointer][index] = min;
+    }
+    public int findRotateSteps(String ring, String key) {
+        int m = ring.length();
+        int n = key.length();
+        int[][] dp = new int[m][n];
+        for(int[] arr : dp)
+            Arrays.fill(arr, -1);
+        return helper(0, 0, m, n, ring, key, dp);
+    }
+}
