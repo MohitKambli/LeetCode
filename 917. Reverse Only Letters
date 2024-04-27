@@ -1,0 +1,23 @@
+class Solution {
+    public String reverseOnlyLetters(String s) {
+        int left = 0, right = s.length()-1;
+        StringBuilder sb = new StringBuilder(s);
+        while(left < right) {
+            char leftCharacter = sb.charAt(left);
+            char rightCharacter = sb.charAt(right);
+            if(Character.isLetter(leftCharacter) && Character.isLetter(rightCharacter)) {
+                char temp = leftCharacter;
+                sb.setCharAt(left, rightCharacter);
+                sb.setCharAt(right, temp);
+                left++;
+                right--;
+            } else {
+                if(!Character.isLetter(leftCharacter))
+                    left++;
+                if(!Character.isLetter(rightCharacter))
+                    right--;
+            }
+        }
+        return sb.toString();
+    }
+}
