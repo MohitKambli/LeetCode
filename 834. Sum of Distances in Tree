@@ -1,0 +1,56 @@
+class Solution {
+    int N;
+    int[] countArray;
+    int rootValue = 0;
+    public int helperRoot(Map<Integer, List<Integer>> graph, int currentNode, int previousNode, int depth) {
+        rootValue += depth;
+        int count = 1;
+        if(graph.get(currentNode) != null) {
+            for(int node : graph.get(currentNode)) {
+                if(node == previousNode)
+                    continue;
+                count += helperRoot(graph, node, currentNode, depth+1);
+            }
+        }
+        countArray[currentNode] = count;
+        return count;
+    }
+    public void helper(Map<Integer, List<Integer>> graph, int currentNode, int previousNode, int[] result) {
+        if(graph.get(currentNode) != null) {
+            for(int node : graph.get(currentNode)) {
+                if(node == previousNode)
+                    continue;
+                result[node] = result[currentNode] - countArray[node] + (N - countArray[node]);
+                helper(graph, node, currentNode, result);
+            }
+        }
+    }
+    public int[] sumOfDistancesInTree(int n, int[][] edges) {
+        N = n;
+        countArray = new int[N];
+        Map<Integer, List<Integer>> graph = new HashMap<>();
+        for(int[] edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+            if(!graph.containsKey(u)) {
+                List<Integer> arr = new ArrayList<>();
+                arr.add(v);
+                graph.put(u, arr);
+            } else {
+                graph.get(u).add(v);
+            }
+            if(!graph.containsKey(v)) {
+                List<Integer> arr = new ArrayList<>();
+                arr.add(u);
+                graph.put(v, arr);
+            } else {
+                graph.get(v).add(u);
+            }
+        }
+        int rootCount = helperRoot(graph, 0, -1, 0);
+        int[] result = new int[N];
+        result[0] = rootValue;
+        helper(graph, 0, -1, result);
+        return result;
+    }
+}
