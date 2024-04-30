@@ -1,0 +1,20 @@
+class Solution {
+    public long wonderfulSubstrings(String word) {
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0,1);
+        int xor = 0;
+        long result = 0;
+        for(char cha : word.toCharArray()) {
+            int shift = cha - 'a';
+            xor ^= (1 << shift);
+            result += map.getOrDefault(xor, 0);
+            for(char ch='a';ch<='j';ch++) {
+                int newShift = ch - 'a';
+                int checkXor = xor ^ (1 << newShift);
+                result += map.getOrDefault(checkXor, 0);
+            }
+            map.put(xor, map.getOrDefault(xor, 0) + 1);
+        }
+        return result;
+    }
+}
