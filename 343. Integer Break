@@ -1,16 +1,16 @@
 class Solution {
     public int helper(int n, int[] dp) {
-        if(n == 0)
+        if(n  == 0)
             return 1;
         if(dp[n] != -1)
             return dp[n];
-
-        int result = 1;
+        
+        int ans = 1;
         for(int i=1;i<n;i++) {
-            int prod = i * Math.max((n-i), helper(n-i, dp));
-            result = Math.max(result, prod);
+            int prod = i * Math.max(n-i, helper(n-i, dp));
+            ans = Math.max(prod, ans);
         }
-        return dp[n] = result;
+        return dp[n] = ans;
     }
     public int integerBreak(int n) {
         int[] dp = new int[n+1];
