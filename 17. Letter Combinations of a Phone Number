@@ -1,0 +1,32 @@
+class Solution {
+    public void helper(int index, Map<Character, String> map, String digits, int n, List<String> ans, String temp) {
+        if(index == n) {
+            ans.add(temp);
+            return;
+        }
+        String value = map.get(digits.charAt(index));
+        int len = value.length();
+        for(int i=0;i<len;i++) {
+            temp += value.charAt(i);
+            helper(index+1, map, digits, n, ans, temp);
+            temp = temp.substring(0, temp.length()-1);
+        }
+    }
+    public List<String> letterCombinations(String digits) {
+        int n = digits.length();
+        Map<Character, String> map = new HashMap<>();
+        map.put('2', "abc");
+        map.put('3', "def");
+        map.put('4', "ghi");
+        map.put('5', "jkl");
+        map.put('6', "mno");
+        map.put('7', "pqrs");
+        map.put('8', "tuv");
+        map.put('9', "wxyz");
+        List<String> ans = new ArrayList<>();
+        if(digits.isEmpty())
+            return ans;
+        helper(0, map, digits, n, ans, "");
+        return ans;
+    }
+}
