@@ -1,0 +1,27 @@
+class Solution {
+    public String decodeString(String s) {
+        List<String> stack = new ArrayList<>();
+        int n = s.length();
+        for(int i=0;i<n;i++) {
+            String temp = Character.toString(s.charAt(i));
+            if(!temp.equals("]"))
+                stack.add(temp);
+            else {
+                String x = "";
+                while(!stack.get(stack.size()-1).equals("["))
+                    x = stack.remove(stack.size()-1) + x;
+                stack.remove(stack.size()-1);
+                String num = "";
+                while(!stack.isEmpty() && "012345689".contains(stack.get(stack.size()-1)))
+                    num = stack.remove(stack.size()-1) + num;
+                int numValue = Integer.parseInt(num);
+                for(int j=0;j<numValue;j++)
+                    stack.add(x);
+            }
+        }
+        String res = "";
+        for(String val : stack)
+            res += val;
+        return res;
+    }
+}
