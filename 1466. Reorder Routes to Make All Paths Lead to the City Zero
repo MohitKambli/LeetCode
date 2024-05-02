@@ -1,0 +1,40 @@
+class Solution {
+    public int minReorder(int n, int[][] connections) {
+        Map<Integer, List<Integer>> adj = new HashMap<>();
+        for(int[] connection : connections) {
+            int u = connection[0];
+            int v = connection[1];
+            if(!adj.containsKey(u)) {
+                List<Integer> arr = new ArrayList<>();
+                arr.add(v);
+                adj.put(u, arr);
+            } else {
+                adj.get(u).add(v);
+            }
+            if(!adj.containsKey(v)) {
+                List<Integer> arr = new ArrayList<>();
+                arr.add(-u);
+                adj.put(v, arr);
+            } else {
+                adj.get(v).add(-u);
+            }
+        }
+        List<Integer> queue = new ArrayList<>();
+        queue.add(0);
+        boolean[] visited = new boolean[n];
+        visited[0] = true;
+        int count = 0;
+        while(!queue.isEmpty()) {
+            int node = queue.remove(0);
+            for(int neighbour : adj.get(Math.abs(node))) {
+                if(!visited[Math.abs(neighbour)]) {
+                    visited[Math.abs(neighbour)] = true;
+                    queue.add(neighbour);
+                    if(neighbour > 0)
+                        count++;
+                }
+            }
+        }
+        return count;
+    }
+}
