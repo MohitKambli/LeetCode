@@ -3,9 +3,9 @@ class Solution {
         Arrays.sort(nums);
         int left = 0, right = nums.length-1;
         while(left < right) {
-            if(nums[left] == (-1 * nums[right]))
+            if(nums[left] == -nums[right])
                 return nums[right];
-            if((-1 * nums[left]) < nums[right])
+            if(Math.abs(nums[left]) < nums[right])
                 right--;
             else
                 left++;
