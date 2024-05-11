@@ -1,0 +1,25 @@
+class Solution {
+    public double mincostToHireWorkers(int[] quality, int[] wage, int k) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        List<Pair<Double, Integer>> ratio = new ArrayList<>();
+        int qualitySum = 0, n = quality.length;
+        double res = Double.MAX_VALUE, maxRate = 0.0;
+        for(int i=0;i<n;i++)
+            ratio.add(new Pair<>((double)wage[i] / quality[i], i));
+        ratio.sort(Comparator.comparingDouble(a -> a.getKey()));
+        for(int i=0;i<k;i++) {
+            qualitySum += quality[ratio.get(i).getValue()];
+            maxRate = Math.max(maxRate, ratio.get(i).getKey());
+            pq.offer(quality[ratio.get(i).getValue()]);
+        }
+        res = maxRate * qualitySum;
+        for(int i=k;i<n;i++) {
+            maxRate = Math.max(maxRate, ratio.get(i).getKey());
+            qualitySum -= pq.poll();
+            qualitySum += quality[ratio.get(i).getValue()];
+            pq.offer(quality[ratio.get(i).getValue()]);
+            res = Math.min(res, maxRate * qualitySum);
+        }
+        return res;
+    }
+}
