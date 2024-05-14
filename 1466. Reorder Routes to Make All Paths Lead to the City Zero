@@ -20,10 +20,9 @@ class Solution {
             }
         }
         List<Integer> queue = new ArrayList<>();
-        queue.add(0);
-        boolean[] visited = new boolean[n];
-        visited[0] = true;
         int count = 0;
+        boolean[] visited = new boolean[n];
+        queue.add(0);
         while(!queue.isEmpty()) {
             int node = queue.remove(0);
             for(int neighbour : adj.get(Math.abs(node))) {
