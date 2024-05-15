@@ -1,0 +1,25 @@
+class Solution {
+    public long totalCost(int[] costs, int k, int candidates) {
+        int i = 0, j = costs.length-1;
+        long cost = 0;
+        PriorityQueue<Integer> heap1 = new PriorityQueue<>();
+        PriorityQueue<Integer> heap2 = new PriorityQueue<>();
+        while(k > 0) {
+            while(heap1.size() < candidates && i <= j)
+                heap1.offer(costs[i++]);
+            while(heap2.size() < candidates && j >= i)
+                heap2.offer(costs[j--]);
+            int minHeap1Value = heap1.size() > 0 ? heap1.peek() : Integer.MAX_VALUE;
+            int minHeap2Value = heap2.size() > 0 ? heap2.peek() : Integer.MAX_VALUE;
+            if(minHeap1Value <= minHeap2Value) {
+                cost += minHeap1Value;
+                heap1.poll();
+            } else {
+                cost += minHeap2Value;
+                heap2.poll();
+            }
+            k--;
+        }
+        return cost;
+    }
+}
