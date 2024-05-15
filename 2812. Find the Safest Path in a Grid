@@ -1,0 +1,78 @@
+class Solution {
+    int[][] directions = new int[][]{{1,0},{-1,0},{0,1},{0,-1}};
+    public boolean isValid(int[][] matrix, int mid, int n) {
+        List<Pair<Integer, Integer>> queue = new ArrayList<>();
+        boolean[][] visited = new boolean[n][n];
+        // 0,0 --> n-1,n-1
+        queue.add(new Pair<Integer, Integer>(0,0));
+        visited[0][0] = true;
+        if(matrix[0][0] < mid)
+            return false;
+        while(!queue.isEmpty()) {
+            Pair<Integer, Integer> pair = queue.remove(0);
+            int x = pair.getKey();
+            int y = pair.getValue();
+            if(x == n-1 && y == n-1)
+                return true;
+            for(int[] direction : directions) {
+                int newX = x + direction[0];
+                int newY = y + direction[1];
+                if(newX < 0 || newX >= n || newY < 0 || newY >= n || visited[newX][newY] || matrix[newX][newY] < mid)
+                    continue;
+                queue.add(new Pair<>(newX, newY));
+                visited[newX][newY] = true;
+            }
+        }
+        return false;
+    }
+    public int maximumSafenessFactor(List<List<Integer>> grid) {
+        int n = grid.size();
+
+        // Precalculation of every cell to its nearest thief (Multi-Source BFS)
+        int[][] matrix = new int[n][n];
+        List<Pair<Integer, Integer>> queue = new ArrayList<>();
+        boolean[][] visited = new boolean[n][n];
+        for(int i=0;i<n;i++) {
+            for(int j=0;j<n;j++) {
+                if(grid.get(i).get(j) == 1) {
+                    queue.add(new Pair<>(i, j));
+                    visited[i][j] = true;
+                }
+            }
+        }
+        int level = 0;
+        while(!queue.isEmpty()) {
+            int queueSize = queue.size();
+            while(queueSize > 0) {
+                Pair<Integer, Integer> pair = queue.remove(0);
+                int x = pair.getKey();
+                int y = pair.getValue();
+                matrix[x][y] = level;
+                for(int[] direction : directions) {
+                    int newX = x + direction[0];
+                    int newY = y + direction[1];
+                    if(newX < 0 || newX >= n || newY < 0 || newY >= n || visited[newX][newY])
+                        continue;
+                    queue.add(new Pair<>(newX, newY));
+                    visited[newX][newY] = true;
+                }
+                queueSize--;
+            }
+            level++;
+        }
+
+        // Apply Binary Search On Safe Factor
+        int left = 0, right = 400;
+        int ans = 0;
+        while(left <= right) {
+            int mid = left + (right - left) / 2;
+            if(isValid(matrix, mid, n)) {
+                ans = mid;
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return ans;
+    }
+}
