@@ -14,7 +14,7 @@
  * }
  */
 class Solution {
-    int maxPath = 0;
+    int ans = 0;
     public void helper(TreeNode node, int steps, boolean goLeft) {
         if(node == null)
             return;
@@ -26,11 +26,11 @@ class Solution {
             helper(node.right, steps+1, true);
             helper(node.left, 1, false);
         }
-        maxPath = Math.max(maxPath, steps);
+        ans = Math.max(ans, steps);
     }
     public int longestZigZag(TreeNode root) {
         helper(root, 0, true);
         helper(root, 0, false);
-        return maxPath;
+        return ans;
     }
 }
