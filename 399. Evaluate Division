@@ -1,0 +1,56 @@
+class Solution {
+    public void helper(String source, String destination, Map<String, List<Pair<String, Double>>> adj, Set<String> visited, double product, double[] ans) {
+        if(visited.contains(source))
+            return;
+
+        visited.add(source);
+        if(source.equals(destination)) {
+            ans[0] = product;
+            return;
+        }
+
+        for(Pair<String, Double> pair : adj.get(source)) {
+            String node = pair.getKey();
+            double value = pair.getValue();
+            helper(node, destination, adj, visited, product * value, ans);
+        }
+    }
+    public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
+        int nEquations = equations.size();
+        int nQueries = queries.size();
+        double[] result = new double[nQueries];
+        Map<String, List<Pair<String, Double>>> adj = new HashMap<>();
+        for(int i=0;i<nEquations;i++) {
+            String u = equations.get(i).get(0);
+            String v = equations.get(i).get(1);
+            if(!adj.containsKey(u)) {
+                List<Pair<String, Double>> arr = new ArrayList<>();
+                Pair<String, Double> pair = new Pair<>(v, values[i]);
+                arr.add(pair);
+                adj.put(u, arr);
+            } else {
+                adj.get(u).add(new Pair<>(v, values[i]));
+            }
+            if(!adj.containsKey(v)) {
+                List<Pair<String, Double>> arr = new ArrayList<>();
+                Pair<String, Double> pair = new Pair<>(u, 1.0 / values[i]);
+                arr.add(pair);
+                adj.put(v, arr);
+            } else {
+                adj.get(v).add(new Pair<>(u, 1.0 / values[i]));
+            }
+        }
+        for(int i=0;i<nQueries;i++) {
+            double product = 1.0;
+            double[] ans = {-1.0};
+            String source = queries.get(i).get(0);
+            String destination = queries.get(i).get(1);
+            if(adj.containsKey(source)) {
+                Set<String> visited = new HashSet<>();
+                helper(source, destination, adj, visited, product, ans);
+            }
+            result[i] = ans[0];
+        }
+        return result;        
+    }
+}
