@@ -13,7 +13,7 @@ class Solution {
             return null;
         if(node.val == p.val || node.val == q.val)
             return node;
-        
+
         TreeNode leftNode = helper(node.left, p, q);
         TreeNode rightNode = helper(node.right, p, q);
         if(leftNode != null && rightNode != null)
