@@ -1,0 +1,35 @@
+class Solution {
+    public void helper(char ch, String senate, boolean[] visited, int index, int n) {
+        while(true) {
+            if(senate.charAt(index) == ch && !visited[index]) {
+                visited[index] = true;
+                break;
+            }
+            index = (index + 1) % n;
+        }
+    }
+    public String predictPartyVictory(String senate) {
+        int n = senate.length();
+        int rCount = 0;
+        for(int i=0;i<n;i++)
+            if(senate.charAt(i) == 'R')
+                rCount++;
+        int dCount = n - rCount;
+        boolean[] visited = new boolean[n];
+        int index = 0;
+        while(rCount > 0 && dCount > 0) {
+            if(!visited[index]) {
+                char ch = senate.charAt(index);
+                if(ch == 'D') {
+                    rCount--;
+                    helper('R', senate, visited, (index + 1) % n, n);
+                } else {
+                    dCount--;
+                    helper('D', senate, visited, (index + 1) % n, n);
+                }
+            }
+            index = (index + 1) % n;
+        }
+        return rCount == 0 ? "Dire" : "Radiant";
+    }
+}
