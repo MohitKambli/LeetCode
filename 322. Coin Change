@@ -6,17 +6,21 @@ class Solution {
             else
                 return 50000;
         }
-        if(dp[index][amount] != 0)
+        if(dp[index][amount] != -1)
             return dp[index][amount];
-        int notPick = 0 + helper(index-1, coins, amount, dp);
+
+        int notPick = helper(index-1, coins, amount, dp);
         int pick = 50000;
         if(coins[index] <= amount)
             pick = 1 + helper(index, coins, amount - coins[index], dp);
-        return dp[index][amount] = notPick < pick ? notPick : pick;
+        return dp[index][amount] = Math.min(pick, notPick);
     }
     public int coinChange(int[] coins, int amount) {
-        int[][] dp = new int[coins.length][amount+1];
-        int answer = helper(coins.length-1, coins, amount, dp);
-        return answer >= 50000 ? -1 : answer;
+        int n = coins.length;
+        int[][] dp = new int[n][50000];
+        for(int[] arr : dp)
+            Arrays.fill(arr, -1);
+        int ans = helper(n-1, coins, amount, dp);
+        return ans == 50000 ? -1 : ans;
     }
 }
