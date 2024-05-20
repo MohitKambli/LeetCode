@@ -18,7 +18,6 @@ class Solution {
     public void dfs(TreeNode node, int targetSum, long currentSum) {
         if(node == null)
             return;
-        
         currentSum += node.val;
         dfs(node.left, targetSum, currentSum);
         dfs(node.right, targetSum, currentSum);
@@ -28,7 +27,6 @@ class Solution {
     public void helper(TreeNode node, int targetSum) {
         if(node == null)
             return;
-        
         dfs(node, targetSum, 0);
         helper(node.left, targetSum);
         helper(node.right, targetSum);
