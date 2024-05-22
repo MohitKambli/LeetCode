@@ -14,22 +14,20 @@
  * }
  */
 class Solution {
-    public TreeNode helper(int[] index, int start, int end, int[] preorder, int[] inorder) {
+    public TreeNode helper(int[] index, int[] preorder, int[] inorder, int start, int end) {
         if(start > end)
             return null;
-        
-        int nodeValue = preorder[index[0]];
+        TreeNode node = new TreeNode(preorder[index[0]]);
         int i = start;
         for(;i<=end;i++)
-            if(inorder[i] == nodeValue)
+            if(inorder[i] == node.val)
                 break;
         index[0]++;
-        TreeNode node = new TreeNode(nodeValue);
-        node.left = helper(index, start, i-1, preorder, inorder);
-        node.right = helper(index, i+1, end, preorder, inorder);
+        node.left = helper(index, preorder, inorder, start, i-1);
+        node.right = helper(index, preorder, inorder, i+1, end);
         return node;
     }
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        return helper(new int[]{0}, 0, inorder.length-1, preorder, inorder);
+        return helper(new int[]{0}, preorder, inorder, 0, inorder.length-1);
     }
 }
