@@ -8,7 +8,7 @@ class Solution {
                 break;
             }
         }
-        if(trueIndex != -1) {
+        if(trueIndex >= 0) {
             int swapIndex = -1;
             for(int i=n-1;i>=trueIndex+1;i--) {
                 if(nums[i] > nums[trueIndex]) {
@@ -22,9 +22,9 @@ class Solution {
         }
         int left = trueIndex+1, right = n-1;
         while(left < right) {
-            int x = nums[left];
+            int temp = nums[left];
             nums[left] = nums[right];
-            nums[right] = x;
+            nums[right] = temp;
             left++;
             right--;
         }
