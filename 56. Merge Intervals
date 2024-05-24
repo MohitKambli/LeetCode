@@ -8,18 +8,18 @@ class Solution {
             int lastEnd = ans.get(ans.size()-1)[1];
             int start = intervals[i][0];
             int end = intervals[i][1];
-            if(start <= lastEnd) {
-                lastEnd = Math.max(lastEnd, end);
-                ans.get(ans.size()-1)[1] = lastEnd;
-            } else {
-                ans.add(intervals[i]);
-            }
+            if(lastEnd >= start)
+                ans.get(ans.size()-1)[1] = Math.max(end, lastEnd);
+            else
+                ans.add(new int[]{start, end});
         }
         int newN = ans.size();
         int[][] output = new int[newN][2];
-        for(int i=0;i<newN;i++) {
-            output[i][0] = ans.get(i)[0];
-            output[i][1] = ans.get(i)[1];
+        int j = 0;
+        for(int[] arr : ans) {
+            output[j][0] = arr[0];
+            output[j][1] = arr[1];
+            j++;
         }
         return output;
     }
