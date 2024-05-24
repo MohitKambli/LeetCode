@@ -1,0 +1,33 @@
+class Solution {
+    int max;
+    public void helper(int index, int n, int currentScore, String[] words, int[] frequency, int[] score) {
+        max = Math.max(max, currentScore);
+        if(index == n)
+            return;
+        
+        int k = 0, j = 0, tempScore = 0;
+        int[] tempFrequency = new int[26];
+        for(int freq : frequency)
+            tempFrequency[k++] = freq;
+        int len = words[index].length();
+        while(j < len) {
+            char ch = words[index].charAt(j);
+            tempFrequency[ch - 'a']--;
+            tempScore += score[ch - 'a'];
+            if(tempFrequency[ch - 'a'] < 0)
+                break;
+            j++;
+        }
+        if(j == len)
+            helper(index+1, n, currentScore + tempScore, words, tempFrequency, score);
+        helper(index+1, n, currentScore, words, frequency, score);
+    }
+    public int maxScoreWords(String[] words, char[] letters, int[] score) {
+        int n = words.length;
+        int[] frequency = new int[26];
+        for(char ch : letters)
+            frequency[ch - 'a']++;
+        helper(0, n, 0, words, frequency, score);
+        return max;
+    }
+}
