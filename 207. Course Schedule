@@ -1,5 +1,5 @@
 class Solution {
-    public boolean helper(Map<Integer, List<Integer>> map, int[] degree, int n) {
+    public boolean helper(int n, Map<Integer, List<Integer>> adj, int[] degree) {
         List<Integer> queue = new ArrayList<>();
         int count = 0;
         for(int i=0;i<n;i++) {
@@ -10,8 +10,8 @@ class Solution {
         }
         while(!queue.isEmpty()) {
             int node = queue.remove(0);
-            if(map.get(node) != null) {
-                for(int x : map.get(node)) {
+            if(adj.get(node) != null) {
+                for(int x : adj.get(node)) {
                     degree[x]--;
                     if(degree[x] == 0) {
                         count++;
@@ -23,20 +23,20 @@ class Solution {
         return count == n;
     }
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        Map<Integer, List<Integer>> map = new HashMap<>();
+        Map<Integer, List<Integer>> adj = new HashMap<>();
         int[] degree = new int[numCourses];
         for(int[] edge : prerequisites) {
             int u = edge[0];
             int v = edge[1];
-            if(!map.containsKey(v)) {
+            if(!adj.containsKey(v)) {
                 List<Integer> arr = new ArrayList<>();
                 arr.add(u);
-                map.put(v, arr);
+                adj.put(v, arr);
             } else {
-                map.get(v).add(u);
+                adj.get(v).add(u);
             }
             degree[u]++;
         }
-        return helper(map, degree, numCourses);
+        return helper(numCourses, adj, degree);
     }
 }
