@@ -1,0 +1,23 @@
+class Solution {
+    int M = 1000000007;
+    public int helper(int n, int absence, int consecutiveLate, int[][][] dp) {
+        if(absence > 1 || consecutiveLate > 2)
+            return 0;
+        if(n == 0)
+            return 1;
+        if(dp[n][absence][consecutiveLate] != -1)
+            return dp[n][absence][consecutiveLate];
+
+        int absentCount = helper(n-1, absence+1, 0, dp) % M;
+        int consecutiveLateCount = helper(n-1, absence, consecutiveLate+1, dp) % M;
+        int presentCount = helper(n-1, absence, 0, dp) % M;
+        return dp[n][absence][consecutiveLate] = ((absentCount + consecutiveLateCount) % M + presentCount) % M;
+    }
+    public int checkRecord(int n) {
+        int[][][] dp = new int[n+1][2][3];
+        for(int[][] mat : dp)
+            for(int[] arr : mat)
+                Arrays.fill(arr, -1);
+        return helper(n, 0, 0, dp);
+    }
+}
