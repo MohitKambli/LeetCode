@@ -1,5 +1,5 @@
 class Solution {
-    public boolean helper(String s, int left, int right) {
+    public boolean isPalindrome(String s, int left, int right) {
         while(left < right) {
             if(s.charAt(left) != s.charAt(right))
                 return false;
@@ -9,11 +9,11 @@ class Solution {
         return true;
     }
     public String longestPalindrome(String s) {
+        int max = -1, startingIndex = -1;
         int n = s.length();
-        int startingIndex = -1, max = Integer.MIN_VALUE;
         for(int i=0;i<n;i++) {
             for(int j=i;j<n;j++) {
-                if(helper(s, i, j)) {
+                if(isPalindrome(s, i, j)) {
                     if(j - i + 1 > max) {
                         max = j - i + 1;
                         startingIndex = i;
