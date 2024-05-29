@@ -20,17 +20,16 @@ class Solution {
         }
         return ans;*/
 
-        int n = points.length;
-        int ans = 1;
-        int maxValue = Integer.MAX_VALUE;
-        for(int i=0;i<n;i++) {
+        int n = points.length, ans = 1;
+        int max = Integer.MAX_VALUE;
+        for(int i=0;i<n-1;i++) {
             Map<Double, Integer> map = new HashMap<>();
             for(int j=i+1;j<n;j++) {
-                double slope = 0;
+                double slope = 0.0;
                 if(points[i][0] == points[j][0])
-                    slope = maxValue;
+                    slope = max;
                 else
-                    slope = ((double)(points[j][1] - points[i][1])) / ((double)(points[j][0] - points[i][0]));
+                    slope = (double)(points[j][1] - points[i][1]) / (double)(points[j][0] - points[i][0]);
                 if(slope == -0.0)
                     slope = 0.0;
                 map.put(slope, map.getOrDefault(slope, 0) + 1);
