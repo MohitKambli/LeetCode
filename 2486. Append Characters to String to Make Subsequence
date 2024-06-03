@@ -1,0 +1,11 @@
+class Solution {
+    public int appendCharacters(String s, String t) {
+        int p = 0, q = 0, m = s.length(), n = t.length();
+        while(p < m && q < n) {
+            if(s.charAt(p) == t.charAt(q))
+                q++;
+            p++;
+        }
+        return n - q;
+    }
+}
