@@ -12,8 +12,8 @@ class Solution {
     public ListNode getKthNode(ListNode temp, int k) {
         k -= 1;
         while(temp != null && k != 0) {
-            temp = temp.next;
             k--;
+            temp = temp.next;
         }
         return temp;
     }
@@ -39,7 +39,7 @@ class Solution {
             ListNode nextNode = kthNode.next;
             kthNode.next = null;
             reverseLL(temp);
-            if(temp == head)
+            if(head == temp)
                 head = kthNode;
             else
                 prevNode.next = kthNode;
