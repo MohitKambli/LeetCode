@@ -15,8 +15,10 @@ class Node {
 
 class Solution {
     public Node copyRandomList(Node head) {
-        Node curr = head, newHead = null, prev = null;
         Map<Node, Node> map = new HashMap<>();
+        if(head == null)
+            return head;
+        Node curr = head, prev = null, newHead = null;
         while(curr != null) {
             Node node = new Node(curr.val);
             map.put(curr, node);
