@@ -4,8 +4,7 @@ class Solution {
         int left = 0, right = (n * m) - 1;
         while(left <= right) {
             int mid = (left + right) / 2;
-            int row = mid / m;
-            int col = mid % m;
+            int row = mid / m, col = mid % m;
             if(matrix[row][col] == target)
                 return true;
             if(target < matrix[row][col])
