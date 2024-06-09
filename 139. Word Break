@@ -4,7 +4,7 @@ class Solution {
             return true;
         if(dp[index] != null)
             return dp[index];
-        
+
         for(int i=index+1;i<=n;i++) {
             String temp = s.substring(index, i);
             if(wordDict.contains(temp) && helper(i, n, s, wordDict, dp))
