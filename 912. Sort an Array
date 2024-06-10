@@ -1,0 +1,31 @@
+class Solution {
+    public void merge(int[] nums, int left, int mid, int right) {
+        int i = left, j = mid+1, k = 0;
+        int[] temp = new int[nums.length];
+        while(i <= mid && j <= right) {
+            if(nums[i] < nums[j])
+                temp[k++] = nums[i++];
+            else
+                temp[k++] = nums[j++];
+        }
+        while(i <= mid)
+            temp[k++] = nums[i++];
+        while(j <= right)
+            temp[k++] = nums[j++];
+        int p = 0;
+        for(int q=left;q<=right;q++)
+            nums[q] = temp[p++];
+    }
+    public void mergesort(int[] nums, int left, int right) {
+        if(left < right) {
+            int mid = (left + right) / 2;
+            mergesort(nums, left, mid);
+            mergesort(nums, mid+1, right);
+            merge(nums, left, mid, right);
+        }
+    }
+    public int[] sortArray(int[] nums) {
+        mergesort(nums, 0, nums.length-1);
+        return nums;
+    }
+}
