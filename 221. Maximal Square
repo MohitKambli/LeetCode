@@ -1,28 +1,24 @@
 class Solution {
-    public int helper(int i, int j, char[][] matrix, int[][] dp) {
+    public int helper(int i, int j, int n, int m, char[][] matrix, int[][] dp) {
         if(i < 0 || j < 0 || matrix[i][j] == '0')
             return 0;
         if(dp[i][j] != -1)
             return dp[i][j];
         
-        int left = helper(i, j-1, matrix, dp);
-        int up = helper(i-1, j, matrix, dp);
-        int diagonal = helper(i-1, j-1, matrix, dp);
-        return dp[i][j] = 1 + Math.min(left, Math.min(up, diagonal));
+        int left = helper(i, j-1, n, m, matrix, dp);
+        int diagonal = helper(i-1, j-1, n, m, matrix, dp);
+        int up = helper(i-1, j, n, m, matrix, dp);
+        return dp[i][j] = 1 + Math.min(left, Math.min(diagonal, up));
     }
     public int maximalSquare(char[][] matrix) {
-        int m = matrix.length;
-        int n = matrix[0].length;
-        int[][] dp = new int[m][n];
+        int n = matrix.length, m = matrix[0].length, side = Integer.MIN_VALUE;
+        int[][] dp = new int[n][m];
         for(int[] arr : dp)
             Arrays.fill(arr, -1);
-        int length = 0;
-        for(int i=0;i<m;i++) {
-            for(int j=0;j<n;j++) {
+        for(int i=0;i<n;i++)
+            for(int j=0;j<m;j++)
                 if(matrix[i][j] == '1')
-                    length = Math.max(length, helper(i, j, matrix, dp));
-            }
-        }
-        return length * length;
+                    side = Math.max(side, helper(i, j, n, m, matrix, dp));
+        return side * side;
     }
 }
