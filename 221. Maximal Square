@@ -1,24 +1,24 @@
 class Solution {
-    public int helper(int i, int j, int n, int m, char[][] matrix, int[][] dp) {
+    public int helper(int i, int j, int m, int n, char[][] matrix, int[][] dp) {
         if(i < 0 || j < 0 || matrix[i][j] == '0')
             return 0;
         if(dp[i][j] != -1)
             return dp[i][j];
         
-        int left = helper(i, j-1, n, m, matrix, dp);
-        int diagonal = helper(i-1, j-1, n, m, matrix, dp);
-        int up = helper(i-1, j, n, m, matrix, dp);
+        int left = helper(i, j-1, m, n, matrix, dp);
+        int diagonal = helper(i-1, j-1, m, n, matrix, dp);
+        int up = helper(i-1, j, m, n, matrix, dp);
         return dp[i][j] = 1 + Math.min(left, Math.min(diagonal, up));
     }
     public int maximalSquare(char[][] matrix) {
-        int n = matrix.length, m = matrix[0].length, side = Integer.MIN_VALUE;
-        int[][] dp = new int[n][m];
+        int m = matrix.length, n = matrix[0].length, side = 0;
+        int[][] dp = new int[m][n];
         for(int[] arr : dp)
             Arrays.fill(arr, -1);
-        for(int i=0;i<n;i++)
-            for(int j=0;j<m;j++)
+        for(int i=0;i<m;i++)
+            for(int j=0;j<n;j++)
                 if(matrix[i][j] == '1')
-                    side = Math.max(side, helper(i, j, n, m, matrix, dp));
+                    side = Math.max(side, helper(i, j, m, n, matrix, dp));
         return side * side;
     }
 }
