@@ -1,0 +1,17 @@
+class Solution {
+    public String clearDigits(String s) {
+        List<Character> stack = new ArrayList<>();
+        int n = s.length();
+        for(int i=0;i<n;i++) {
+            char temp = s.charAt(i);
+            if(temp >= '0' && temp <= '9')
+                stack.remove(stack.size()-1);
+            else
+                stack.add(temp);
+        }
+        String res = "";
+        for(char ch : stack)
+            res += ch;
+        return res;
+    }
+}
