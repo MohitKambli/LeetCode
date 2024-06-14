@@ -1,24 +1,24 @@
 class Solution {
-    public List<Integer> helper(Map<Integer, List<Integer>> map, int[] degree, int n) {
+    public List<Integer> helper(Map<Integer, List<Integer>> adj, int[] inDegree, int n) {
         List<Integer> queue = new ArrayList<>();
         List<Integer> res = new ArrayList<>();
         int count = 0;
         for(int i=0;i<n;i++) {
-            if(degree[i] == 0) {
-                count++;
-                res.add(i);
+            if(inDegree[i] == 0) {
                 queue.add(i);
+                res.add(i);
+                count++;
             }
         }
         while(!queue.isEmpty()) {
             int node = queue.remove(0);
-            if(map.get(node) != null) {
-                for(int x : map.get(node)) {
-                    degree[x]--;
-                    if(degree[x] == 0) {
+            if(adj.get(node) != null) {
+                for(int x : adj.get(node)) {
+                    inDegree[x]--;
+                    if(inDegree[x] == 0) {
                         count++;
-                        res.add(x);
                         queue.add(x);
+                        res.add(x);
                     }
                 }
             }
@@ -28,26 +28,25 @@ class Solution {
         return new ArrayList<>();
     }
     public int[] findOrder(int numCourses, int[][] prerequisites) {
-        Map<Integer, List<Integer>> map = new HashMap<>();
-        int[] degree = new int[numCourses];
-        for(int[] edge : prerequisites) {
-            int u = edge[0];
-            int v = edge[1];
-            if(!map.containsKey(v)) {
+        Map<Integer, List<Integer>> adj = new HashMap<>();
+        int[] inDegree = new int[numCourses];
+        for(int[] prerequisite : prerequisites) {
+            int u = prerequisite[0];
+            int v = prerequisite[1];
+            if(!adj.containsKey(v)) {
                 List<Integer> arr = new ArrayList<>();
                 arr.add(u);
-                map.put(v, arr);
+                adj.put(v, arr);
             } else {
-                map.get(v).add(u);
+                adj.get(v).add(u);
             }
-            degree[u]++;
+            inDegree[u]++;
         }
-        List<Integer> result = helper(map, degree, numCourses);
-        int size = result.size();
-        int[] ans = new int[size];
-        int k = 0;
-        for(int val : result)
-            ans[k++] = val;
+        List<Integer> res = helper(adj, inDegree, numCourses);
+        int[] ans = new int[res.size()];
+        int i = 0;
+        for(int x : res)
+            ans[i++] = x;
         return ans;
     }
 }
