@@ -14,21 +14,18 @@
  * }
  */
 class Solution {
-    public int min(int x, int y) {
-        return x < y ? x : y;
+    public int helper(TreeNode node) {
+        if(node == null)
+            return 0;
+        if(node.left == null && node.right == null)
+            return 1;
+        if(node.left == null)
+            return 1 + helper(node.right);
+        if(node.right == null)
+            return 1 + helper(node.left);
+        return 1 + Math.min(helper(node.left), helper(node.right));
     }
     public int minDepth(TreeNode root) {
-        if(root == null)
-            return 0;
-        if(root.left == null && root.right == null)
-            return 1;
-        if(root.left == null)
-            return 1 + minDepth(root.right);
-        if(root.right == null)
-            return 1 + minDepth(root.left);
-
-        int leftHeight = minDepth(root.left);
-        int rightHeight = minDepth(root.right);
-        return 1 + min(leftHeight, rightHeight);
+        return helper(root);
     }
 }
