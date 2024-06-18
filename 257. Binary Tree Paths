@@ -18,17 +18,15 @@ class Solution {
     public void helper(TreeNode node, String temp) {
         if(node == null)
             return;
-
-        temp += String.valueOf(node.val) + "->";
-        if(node.left == null && node.right == null) {
+        
+        temp += node.val + "->";
+        if(node.left == null && node.right == null)
             ans.add(temp.substring(0, temp.length()-2));
-        }
         else {
             helper(node.left, temp);
             helper(node.right, temp);
         }
         temp = temp.substring(0, temp.length()-2);
-        
     }
     public List<String> binaryTreePaths(TreeNode root) {
         helper(root, "");
