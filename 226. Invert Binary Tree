@@ -17,11 +17,10 @@ class Solution {
     public TreeNode helper(TreeNode node) {
         if(node == null)
             return node;
-        
-        TreeNode left = helper(node.left);
-        TreeNode right = helper(node.right);
-        node.left = right;
-        node.right = left;
+        TreeNode leftNode = helper(node.left);
+        TreeNode rightNode = helper(node.right);
+        node.left = rightNode;
+        node.right = leftNode;
         return node;
     }
     public TreeNode invertTree(TreeNode root) {
