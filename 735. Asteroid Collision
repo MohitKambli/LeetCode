@@ -1,14 +1,15 @@
 class Solution {
     public int[] asteroidCollision(int[] asteroids) {
+        int n = asteroids.length;
         List<Integer> stack = new ArrayList<>();
         for(int asteroid : asteroids) {
             while(!stack.isEmpty() && asteroid < 0 && stack.get(stack.size()-1) > 0) {
-                int diff = asteroid + stack.get(stack.size()-1);
-                if(diff > 0) {
+                int diff = stack.get(stack.size()-1) + asteroid;
+                if(diff > 0)
                     asteroid = 0;
-                } else if(diff < 0) {
+                else if(diff < 0)
                     stack.remove(stack.size()-1);
-                } else {
+                else {
                     asteroid = 0;
                     stack.remove(stack.size()-1);
                 }
@@ -16,8 +17,8 @@ class Solution {
             if(asteroid != 0)
                 stack.add(asteroid);
         }
-        int n = stack.size(), i = 0;
-        int[] ans = new int[n];
+        int[] ans = new int[stack.size()];
+        int i=0;
         for(int x : stack)
             ans[i++] = x;
         return ans;
