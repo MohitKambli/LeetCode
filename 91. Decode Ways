@@ -1,0 +1,31 @@
+class Solution {
+    public int helper(int index, int n, String s, int[] dp) {
+        if(index == n)
+            return 1;
+        if(s.charAt(index) == '0')
+            return 0;
+        if(dp[index] != -1)
+            return dp[index];
+        
+        int ans = helper(index + 1, n, s, dp);
+        if(
+            index + 1 < n &&
+            (
+                s.charAt(index) == '1' ||
+                (
+                    s.charAt(index) == '2' &&
+                    s.charAt(index + 1) >= '0' &&
+                    s.charAt(index + 1) <= '6'
+                )
+            )
+        )
+            ans += helper(index + 2, n, s, dp);
+        return dp[index] = ans;
+    }
+    public int numDecodings(String s) {
+        int n = s.length();
+        int[] dp = new int[n];
+        Arrays.fill(dp, -1);
+        return helper(0, n, s, dp);
+    }
+}
