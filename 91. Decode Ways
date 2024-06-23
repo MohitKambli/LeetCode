@@ -14,12 +14,12 @@ class Solution {
                 s.charAt(index) == '1' ||
                 (
                     s.charAt(index) == '2' &&
-                    s.charAt(index + 1) >= '0' &&
-                    s.charAt(index + 1) <= '6'
+                    s.charAt(index+1) >= '0' &&
+                    s.charAt(index+1) <= '6'
                 )
             )
         )
-            ans += helper(index + 2, n, s, dp);
+            ans += helper(index+2, n, s, dp);
         return dp[index] = ans;
     }
     public int numDecodings(String s) {
