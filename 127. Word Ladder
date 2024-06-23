@@ -3,10 +3,10 @@ class Solution {
         Set<String> set = new HashSet<>();
         for(String word : wordList)
             set.add(word);
-        List<Pair<String, Integer>> queue = new ArrayList<>();
         Set<String> visited = new HashSet<>();
-        queue.add(new Pair<>(beginWord, 1));
         visited.add(beginWord);
+        List<Pair<String, Integer>> queue = new ArrayList<>();
+        queue.add(new Pair<>(beginWord, 1));
         while(!queue.isEmpty()) {
             int queueSize = queue.size();
             for(int i=0;i<queueSize;i++) {
@@ -20,7 +20,7 @@ class Solution {
                     for(char ch='a';ch<='z';ch++) {
                         String temp = current;
                         temp = temp.substring(0, j) + ch + temp.substring(j+1, n);
-                        if(set.contains(temp) && !visited.contains(temp)) {
+                        if(!visited.contains(temp) && set.contains(temp)) {
                             visited.add(temp);
                             queue.add(new Pair<>(temp, level + 1));
                         }
