@@ -1,0 +1,17 @@
+class Solution {
+    public double minimumAverage(int[] nums) {
+        int n = nums.length;
+        Arrays.sort(nums);
+        double[] averages = new double[n/2];
+        int left = 0, right = n-1;
+        for(int i=0;i<n/2;i++) {
+            averages[i] = (double)(nums[left] + nums[right]) / 2;
+            left++;
+            right--;
+        }
+        double min = Double.MAX_VALUE;
+        for(double average : averages)
+            min = Math.min(min, average);
+        return min;
+    }
+}
