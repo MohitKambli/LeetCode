@@ -1,0 +1,16 @@
+class Solution {
+    public int minimumArea(int[][] grid) {
+        int m = grid.length, n = grid[0].length, minI = 2000, maxI = -1, minJ = 2000, maxJ = -1;
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(grid[i][j] == 1) {
+                    minI = Math.min(i, minI);
+                    maxI = Math.max(i, maxI);
+                    minJ = Math.min(j, minJ);
+                    maxJ = Math.max(j, maxJ);
+                }
+            }
+        }
+        return ((maxI - minI) + 1) * ((maxJ - minJ) + 1);
+    }
+}
