@@ -10,8 +10,7 @@ class TimeMap {
             return;
         }
         List<Pair<String, Integer>> arr = new ArrayList<>();
-        Pair pair = new Pair<>(value, timestamp);
-        arr.add(pair);
+        arr.add(new Pair<String, Integer>(value, timestamp));
         map.put(key, arr);
     }
     
@@ -23,8 +22,7 @@ class TimeMap {
         int left = 0, right = arr.size()-1;
         while(left <= right) {
             int mid = (left + right) / 2;
-            int value = arr.get(mid).getValue();
-            if(value > timestamp)
+            if(arr.get(mid).getValue() > timestamp)
                 right = mid - 1;
             else {
                 ans = arr.get(mid).getKey();
