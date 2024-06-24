@@ -6,16 +6,16 @@ class Solution {
         Map<Character, Integer> map = new HashMap<>();
         for(char ch : t.toCharArray())
             map.put(ch, map.getOrDefault(ch, 0) + 1);
-        int index = -1, minWindowSize = Integer.MAX_VALUE, i = 0, j = 0, count = n;
+        int i = 0, j = 0, index = -1, count = n, minWindow = Integer.MAX_VALUE;
         while(j < m) {
             char chJ = s.charAt(j);
             if(map.containsKey(chJ) && map.get(chJ) > 0)
                 count--;
             map.put(chJ, map.getOrDefault(chJ, 0) - 1);
             while(count == 0) {
-                int windowSize = j - i + 1;
-                if(windowSize < minWindowSize) {
-                    minWindowSize = windowSize;
+                int window = j - i + 1;
+                if(window < minWindow) {
+                    minWindow = window;
                     index = i;
                 }
                 char chI = s.charAt(i);
@@ -26,6 +26,6 @@ class Solution {
             }
             j++;
         }
-        return minWindowSize == Integer.MAX_VALUE ? "" : s.substring(index, index + minWindowSize);
+        return minWindow == Integer.MAX_VALUE ? "" : s.substring(index, index + minWindow);
     }
 }
