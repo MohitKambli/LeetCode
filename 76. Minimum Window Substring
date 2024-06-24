@@ -6,7 +6,7 @@ class Solution {
         Map<Character, Integer> map = new HashMap<>();
         for(char ch : t.toCharArray())
             map.put(ch, map.getOrDefault(ch, 0) + 1);
-        int i = 0, j = 0, index = -1, count = n, minWindow = Integer.MAX_VALUE;
+        int i = 0, j = 0, count = n, index = -1, minWindow = Integer.MAX_VALUE;
         while(j < m) {
             char chJ = s.charAt(j);
             if(map.containsKey(chJ) && map.get(chJ) > 0)
