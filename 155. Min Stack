@@ -1,6 +1,7 @@
 class MinStack {
     List<Integer> stack;
     List<Integer> minStack;
+
     public MinStack() {
         stack = new ArrayList<>();
         minStack = new ArrayList<>();
@@ -11,12 +12,13 @@ class MinStack {
             stack.add(val);
             minStack.add(val);
             return;
-        }        
+        }
+
         int topOfStack = minStack.get(minStack.size()-1);
-        if(val < topOfStack)
-            minStack.add(val);
-        else
+        if(topOfStack < val)
             minStack.add(topOfStack);
+        else
+            minStack.add(val);
         stack.add(val);
     }
     
