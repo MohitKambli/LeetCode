@@ -1,0 +1,22 @@
+class Solution {
+    public int helper(int i, int j, String s, String t, int[][] dp) {
+        if(i < 0 || j < 0)
+            return 0;
+        if(dp[i][j] != -1)
+            return dp[i][j];
+        
+        if(s.charAt(i) == t.charAt(j))
+            return dp[i][j] = 1 + helper(i-1, j-1, s, t, dp);
+        return dp[i][j] = Math.max(helper(i, j-1, s, t, dp), helper(i-1, j, s, t, dp));
+    }
+    public int minInsertions(String s) {
+        String revS = "";
+        for(char ch : s.toCharArray())
+            revS = ch + revS;
+        int n = s.length();
+        int[][] dp = new int[n][n];
+        for(int[] arr : dp)
+            Arrays.fill(arr, -1);
+        return n - helper(n-1, n-1, s, revS, dp);
+    }
+}
