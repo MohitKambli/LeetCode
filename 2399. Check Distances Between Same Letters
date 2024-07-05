@@ -1,0 +1,26 @@
+class Solution {
+    public boolean checkDistances(String s, int[] distance) {
+        int n = s.length();
+        Set<Character> set = new HashSet<>();
+        int[] firstOccurrence = new int[26];
+        for(int i=0;i<n;i++) {
+            char ch = s.charAt(i);
+            if(!set.contains(ch)) {
+                firstOccurrence[ch - 'a'] = i;
+                set.add(ch);
+            }
+        }
+        int[] secondOccurrence = new int[26];
+        for(int i=0;i<n;i++) {
+            char ch = s.charAt(i);
+            secondOccurrence[ch - 'a'] = i;
+        }
+        for(int i=0;i<26;i++) {
+            if(firstOccurrence[i] == secondOccurrence[i])
+                continue;
+            if(distance[i] != secondOccurrence[i] - firstOccurrence[i] - 1)
+                return false;
+        }
+        return true;
+    }
+}
