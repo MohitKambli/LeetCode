@@ -1,0 +1,16 @@
+class Solution {
+    public int chalkReplacer(int[] chalk, int k) {
+        int n = chalk.length, student = 0;
+        while(k > 0) {
+            if(student == n)
+                student = 0;
+            k -= chalk[student];
+            if(k < 0)
+                return student;
+            student++;
+        }
+        if(student == n)
+            return 0;
+        return student;
+    }
+}
