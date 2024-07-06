@@ -1,0 +1,12 @@
+class Solution {
+    public int passThePillow(int n, int time) {
+        int position = 1, direction = 1;
+        while(time > 0) {
+            position += direction;
+            if(position == n || position == 1)
+                direction *= -1;
+            time--;
+        }
+        return position;
+    }
+}
