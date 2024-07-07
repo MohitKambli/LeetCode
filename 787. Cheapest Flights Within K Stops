@@ -1,0 +1,44 @@
+class Solution {
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        Map<Integer, List<Pair<Integer, Integer>>> adj = new HashMap<>();
+        for(int[] flight : flights) {
+            int u = flight[0];
+            int v = flight[1];
+            int cost = flight[2];
+            if(!adj.containsKey(u)) {
+                List<Pair<Integer, Integer>> arr = new ArrayList<>();
+                Pair<Integer, Integer> pair = new Pair<>(v, cost);
+                arr.add(pair);
+                adj.put(u, arr);
+            } else {
+                adj.get(u).add(new Pair<>(v, cost));
+            }
+        }
+        List<Pair<Integer, Integer>> queue = new ArrayList<>();
+        queue.add(new Pair<>(src, 0));
+        int[] distance = new int[n];
+        Arrays.fill(distance, Integer.MAX_VALUE);
+        distance[src] = 0;
+        int level = 0;
+        while(!queue.isEmpty() && level <= k) {
+            int queueSize = queue.size();
+            for(int i=0;i<queueSize;i++) {
+                Pair<Integer, Integer> pair = queue.remove(0);
+                int node = pair.getKey();
+                int cost = pair.getValue();
+                if(adj.containsKey(node)) {
+                    for(Pair<Integer, Integer> p : adj.get(node)) {
+                        int adjNode = p.getKey();
+                        int adjCost = p.getValue();
+                        if(cost + adjCost < distance[adjNode]) {
+                            distance[adjNode] = cost + adjCost;
+                            queue.add(new Pair<>(adjNode, cost + adjCost));
+                        }
+                    }
+                }
+            }
+            level++;
+        }
+        return distance[dst] == Integer.MAX_VALUE ? -1 : distance[dst];
+    }
+}
