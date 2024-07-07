@@ -1,0 +1,31 @@
+class Solution {
+    int[][] directions = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+    public void helper(int i, int j, int n, int m, boolean[][] visited, int[][] grid, int[] count) {
+        visited[i][j] = true;
+        for(int[] direction : directions) {
+            int newI = i + direction[0];
+            int newJ = j + direction[1];
+            if(newI >= 0 && newI < n && newJ >= 0 && newJ < m && grid[newI][newJ] == 1 && !visited[newI][newJ]) {
+                visited[newI][newJ] = true;
+                count[0]++;
+                helper(newI, newJ, n, m, visited, grid, count);
+            }
+        }
+    }
+    public int maxAreaOfIsland(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+        int ans = 0;
+        boolean[][] visited = new boolean[n][m];
+        for(int i=0;i<n;i++) {
+            for(int j=0;j<m;j++) {
+                if(grid[i][j] == 1) {
+                    int[] count = new int[]{1};
+                    helper(i, j, n, m, visited, grid, count);
+                    ans = Math.max(ans, count[0]);
+                }
+            }
+        }
+        return ans;
+    }
+}
