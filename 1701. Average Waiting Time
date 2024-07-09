@@ -1,0 +1,16 @@
+class Solution {
+    public double averageWaitingTime(int[][] customers) {
+        int n = customers.length;
+        double totalWaitTime = 0, currentTime = 0;
+        for(int[] customer : customers) {
+            double arrivalTime = customer[0];
+            double cookingTime = customer[1];
+            if(currentTime < arrivalTime)
+                currentTime = arrivalTime;
+            double waitTime = currentTime + cookingTime - arrivalTime;
+            totalWaitTime += waitTime;
+            currentTime += cookingTime;
+        }
+        return totalWaitTime / n;
+    }
+}
