@@ -1,0 +1,23 @@
+class Solution {
+    public int minOperations(String[] logs) {
+        List<String> stack = new ArrayList<>();
+        for(String log : logs) {
+            if(log.equals("../")) {
+                if(!stack.isEmpty())
+                    stack.remove(stack.size()-1);
+                else
+                    continue;
+            } else if(log.equals("./")) {
+
+            } else {
+                stack.add(log);
+            }
+        }
+        int count = 0;
+        while(!stack.isEmpty()) {
+            count++;
+            stack.remove(stack.size()-1);
+        }
+        return count;
+    }
+}
