@@ -15,8 +15,8 @@ class Solution {
         helper(index+1, n, nums, k, count, map);
     }
     public int beautifulSubsets(int[] nums, int k) {
-        int[] count = new int[]{0};
         int n = nums.length;
+        int[] count = new int[]{0};
         Map<Integer, Integer> map = new HashMap<>();
         helper(0, n, nums, k, count, map);
         return count[0] - 1;
