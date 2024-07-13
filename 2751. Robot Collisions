@@ -1,0 +1,36 @@
+class Solution {
+    public List<Integer> survivedRobotsHealths(int[] positions, int[] healths, String directions) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int n = positions.length;
+        for(int i=0;i<n;i++)
+            map.put(positions[i], i);
+        Arrays.sort(positions);
+        List<Integer> stack = new ArrayList<>();
+        for(int position : positions) {
+            int index = map.get(position);
+            if(directions.charAt(index) == 'R')
+                stack.add(index);
+            else {
+                while(!stack.isEmpty() && healths[index] > 0) {
+                    int poppedIndex = stack.remove(stack.size()-1);
+                    if(healths[poppedIndex] > healths[index]) {
+                        healths[poppedIndex] -= 1;
+                        healths[index] = 0;
+                        stack.add(poppedIndex);
+                    } else if(healths[poppedIndex] < healths[index]) {
+                        healths[poppedIndex] = 0;
+                        healths[index] -= 1;
+                    } else {
+                        healths[poppedIndex] = 0;
+                        healths[index] = 0;
+                    }
+                }
+            }
+        }
+        List<Integer> ans = new ArrayList<>();
+        for(int i=0;i<n;i++)
+            if(healths[i] > 0)
+                ans.add(healths[i]);
+        return ans;
+    }
+}
