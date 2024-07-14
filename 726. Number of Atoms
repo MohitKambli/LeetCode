@@ -1,0 +1,48 @@
+class Solution {
+    public String countOfAtoms(String formula) {
+        int n = formula.length();
+        List<Map<String, Integer>> stack = new ArrayList<>();
+        stack.add(new HashMap<String, Integer>());
+        int i = 0;
+        while(i < n) {
+            if(formula.charAt(i) == '(') {
+                stack.add(new HashMap<String, Integer>());
+                i++;
+            } else if(formula.charAt(i) == ')') {
+                Map<String, Integer> current = stack.remove(stack.size()-1);
+                i++;
+                String multiplier = "";
+                while(i < n && Character.isDigit(formula.charAt(i))) {
+                    multiplier += formula.charAt(i);
+                    i++;
+                }
+                int multiply = multiplier.length() > 0 ? Integer.parseInt(multiplier) : 1;
+                for(String key : current.keySet()) {
+                    int value = current.get(key);
+                    current.put(key, value * multiply);
+                }
+                for(String key : current.keySet())
+                    stack.get(stack.size()-1).put(key, stack.get(stack.size()-1).getOrDefault(key, 0) + current.get(key));
+            } else {
+                String element = "";
+                element += formula.charAt(i++);
+                while(i < n && Character.isLowerCase(formula.charAt(i)))
+                    element += formula.charAt(i++);
+                String number = "";
+                while(i < n && Character.isDigit(formula.charAt(i)))
+                    number += formula.charAt(i++);
+                int count = number.length() > 0 ? Integer.parseInt(number) : 1;
+                stack.get(stack.size()-1).put(element, stack.get(stack.size()-1).getOrDefault(element, 0) + count);
+            }
+        }
+        TreeMap<String, Integer> sortedMap = new TreeMap<>(stack.get(stack.size()-1));
+        String ans = "";
+        for(String key : sortedMap.keySet()) {
+            ans += key;
+            int count = sortedMap.get(key);
+            if(count > 1)
+                ans += String.valueOf(count);
+        }
+        return ans;
+    }
+}
