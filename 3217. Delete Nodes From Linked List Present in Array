@@ -17,12 +17,12 @@ class Solution {
         ListNode p = dummy, curr = head;
         while(curr != null) {
             if(!set.contains(curr.val)) {
-                ListNode node = new ListNode(curr.val);
-                p.next = node;
+                p.next = curr;
                 p = p.next;
             }
             curr = curr.next;
         }
+        p.next = null;
         return dummy.next;
     }
 }
