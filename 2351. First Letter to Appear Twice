@@ -1,15 +1,13 @@
 class Solution {
     public char repeatedCharacter(String s) {
-        Set<Character> set = new HashSet<>();
         int n = s.length();
+        int[] frequency = new int[26];
         for(int i=0;i<n;i++) {
-            char temp = s.charAt(i);
-            if(!set.contains(temp)) {
-                set.add(temp);
-            } else {
-                return temp;
-            }
+            char ch = s.charAt(i);
+            frequency[ch - 'a']++;            
+            if(frequency[ch - 'a'] == 2)
+                return ch;
         }
-        return new Character(' ');
+        return '0';
     }
 }
