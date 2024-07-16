@@ -1,23 +1,32 @@
 class Solution {
     public int helper(int index, int[] cost, int[] dp) {
-        if(index >= cost.length)
+        if(index < 0)
             return 0;
         if(dp[index] != -1)
             return dp[index];
-        int oneStep = cost[index] + helper(index+1, cost, dp);
-        int twoSteps = cost[index] + helper(index+2, cost, dp);
+
+        int oneStep = cost[index] + helper(index-1, cost, dp);
+        int twoSteps = cost[index] + helper(index-2, cost, dp);
         return dp[index] = Math.min(oneStep, twoSteps);
     }
     public int minCostClimbingStairs(int[] cost) {
-        int[] dp = new int[cost.length+2];
-        // Arrays.fill(dp, -1);
-        // return Math.min(helper(0, cost, dp), helper(1, cost, dp));
         int n = cost.length;
-        for(int index=n-1;index>=0;index--) {
-            int oneStep = cost[index] + dp[index+1];
-            int twoSteps = cost[index] + dp[index+2];
+        int[] dp = new int[n+2];
+        // Recursion
+        /*Arrays.fill(dp, -1);
+        return Math.min(helper(n-1, cost, dp), helper(n-2, cost, dp));*/
+        
+        // Tabulation
+        Arrays.fill(dp, 0);
+        for(int index=0;index<n;index++) {
+            int oneStep = cost[index];
+            if(index > 0)
+                oneStep += dp[index-1];
+            int twoSteps = cost[index];
+            if(index > 1)
+                twoSteps += dp[index-2];
             dp[index] = Math.min(oneStep, twoSteps);
         }
-        return Math.min(dp[0], dp[1]);
+        return Math.min(dp[n-1], dp[n-2]);
     }
 }
