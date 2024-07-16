@@ -1,16 +1,46 @@
 class Solution {
-    public int helper(int index, int n, int[] dp) {
-        if(index == n)
-            return 1;
-        if(index > n)
+    public int helper(int n, int[] dp) {
+        if(n < 0)
             return 0;
-        if(dp[index] != -1)
-            return dp[index];
-        return dp[index] = helper(index+1, n, dp) + helper(index+2, n, dp);
+        if(n == 0)
+            return 1;
+        if(dp[n] != -1)
+            return dp[n];
+
+        int oneStep = helper(n-1, dp);
+        int twoSteps = helper(n-2, dp);
+        return dp[n] = oneStep + twoSteps;
     }
     public int climbStairs(int n) {
-        int[] dp = new int[n];
-        Arrays.fill(dp, -1);
-        return helper(0, n, dp);
+        int[] dp = new int[n+1];
+        // Recursion
+        /*Arrays.fill(dp, -1);
+        return helper(n, dp);*/
+
+        // Tabulation
+        /*Arrays.fill(dp, 0);
+        dp[0] = 1;
+        for(int index=1;index<=n;index++) {
+            int oneStep = dp[index-1];
+            int twoSteps = 0;
+            if(index > 1)
+                twoSteps += dp[index-2];
+            dp[index] = oneStep + twoSteps;
+        }
+        return dp[n];*/
+
+        // Space Optimzation
+        Arrays.fill(dp, 0);
+        int prev2 = 0, prev = 1;
+        for(int index=1;index<=n;index++) {
+            int oneStep = prev;
+            int twoSteps = 0;
+            if(index > 1)
+                twoSteps += prev2;
+            int curr = oneStep + twoSteps;
+            prev2 = prev;
+            prev = curr;
+        }
+        return prev;
     }
 }
