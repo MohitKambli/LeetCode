@@ -1,16 +1,16 @@
 class Solution {
     public int tribonacci(int n) {
-        int f = 0, s = 1, t = 1, p = 0;
+        int first = 0, second = 1, third = 1;
         if(n == 0)
             return 0;
         if(n == 1 || n == 2)
             return 1;
         for(int i=3;i<=n;i++) {
-            p = f + s + t;
-            f = s;
-            s = t;
-            t = p;
+            int fourth = first + second + third;
+            first = second;
+            second = third;
+            third = fourth;
         }
-        return p;
+        return third;
     }
 }
