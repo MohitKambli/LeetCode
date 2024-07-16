@@ -1,0 +1,61 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode findLCA(TreeNode node, int startValue, int destValue) {
+        if(node == null)
+            return null;
+        if(node.val == startValue || node.val == destValue)
+            return node;
+        
+        TreeNode leftNode = findLCA(node.left, startValue, destValue);
+        TreeNode rightNode = findLCA(node.right, startValue, destValue);
+        if(leftNode != null && rightNode != null)
+            return node;
+        if(leftNode != null)
+            return leftNode;
+        return rightNode;
+    }
+    public boolean helper(TreeNode lca, int value, List<String> path) {
+        if(lca == null)
+            return false;
+        if(lca.val == value)
+            return true;
+        
+        path.add("L");
+        if(helper(lca.left, value, path))
+            return true;
+        path.remove(path.size()-1);
+        path.add("R");
+        if(helper(lca.right, value, path))
+            return true;
+        path.remove(path.size()-1);
+        return false;
+    }
+    public String getDirections(TreeNode root, int startValue, int destValue) {
+        TreeNode lca = findLCA(root, startValue, destValue);
+        List<String> lcaToSource = new ArrayList<>();
+        List<String> lcaToDest = new ArrayList<>();
+        String ans = "";
+        helper(lca, startValue, lcaToSource);
+        helper(lca, destValue, lcaToDest);
+        int size = lcaToSource.size();
+        for(int i=0;i<size;i++)
+            ans += "U";
+        for(String s : lcaToDest)
+            ans += s;
+        return ans;
+    }
+}
