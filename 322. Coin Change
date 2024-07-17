@@ -8,15 +8,16 @@ class Solution {
         }
         if(dp[index][amount] != -1)
             return dp[index][amount];
+
         int notPick = helper(index-1, coins, amount, dp);
         int pick = 50000;
         if(coins[index] <= amount)
-            pick = 1 + helper(index, coins, amount - coins[index], dp);
+            pick = 1 + helper(index, coins, amount-coins[index], dp);
         return dp[index][amount] = Math.min(pick, notPick);
     }
     public int coinChange(int[] coins, int amount) {
         int n = coins.length;
-        int[][] dp = new int[n][50000];
+        int[][] dp = new int[n][20000];
         for(int[] arr : dp)
             Arrays.fill(arr, -1);
         int ans = helper(n-1, coins, amount, dp);
