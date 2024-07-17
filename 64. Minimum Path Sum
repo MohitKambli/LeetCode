@@ -1,19 +1,21 @@
 class Solution {
-    public int recursion(int i, int j, int[][] grid, int[][] dp) {
+    public int helper(int i, int j, int[][] grid, int[][] dp) {
         if(i == 0 && j == 0)
-            return grid[i][j];
+            return grid[0][0];
         if(i < 0 || j < 0)
-            return 500;
-        if(dp[i][j] != 0)
+            return 50000;
+        if(dp[i][j] != -1)
             return dp[i][j];
-        int left = grid[i][j] + recursion(i, j-1, grid, dp);
-        int up = grid[i][j] + recursion(i-1, j, grid, dp);
-        return dp[i][j] = Math.min(left, up);
+        
+        int up = grid[i][j] + helper(i-1, j, grid, dp);
+        int left = grid[i][j] + helper(i, j-1, grid, dp);
+        return dp[i][j] = Math.min(up, left);
     }
     public int minPathSum(int[][] grid) {
-        int m = grid.length;
-        int n = grid[0].length;
+        int m = grid.length, n = grid[0].length;
         int[][] dp = new int[m][n];
-        return recursion(m-1, n-1, grid, dp);
+        for(int[] arr : dp)
+            Arrays.fill(arr, -1);
+        return helper(m-1, n-1, grid, dp);
     }
 }
