@@ -1,5 +1,5 @@
 class Solution {
-    public int helper(int i, int j, String word1, String word2, int[][] dp) {
+    public int helper(int i, int j, String s, String t, int[][] dp) {
         if(i < 0)
             return j+1;
         if(j < 0)
@@ -7,13 +7,13 @@ class Solution {
         if(dp[i][j] != -1)
             return dp[i][j];
 
-        if(word1.charAt(i) == word2.charAt(j))
-            return dp[i][j] = helper(i-1, j-1, word1, word2, dp);
+        if(s.charAt(i) == t.charAt(j))
+            return dp[i][j] = helper(i-1, j-1, s, t, dp);
         return dp[i][j] = 1 + Math.min(
-            helper(i, j-1, word1, word2, dp),
+            helper(i, j-1, s, t, dp),
             Math.min(
-                helper(i-1, j, word1, word2, dp),
-                helper(i-1, j-1, word1, word2, dp)
+                helper(i-1, j, s, t, dp),
+                helper(i-1, j-1, s, t, dp)
             )
         );
     }
