@@ -1,41 +1,28 @@
 class Solution {
-    public int helper(int index, int isBuyable, int k, int[] prices, int[][][] dp) {
-        if(index == prices.length || k == 0)
+    public int helper(int index, int isBuyable, int n, int k, int[] prices, int[][][] dp) {
+        if(index == n || k == 0)
             return 0;
         if(dp[index][isBuyable][k] != -1)
             return dp[index][isBuyable][k];
+
         if(isBuyable == 1) {
             return dp[index][isBuyable][k] = Math.max(
-                -prices[index] + helper(index+1, 0, k, prices, dp),
-                0 + helper(index+1, 1, k, prices, dp)
+                -prices[index] + helper(index+1, 0, n, k, prices, dp),
+                0 + helper(index+1, 1, n, k, prices, dp)
             );
         } else {
             return dp[index][isBuyable][k] = Math.max(
-                prices[index] + helper(index+1, 1, k-1, prices, dp),
-                0 + helper(index+1, 0, k, prices, dp)
+                prices[index] + helper(index+1, 1, n, k-1, prices, dp),
+                0 + helper(index+1, 0, n, k, prices, dp)
             );
         }
     }
     public int maxProfit(int[] prices) {
-        int n = prices.length;
-        int kValue = 2;
-        int[][][] dp = new int[n+1][2][kValue+1];
-        // for(int[][] rows : dp)
-        //     for(int[] row : rows)
-        //         Arrays.fill(row, -1);
-        // return helper(0, 1, kValue, prices, dp);
-        for(int index=n-1;index>=0;index--) {
-            for(int k=1;k<=kValue;k++) {
-                dp[index][1][k] = Math.max(
-                    -prices[index] + dp[index+1][0][k],
-                    0 + dp[index+1][1][k]
-                );
-                dp[index][0][k] = Math.max(
-                    prices[index] + dp[index+1][1][k-1],
-                    0 + dp[index+1][0][k]
-                );
-            }
-        }
-        return dp[0][1][kValue];
+        int n = prices.length, k = 2;
+        int[][][] dp = new int[n][2][k+1];
+        for(int[][] arr1 : dp)
+            for(int[] arr2 : arr1)
+                Arrays.fill(arr2, -1);
+        return helper(0, 1, n, k, prices, dp);
     }
 }
