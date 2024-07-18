@@ -1,0 +1,62 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public void makeGraph(Map<TreeNode, List<TreeNode>> map, Set<TreeNode> leaves, TreeNode node, TreeNode prev) {
+        if(node == null)
+            return;
+        if(node.left == null && node.right == null)
+            leaves.add(node);
+        
+        if(prev != null) {
+            if(!map.containsKey(node))
+                map.put(node, new ArrayList<>());
+            map.get(node).add(prev);
+            if(!map.containsKey(prev))
+                map.put(prev, new ArrayList<>());
+            map.get(prev).add(node);
+        }
+
+        makeGraph(map, leaves, node.left, node);
+        makeGraph(map, leaves, node.right, node);
+    }
+    public int countPairs(TreeNode root, int distance) {
+        Map<TreeNode, List<TreeNode>> map = new HashMap<>();
+        Set<TreeNode> leaves = new HashSet<>();
+        makeGraph(map, leaves, root, null);
+        int count = 0;
+        for(TreeNode leaf : leaves) {
+            Set<TreeNode> visited = new HashSet<>();
+            List<TreeNode> queue = new ArrayList<>();
+            visited.add(leaf);
+            queue.add(leaf);
+            for(int i=0;i<=distance;i++) {
+                int size = queue.size();
+                while(size-- > 0) {
+                    TreeNode node = queue.remove(0);
+                    if(node != leaf && leaves.contains(node))
+                        count++;
+                    for(TreeNode adjNode : map.getOrDefault(node, new ArrayList<>())) {
+                        if(!visited.contains(adjNode)) {
+                            visited.add(adjNode);
+                            queue.add(adjNode);
+                        }
+                    }
+                }
+            }
+        }
+        return count / 2;
+    }
+}
