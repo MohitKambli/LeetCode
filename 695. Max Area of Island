@@ -1,27 +1,23 @@
 class Solution {
-    int[][] directions = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
-    public void helper(int i, int j, int n, int m, boolean[][] visited, int[][] grid, int[] count) {
+    public void helper(int i, int j, int m, int n, int[][] grid, boolean[][] visited, int[] count) {
+        if(i < 0 || i == m || j < 0 || j == n || grid[i][j] == 0 || visited[i][j])
+            return;
+        
         visited[i][j] = true;
-        for(int[] direction : directions) {
-            int newI = i + direction[0];
-            int newJ = j + direction[1];
-            if(newI >= 0 && newI < n && newJ >= 0 && newJ < m && grid[newI][newJ] == 1 && !visited[newI][newJ]) {
-                visited[newI][newJ] = true;
-                count[0]++;
-                helper(newI, newJ, n, m, visited, grid, count);
-            }
-        }
+        count[0]++;
+        helper(i-1, j, m, n, grid, visited, count);
+        helper(i+1, j, m, n, grid, visited, count);
+        helper(i, j-1, m, n, grid, visited, count);
+        helper(i, j+1, m, n, grid, visited, count);
     }
     public int maxAreaOfIsland(int[][] grid) {
-        int n = grid.length;
-        int m = grid[0].length;
-        int ans = 0;
-        boolean[][] visited = new boolean[n][m];
-        for(int i=0;i<n;i++) {
-            for(int j=0;j<m;j++) {
-                if(grid[i][j] == 1) {
-                    int[] count = new int[]{1};
-                    helper(i, j, n, m, visited, grid, count);
+        int m = grid.length, n = grid[0].length, ans = 0;
+        boolean[][] visited = new boolean[m][n];
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(grid[i][j] == 1 && !visited[i][j]) {
+                    int[] count = new int[]{0};
+                    helper(i, j, m, n, grid, visited, count);
                     ans = Math.max(ans, count[0]);
                 }
             }
