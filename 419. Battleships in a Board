@@ -1,26 +1,22 @@
 class Solution {
-    public void helper(int r, int c, boolean[][] visited, char[][] board) {
-        if(r < 0 || r == board.length || c < 0 || c == board[0].length)
+    public void helper(int i, int j, int m, int n, char[][] board, boolean[][] visited) {
+        if(i < 0 || i == m || j < 0 || j == n || board[i][j] == '.' || visited[i][j])
             return;
         
-        if(!visited[r][c] && board[r][c] == 'X') {
-            visited[r][c] = true;
-            helper(r+1, c, visited, board);
-            helper(r-1, c, visited, board);
-            helper(r, c+1, visited, board);
-            helper(r, c-1, visited, board);
-        }
+        visited[i][j] = true;
+        helper(i-1, j, m, n, board, visited);
+        helper(i+1, j, m, n, board, visited);
+        helper(i, j-1, m, n, board, visited);
+        helper(i, j+1, m, n, board, visited);
     }
     public int countBattleships(char[][] board) {
-        int n = board.length;
-        int m = board[0].length;
-        boolean[][] visited = new boolean[n][m];
-        int count = 0;
-        for(int i=0;i<n;i++) {
-            for(int j=0;j<m;j++) {
-                if(!visited[i][j] && board[i][j] == 'X') {
+        int m = board.length, n = board[0].length, count = 0;
+        boolean[][] visited = new boolean[m][n];
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(board[i][j] == 'X' && !visited[i][j]) {
                     count++;
-                    helper(i, j, visited, board);
+                    helper(i, j, m, n, board, visited);
                 }
             }
         }
