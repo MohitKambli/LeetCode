@@ -1,0 +1,20 @@
+class Solution {
+    public boolean isHappy(int n) {
+        int nTemp = n;
+        Set<Integer> set = new HashSet<>();
+        while(n != 1) {
+            if(set.contains(n))
+                return false;
+            else
+                set.add(n);
+            int sum = 0;
+            while(n > 0) {
+                int x = n % 10;
+                sum += (x * x);
+                n /= 10;
+            }
+            n = sum;
+        }
+        return true;
+    }
+}
