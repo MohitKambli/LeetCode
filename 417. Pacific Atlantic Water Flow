@@ -1,0 +1,43 @@
+class Solution {
+    public void helper(int i, int j, int m, int n, int previous, int[][] heights, boolean[][] visited, Set<List<Integer>> ocean) {
+        if(
+            i < 0 ||
+            i == m ||
+            j < 0 ||
+            j == n ||
+            visited[i][j] ||
+            ocean.contains(new ArrayList<>(Arrays.asList(i, j))) ||
+            heights[i][j] < previous
+        )
+            return;
+
+        ocean.add(new ArrayList<>(Arrays.asList(i, j)));
+        helper(i-1, j, m, n, heights[i][j], heights, visited, ocean);
+        helper(i+1, j, m, n, heights[i][j], heights, visited, ocean);
+        helper(i, j-1, m, n, heights[i][j], heights, visited, ocean);
+        helper(i, j+1, m, n, heights[i][j], heights, visited, ocean);
+    }
+    public List<List<Integer>> pacificAtlantic(int[][] heights) {
+        List<List<Integer>> ans = new ArrayList<>();
+        int m = heights.length, n = heights[0].length;
+        boolean[][] visited = new boolean[m][n];
+        Set<List<Integer>> pacific = new HashSet<>();
+        Set<List<Integer>> atlantic = new HashSet<>();
+        for(int i=0;i<n;i++) {
+            helper(0, i, m, n, heights[0][i], heights, visited, pacific);
+            helper(m-1, i, m, n, heights[m-1][i], heights, visited, atlantic);
+        }
+        for(int i=0;i<m;i++) {
+            helper(i, 0, m, n, heights[i][0], heights, visited, pacific);
+            helper(i, n-1, m, n, heights[i][n-1], heights, visited, atlantic);
+        }
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                List<Integer> arr = new ArrayList<>(Arrays.asList(i, j));
+                if(pacific.contains(arr) && atlantic.contains(arr))
+                    ans.add(arr);
+            }
+        }
+        return ans;
+    }
+}
