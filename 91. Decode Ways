@@ -6,11 +6,10 @@ class Solution {
             return 0;
         if(dp[index] != -1)
             return dp[index];
-
+        
         int ans = helper(index+1, n, s, dp);
-        if(index+1 < n)
-            if(
-                s.charAt(index) == '1' ||
+        if(index+1 < n) {
+            if(s.charAt(index) == '1' ||
                 (
                     s.charAt(index) == '2' &&
                     s.charAt(index+1) >= '0' &&
@@ -18,6 +17,7 @@ class Solution {
                 )
             )
                 ans += helper(index+2, n, s, dp);
+        }
         return dp[index] = ans;
     }
     public int numDecodings(String s) {
