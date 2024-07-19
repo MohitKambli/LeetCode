@@ -17,7 +17,7 @@ class Solution {
     public TreeNode helper(TreeNode node, Set<Integer> set, List<TreeNode> ans) {
         if(node == null)
             return null;
-        
+
         node.left = helper(node.left, set, ans);
         node.right = helper(node.right, set, ans);
         if(set.contains(node.val)) {
