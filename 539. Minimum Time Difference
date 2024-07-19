@@ -1,0 +1,18 @@
+class Solution {
+    public int findMinDifference(List<String> timePoints) {
+        List<Integer> arr = new ArrayList<>();
+        for(String time : timePoints) {
+            String[] x = time.split(":");
+            int hours = Integer.parseInt(x[0]);
+            int minutes = Integer.parseInt(x[1]);
+            int totalMinutes = (hours * 60) + minutes;
+            arr.add(totalMinutes);
+        }
+        Collections.sort(arr);
+        int n = arr.size(), min = Integer.MAX_VALUE;
+        for(int i=1;i<n;i++)
+            min = Math.min(min, arr.get(i) - arr.get(i-1));
+        int value = (1440 - (arr.get(n-1))) + arr.get(0); 
+        return Math.min(min, value);
+    }
+}
