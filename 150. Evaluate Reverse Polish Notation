@@ -9,7 +9,7 @@ class Solution {
             } else if(token.equals("-")) {
                 int x = stack.remove(stack.size()-1);
                 int y = stack.remove(stack.size()-1);
-                stack.add(-(x - y));
+                stack.add(y - x);
             } else if(token.equals("*")) {
                 int x = stack.remove(stack.size()-1);
                 int y = stack.remove(stack.size()-1);
@@ -22,6 +22,6 @@ class Solution {
                 stack.add(Integer.parseInt(token));
             }
         }
-        return stack.remove(stack.size()-1);
+        return stack.get(0);
     }
 }
