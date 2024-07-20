@@ -1,0 +1,32 @@
+class Solution {
+    int ans = 0;
+    public void helper(int n, int headID, Map<Integer, List<Integer>> map, int[] informTime) {
+        List<Pair<Integer, Integer>> queue = new ArrayList<>();
+        queue.add(new Pair<>(headID, 0));
+        while(!queue.isEmpty()) {
+            Pair<Integer, Integer> pair = queue.remove(0);
+            int currentEmployee = pair.getKey();
+            int currentTime = pair.getValue();
+            ans = Math.max(ans, currentTime);
+            if(map.get(currentEmployee) != null)
+                for(int nextEmployee : map.get(currentEmployee))
+                    queue.add(new Pair<>(nextEmployee, currentTime + informTime[currentEmployee]));
+        }
+    }
+    public int numOfMinutes(int n, int headID, int[] manager, int[] informTime) {
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for(int i=0;i<n;i++) {
+            if(manager[i] != -1) {
+                if(!map.containsKey(manager[i])) {
+                    List<Integer> arr = new ArrayList<>();
+                    arr.add(i);
+                    map.put(manager[i], arr);
+                } else {
+                    map.get(manager[i]).add(i);
+                }
+            }
+        }
+        helper(n, headID, map, informTime);
+        return ans;
+    }
+}
