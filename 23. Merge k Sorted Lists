@@ -11,33 +11,33 @@
 class Solution {
     public ListNode merge(ListNode p, ListNode q) {
         ListNode dummy = new ListNode(-1);
-        ListNode curr = dummy;
+        ListNode current = dummy;
         while(p != null && q != null) {
             if(p.val < q.val) {
-                curr.next = p;
+                current.next = p;
                 p = p.next;
             } else {
-                curr.next = q;
+                current.next = q;
                 q = q.next;
             }
-            curr = curr.next;
+            current = current.next;
         }
         if(p != null)
-            curr.next = p;
+            current.next = p;
         if(q != null)
-            curr.next = q;
+            current.next = q;
         return dummy.next;
     }
-    public ListNode partition(int start, int end, ListNode[] lists) {
-        if(start == end)
-            return lists[start];
-        if(start > end)
+    public ListNode partition(int left, int right, ListNode[] lists) {
+        if(left == right)
+            return lists[left];
+        if(left > right)
             return null;
         
-        int mid = (start + end) / 2;
-        ListNode p = partition(start, mid, lists);
-        ListNode q = partition(mid + 1, end, lists);
-        return merge(p, q);
+        int mid = (left + right) / 2;
+        ListNode leftPartition = partition(left, mid, lists);
+        ListNode rightPartition = partition(mid+1, right, lists);
+        return merge(leftPartition, rightPartition);
     }
     public ListNode mergeKLists(ListNode[] lists) {
         int k = lists.length;
