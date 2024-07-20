@@ -1,0 +1,41 @@
+/**
+ * Definition of Interval:
+ * public class Interval {
+ *     int start, end;
+ *     Interval(int start, int end) {
+ *         this.start = start;
+ *         this.end = end;
+ *     }
+ * }
+ */
+
+public class Solution {
+    /**
+     * @param intervals: an array of meeting time intervals
+     * @return: the minimum number of conference rooms required
+     */
+    public int minMeetingRooms(List<Interval> intervals) {
+        // Write your code here
+        List<Integer> startTimes = new ArrayList<>();
+        List<Integer> endTimes = new ArrayList<>();
+        for(Interval i : intervals) {
+            startTimes.add(i.start);
+            endTimes.add(i.end);
+        }
+        Collections.sort(startTimes);
+        Collections.sort(endTimes);
+        int n = intervals.size();
+        int count = 0, ans = 0, s = 0, e = 0;
+        while(s < n) {
+            if(startTimes.get(s) < endTimes.get(e)) {
+                count++;
+                s++;
+            } else {
+                count--;
+                e++;
+            }
+            ans = Math.max(ans, count);
+        }
+        return ans;
+    }
+}
