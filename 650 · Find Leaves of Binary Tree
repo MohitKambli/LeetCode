@@ -1,0 +1,44 @@
+/**
+ * Definition of TreeNode:
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left, right;
+ *     public TreeNode(int val) {
+ *         this.val = val;
+ *         this.left = this.right = null;
+ *     }
+ * }
+ */
+
+
+public class Solution {
+    /*
+     * @param root: the root of binary tree
+     * @return: collect and remove all leaves
+     */
+    public int helper(TreeNode node, Map<Integer, List<Integer>> map) {
+        if(node == null)
+            return 0;
+        
+        int leftHeight = helper(node.left, map);
+        int rightHeight = helper(node.right, map);
+        int height = 1 + Math.max(leftHeight, rightHeight);
+        if(!map.containsKey(height)) {
+            List<Integer> arr = new ArrayList<>();
+            arr.add(node.val);
+            map.put(height, arr);
+        } else {
+            map.get(height).add(node.val);
+        }
+        return height;
+    }
+    public List<List<Integer>> findLeaves(TreeNode root) {
+        // write your code here
+        List<List<Integer>> ans = new ArrayList<>();
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        helper(root, map);
+        for(Map.Entry<Integer, List<Integer>> entry : map.entrySet())
+            ans.add(entry.getValue());
+        return ans;
+    }
+}
