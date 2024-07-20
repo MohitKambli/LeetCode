@@ -3,10 +3,10 @@ class Solution {
         int n = cardPoints.length, lSum = 0, rSum = 0;
         for(int i=0;i<k;i++)
             lSum += cardPoints[i];
-        int max = lSum, l = k-1, r = n-1;
-        while(l >= 0) {
-            lSum -= cardPoints[l--];
-            rSum += cardPoints[r--];
+        int left = k-1, right = n-1, max = lSum;
+        while(left >= 0) {
+            lSum -= cardPoints[left--];
+            rSum += cardPoints[right--];
             max = Math.max(max, lSum + rSum);
         }
         return max;
