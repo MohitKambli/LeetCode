@@ -13,10 +13,12 @@
  *     }
  * }
  */
+
 class Solution {
     public TreeNode helper(TreeNode node) {
         if(node == null)
-            return node;
+            return null;
+        
         TreeNode leftNode = helper(node.left);
         TreeNode rightNode = helper(node.right);
         node.left = rightNode;
