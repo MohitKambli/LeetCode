@@ -1,34 +1,48 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<>();
+        List<List<Integer>> levels = new ArrayList<>();
         List<TreeNode> queue = new ArrayList<>();
         queue.add(root);
-        while(queue.size() != 0) {
+        boolean flag = true;
+        while(!queue.isEmpty()) {
             int queueSize = queue.size();
             List<Integer> level = new ArrayList<>();
             for(int i=0;i<queueSize;i++) {
                 TreeNode node = queue.remove(0);
                 if(node != null) {
-                    level.add(node.val);
                     queue.add(node.left);
                     queue.add(node.right);
+                    level.add(node.val);
                 }
             }
-            if(level.size() != 0)
-                result.add(level);
-        }
-        List<List<Integer>> ans = new ArrayList<>();
-        for(int i=0;i<result.size();i++) {
-            if(i % 2 != 0) {
-                List<Integer> reversedTemp = new ArrayList<>();
-                List<Integer> temp = result.get(i);
-                for(int j=temp.size()-1;j>=0;j--)
-                    reversedTemp.add(temp.get(j));
-                ans.add(reversedTemp);
-            } else {
-                ans.add(result.get(i));
+            if(!level.isEmpty()) {
+                if(!flag) {
+                    List<Integer> temp = new ArrayList<>();
+                    int size = level.size();
+                    for(int j=size-1;j>=0;j--)
+                        temp.add(level.get(j));
+                    levels.add(temp);
+                } else {
+                    levels.add(level);
+                }
+                flag = !flag;
             }
         }
-        return ans;
+        return levels;
     }
 }
