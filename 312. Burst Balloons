@@ -5,22 +5,23 @@ class Solution {
         if(dp[i][j] != -1)
             return dp[i][j];
         
-        int maxCost = Integer.MIN_VALUE;
+        int max = Integer.MIN_VALUE;
         for(int index=i;index<=j;index++) {
             int cost = (nums[i-1] * nums[index] * nums[j+1]) + helper(i, index-1, nums, dp) + helper(index+1, j, nums, dp);
-            maxCost = Math.max(maxCost, cost);
+            max = Math.max(max, cost);
         }
-        return dp[i][j] = maxCost;
+        return dp[i][j] = max;
     }
     public int maxCoins(int[] nums) {
-        int[] newNums = new int[nums.length+2];
-        newNums[0] = 1;
-        newNums[newNums.length-1] = 1;
-        int[][] dp = new int[newNums.length+1][newNums.length+1];
-        for(int i=1;i<newNums.length-1;i++)
-            newNums[i] = nums[i-1];
-        for(int[] row : dp)
-            Arrays.fill(row, -1);
-        return helper(1, nums.length, newNums, dp);
+        int n = nums.length;
+        int[] arr = new int[n+2];
+        arr[0] = 1;
+        arr[n+1] = 1;
+        int[][] dp = new int[n+1][n+1];
+        for(int[] x : dp)
+            Arrays.fill(x, -1);
+        for(int i=1;i<n+1;i++)
+            arr[i] = nums[i-1];
+        return helper(1, n, arr, dp);
     }
 }
