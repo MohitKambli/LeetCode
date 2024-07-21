@@ -1,0 +1,12 @@
+class Solution {
+    List<Integer> arr = new ArrayList<>();
+    public boolean containsDuplicate(int[] nums) {
+        Set<Integer> arr = new HashSet<Integer>();
+        for(int x : nums)
+            if(arr.contains(x))
+                return true;
+            else
+                arr.add(x);
+        return false;
+    }
+}
