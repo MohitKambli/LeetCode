@@ -7,8 +7,9 @@ class Solution {
         for(int key : map.keySet())
             heap.add(key);
         int[] ans = new int[k];
+        int j = 0;
         for(int i=0;i<k;i++)
-            ans[i] = heap.poll();
+            ans[j++] = heap.poll();
         return ans;
     }
 }
