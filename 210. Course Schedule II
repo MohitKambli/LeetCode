@@ -1,13 +1,13 @@
 class Solution {
-    public List<Integer> helper(Map<Integer, List<Integer>> map, int n, int[] indegree) {
+    public List<Integer> helper(int n, Map<Integer, List<Integer>> map, int[] indegree) {
         List<Integer> queue = new ArrayList<>();
         List<Integer> res = new ArrayList<>();
         int count = 0;
         for(int i=0;i<n;i++) {
             if(indegree[i] == 0) {
+                count++;
                 queue.add(i);
                 res.add(i);
-                count++;
             }
         }
         while(!queue.isEmpty()) {
@@ -16,9 +16,9 @@ class Solution {
                 for(int x : map.get(node)) {
                     indegree[x]--;
                     if(indegree[x] == 0) {
+                        count++;
                         queue.add(x);
                         res.add(x);
-                        count++;
                     }
                 }
             }
@@ -40,11 +40,11 @@ class Solution {
             }
             indegree[u]++;
         }
-        List<Integer> res = helper(map, numCourses, indegree);
-        int len = res.size(), k = 0;
-        int[] ans = new int[len];
+        List<Integer> res = helper(numCourses, map, indegree);
+        int[] ans = new int[res.size()];
+        int j = 0;
         for(int x : res)
-            ans[k++] = x;
+            ans[j++] = x;
         return ans;
     }
 }
