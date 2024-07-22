@@ -1,43 +1,42 @@
 class Solution {
-    public boolean helper(Map<Integer, List<Integer>> adj, int[] inDegree, int n) {
-        int count = 0;
+    public boolean helper(int n, Map<Integer, List<Integer>> map, int[] indegree) {
         List<Integer> queue = new ArrayList<>();
+        int count = 0;
         for(int i=0;i<n;i++) {
-            if(inDegree[i] == 0) {
-                queue.add(i);
+            if(indegree[i] == 0) {
                 count++;
+                queue.add(i);
             }
         }
         while(!queue.isEmpty()) {
             int node = queue.remove(0);
-            if(adj.get(node) != null) {
-                for(int x : adj.get(node)) {
-                    inDegree[x]--;
-                    if(inDegree[x] == 0) {
-                        queue.add(x);
+            if(map.get(node) != null) {
+                for(int x : map.get(node)) {
+                    indegree[x]--;
+                    if(indegree[x] == 0) {
                         count++;
+                        queue.add(x);
                     }
                 }
             }
         }
-
         return count == n;
     }
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        Map<Integer, List<Integer>> adj = new HashMap<>();
-        int[] inDegree = new int[numCourses];
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        int[] indegree = new int[numCourses];
         for(int[] prerequisite : prerequisites) {
             int u = prerequisite[0];
             int v = prerequisite[1];
-            if(!adj.containsKey(v)) {
-                List<Integer> temp = new ArrayList<>();
-                temp.add(u);
-                adj.put(v, temp);
+            if(!map.containsKey(u)) {
+                List<Integer> arr = new ArrayList<>();
+                arr.add(v);
+                map.put(u, arr);
             } else {
-                adj.get(v).add(u);
+                map.get(u).add(v);
             }
-            inDegree[u]++;
+            indegree[v]++;
         }
-        return helper(adj, inDegree, numCourses);
+        return helper(numCourses, map, indegree);
     }
 }
