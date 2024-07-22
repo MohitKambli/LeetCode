@@ -1,0 +1,34 @@
+class Solution {
+    public int helper(int sum, int n, int[] nums) {
+        int subarray = 1, tempSum = 0;
+        for(int i=0;i<n;i++) {
+            if(tempSum + nums[i] <= sum)
+                tempSum += nums[i];
+            else {
+                subarray++;
+                tempSum = nums[i];
+            }
+        }
+        return subarray;
+    }
+    public int splitArray(int[] nums, int k) {
+        int n = nums.length;
+        if(k > n)
+            return -1;
+        int max = nums[0], sum = nums[0];
+        for(int i=1;i<n;i++) {
+            max = Math.max(max, nums[i]);
+            sum += nums[i];
+        }
+        int left = max, right = sum;
+        while(left <= right) {
+            int mid = (left + right) / 2;
+            int subarrays = helper(mid, n, nums);
+            if(subarrays > k)
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+        return left;
+    }
+}
