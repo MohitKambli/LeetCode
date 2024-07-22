@@ -4,10 +4,10 @@ class Solution {
             return 0;
         if(dp[index] != -1)
             return dp[index];
-
-        int oneStep = cost[index] + helper(index-1, cost, dp);
-        int twoSteps = cost[index] + helper(index-2, cost, dp);
-        return dp[index] = Math.min(oneStep, twoSteps);
+        
+        int one = cost[index] + helper(index-1, cost, dp);
+        int two = cost[index] + helper(index-2, cost, dp);
+        return dp[index] = Math.min(one, two);
     }
     public int minCostClimbingStairs(int[] cost) {
         int n = cost.length;
