@@ -8,41 +8,40 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+
 class Solution {
-    public ListNode merge(ListNode p, ListNode q) {
+    public ListNode merge(ListNode leftNode, int mid, ListNode rightNode, ListNode[] lists) {
         ListNode dummy = new ListNode(-1);
         ListNode current = dummy;
-        while(p != null && q != null) {
-            if(p.val < q.val) {
-                current.next = p;
-                p = p.next;
+        while(leftNode != null && rightNode != null) {
+            if(leftNode.val < rightNode.val) {
+                current.next = leftNode;
+                leftNode = leftNode.next;
             } else {
-                current.next = q;
-                q = q.next;
+                current.next = rightNode;
+                rightNode = rightNode.next;
             }
             current = current.next;
         }
-        if(p != null)
-            current.next = p;
-        if(q != null)
-            current.next = q;
+        if(leftNode != null)
+            current.next = leftNode;
+        if(rightNode != null)
+            current.next = rightNode;
         return dummy.next;
     }
-    public ListNode partition(int left, int right, ListNode[] lists) {
+    public ListNode mergesort(int left, int right, ListNode[] lists) {
         if(left == right)
             return lists[left];
         if(left > right)
             return null;
         
         int mid = (left + right) / 2;
-        ListNode leftPartition = partition(left, mid, lists);
-        ListNode rightPartition = partition(mid+1, right, lists);
-        return merge(leftPartition, rightPartition);
+        ListNode leftNode = mergesort(left, mid, lists);
+        ListNode rightNode = mergesort(mid+1, right, lists);
+        return merge(leftNode, mid, rightNode, lists);
     }
     public ListNode mergeKLists(ListNode[] lists) {
-        int k = lists.length;
-        if(k == 0 || lists == null)
-            return null;
-        return partition(0, k-1, lists);
+        int n = lists.length;
+        return mergesort(0, n-1, lists);
     }
 }
