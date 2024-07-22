@@ -8,8 +8,9 @@ class Solution {
             return dp[index];
         
         int ans = helper(index+1, n, s, dp);
-        if(index+1 < n) {
-            if(s.charAt(index) == '1' ||
+        if(index + 1 < n) {
+            if(
+                s.charAt(index) == '1' ||
                 (
                     s.charAt(index) == '2' &&
                     s.charAt(index+1) >= '0' &&
