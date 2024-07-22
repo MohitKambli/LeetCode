@@ -5,15 +5,15 @@ class Solution {
             return;
         }
 
-        helper(index+1, n, nums, temp, ans);
         temp.add(nums[index]);
         helper(index+1, n, nums, temp, ans);
         temp.remove(temp.size()-1);
+        helper(index+1, n, nums, temp, ans);
     }
     public List<List<Integer>> subsets(int[] nums) {
-        int n = nums.length;
         List<List<Integer>> ans = new ArrayList<>();
         List<Integer> temp = new ArrayList<>();
+        int n = nums.length;
         helper(0, n, nums, temp, ans);
         return ans;
     }
