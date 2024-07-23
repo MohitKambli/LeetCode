@@ -17,7 +17,7 @@ class Solution {
     }
     public int coinChange(int[] coins, int amount) {
         int n = coins.length;
-        int[][] dp = new int[n][20000];
+        int[][] dp = new int[n][amount+1];
         for(int[] arr : dp)
             Arrays.fill(arr, -1);
         int ans = helper(n-1, coins, amount, dp);
