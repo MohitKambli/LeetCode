@@ -1,7 +1,9 @@
 class Solution {
     public int helper(int index, int amount, int[] coins, int[][] dp) {
+        if(amount == 0)
+            return 1;
         if(index < 0)
-            return amount == 0 ? 1 : 0;
+            return 0;
         if(dp[index][amount] != -1)
             return dp[index][amount];
 
@@ -13,7 +15,7 @@ class Solution {
     }
     public int change(int amount, int[] coins) {
         int n = coins.length;
-        int[][] dp = new int[n][6000];
+        int[][] dp = new int[n][amount+1];
         for(int[] arr : dp)
             Arrays.fill(arr, -1);
         return helper(n-1, amount, coins, dp);
