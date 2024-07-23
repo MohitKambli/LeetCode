@@ -3,15 +3,15 @@ class Solution {
         if(target == 0)
             return true;
         if(index == 0)
-            return (nums[index] == target);
+            return nums[index] == target;
         if(dp[index][target] != null)
             return dp[index][target];
 
         boolean notPick = helper(index-1, target, nums, dp);
         boolean pick = false;
         if(nums[index] <= target)
-            pick = helper(index-1, target-nums[index], nums, dp);
-        return dp[index][target] = pick | notPick;
+            pick = helper(index-1, target - nums[index], nums, dp);
+        return dp[index][target] = pick || notPick;
     }
     public boolean canPartition(int[] nums) {
         int n = nums.length;
