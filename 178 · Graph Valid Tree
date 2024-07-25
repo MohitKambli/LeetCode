@@ -5,23 +5,24 @@ public class Solution {
      * @return: true if it's a valid tree, or false
      */
     
-    public boolean helper(int currentNode, int previousNode, Set<Integer> visited, Map<Integer, List<Integer>> map) {
-        if(visited.contains(currentNode))
+    public boolean helper(int node, int previous, int n, Set<Integer> visited, Map<Integer, List<Integer>> map) {
+        if(visited.contains(node))
             return false;
         
-        visited.add(currentNode);
-        if(map.get(currentNode) != null) {
-            for(int nextNode : map.get(currentNode)) {
-                if(nextNode == previousNode)
+        visited.add(node);
+        if(map.get(node) != null) {
+            for(int x : map.get(node)) {
+                if(x == previous)
                     continue;
-                if(!helper(nextNode, currentNode, visited, map))
+                if(!helper(x, node, n, visited, map))
                     return false;
             }
         }
         return true;
     }
     public boolean validTree(int n, int[][] edges) {
-        // write your code here
+        if(n == 0)
+            return true;
         Map<Integer, List<Integer>> map = new HashMap<>();
         for(int[] edge : edges) {
             int u = edge[0];
@@ -42,8 +43,6 @@ public class Solution {
             }
         }
         Set<Integer> visited = new HashSet<>();
-        if(!helper(0, -1, visited, map))
-            return false;
-        return visited.size() == n;
+        return helper(0, -1, n, visited, map) && visited.size() == n;
     }
 }
