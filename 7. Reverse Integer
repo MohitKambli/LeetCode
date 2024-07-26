@@ -9,8 +9,8 @@ class Solution {
             rev = rev * 10 + d;
             x /= 10;
         }
-        if(rev > Integer.MAX_VALUE || rev < Integer.MIN_VALUE)
+        if(rev < Integer.MIN_VALUE || rev > Integer.MAX_VALUE)
             return 0;
-        return xTemp < 0 ? (int)rev * -1 : (int)rev;
+        return xTemp < 0 ? (int)(rev * -1) : (int)rev;
     }
 }
