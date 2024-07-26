@@ -3,12 +3,13 @@ class Solution {
         int n = temperatures.length;
         int[] ans = new int[n];
         List<Pair<Integer, Integer>> stack = new ArrayList<>();
-        for(int i=0;i<n;i++) {
+        stack.add(new Pair<Integer, Integer>(temperatures[0], 0));
+        for(int i=1;i<n;i++) {
             while(!stack.isEmpty() && temperatures[i] > stack.get(stack.size()-1).getKey()) {
                 Pair<Integer, Integer> pair = stack.remove(stack.size()-1);
                 ans[pair.getValue()] = i - pair.getValue();
             }
-            stack.add(new Pair<>(temperatures[i], i));
+            stack.add(new Pair<Integer, Integer>(temperatures[i], i));
         }
         return ans;
     }
