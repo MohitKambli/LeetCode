@@ -1,0 +1,41 @@
+class Solution {
+    public int networkDelayTime(int[][] times, int n, int k) {
+        Map<Integer, List<Pair<Integer, Integer>>> map = new HashMap<>();
+        for(int[] time : times) {
+            int u = time[0];
+            int v = time[1];
+            int cost = time[2];
+            if(!map.containsKey(u)) {
+                List<Pair<Integer, Integer>> arr = new ArrayList<>();
+                arr.add(new Pair<>(v, cost));
+                map.put(u, arr);
+            } else {
+                map.get(u).add(new Pair<>(v, cost));
+            }
+        }
+        int[] time = new int[n+1];
+        Arrays.fill(time, Integer.MAX_VALUE);
+        time[k] = 0;
+        PriorityQueue<Pair<Integer, Integer>> heap = new PriorityQueue<>((a, b) -> a.getValue() - b.getValue());
+        heap.add(new Pair<Integer, Integer>(k, 0));
+        while(!heap.isEmpty()) {
+            Pair<Integer, Integer> pair = heap.poll();
+            int node = pair.getKey();
+            int cost = pair.getValue();
+            if(map.get(node) != null) {
+                for(Pair<Integer, Integer> p : map.get(node)) {
+                    int adjNode = p.getKey();
+                    int adjCost = p.getValue();
+                    if(time[adjNode] > cost + adjCost) {
+                        time[adjNode] = cost + adjCost;
+                        heap.add(new Pair<>(adjNode, cost + adjCost));
+                    }
+                }
+            }
+        }
+        int ans = Integer.MIN_VALUE;
+        for (int i = 1; i <= n; i++)
+            ans = Math.max(ans, time[i]);
+        return ans == Integer.MAX_VALUE ? -1 : ans;
+    }
+}
