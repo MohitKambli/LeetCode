@@ -1,49 +1,49 @@
 class Solution {
-    public int helper(int i, int j, int m, int n, int[][] matrix, int[][] dp) {
-        if(j < 0 || j > n-1)
+    public int helper(int i, int j, int n, int[][] matrix, int[][] dp) {
+        if(j < 0 || j == n)
             return 20000;
         if(i == 0)
             return matrix[0][j];
         if(dp[i][j] != -1)
             return dp[i][j];
-
-        int leftDiagonal = helper(i-1, j-1, m, n, matrix, dp);
-        int up = helper(i-1, j, m, n, matrix, dp);
-        int rightDiagonal = helper(i-1, j+1, m, n, matrix, dp);
-        return dp[i][j] = matrix[i][j] + Math.min(leftDiagonal, Math.min(up, rightDiagonal));
+        
+        int upLeft = matrix[i][j] + helper(i-1, j-1, n, matrix, dp);
+        int up = matrix[i][j] + helper(i-1, j, n, matrix, dp);
+        int upRight = matrix[i][j] + helper(i-1, j+1, n, matrix, dp);
+        return dp[i][j] = Math.min(upLeft, Math.min(up, upRight));
     }
     public int minFallingPathSum(int[][] matrix) {
-        int m = matrix.length, n = matrix[0].length, min = Integer.MAX_VALUE;
-        int[][] dp = new int[m][n];
-        // Recursion
+        int n = matrix.length, ans = 20000;
+        int[][] dp = new int[n][n];
+
+        // Recursion + Memoization
         /*for(int[] arr : dp)
             Arrays.fill(arr, -1);
         for(int i=0;i<n;i++)
-            min = Math.min(min, helper(m-1, i, m, n, matrix, dp));
-        return min;*/
+            ans = Math.min(ans, helper(n-1, i, n, matrix, dp));
+        return ans;*/
 
         // Tabulation
-        for(int j=0;j<n;j++)
-            dp[0][j] = matrix[0][j];
-        for(int i=1;i<m;i++) {
+        for(int i=0;i<n;i++)
+            dp[0][i] = matrix[0][i];
+        for(int i=1;i<n;i++) {
             for(int j=0;j<n;j++) {
-                int leftDiagonal = matrix[i][j];
+                int upLeft = matrix[i][j];
                 if(j-1 >= 0)
-                    leftDiagonal += dp[i-1][j-1];
+                    upLeft += dp[i-1][j-1];
                 else
-                    leftDiagonal = Integer.MAX_VALUE;
+                    upLeft = 20000;
                 int up = matrix[i][j] + dp[i-1][j];
-                int rightDiagonal = matrix[i][j];
+                int upRight = matrix[i][j];
                 if(j+1 < n)
-                    rightDiagonal += dp[i-1][j+1];
+                    upRight += dp[i-1][j+1];
                 else
-                    rightDiagonal = Integer.MAX_VALUE;
-                dp[i][j] = Math.min(leftDiagonal, Math.min(up, rightDiagonal));
+                    upRight = 20000;
+                dp[i][j] = Math.min(upLeft, Math.min(up, upRight));
             }
         }
-        int ans = dp[m-1][0];
-        for(int i=1;i<n;i++)
-            ans = Math.min(ans, dp[m-1][i]);
+        for(int i=0;i<n;i++)
+            ans = Math.min(ans, dp[n-1][i]);
         return ans;
     }
 }
