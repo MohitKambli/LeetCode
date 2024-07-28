@@ -1,0 +1,39 @@
+public class Solution {
+    /**
+     * @param n: the number of vertices
+     * @param edges: the edges of undirected graph
+     * @return: the number of connected components
+     */
+    public void helper(int node, boolean[] visited, Map<Integer, List<Integer>> map) {
+        if(visited[node])
+            return;
+        
+        visited[node] = true;
+        if(map.get(node) != null)
+            for(int adjNode : map.get(node))
+                helper(adjNode, visited, map);
+    }
+    public int countComponents(int n, int[][] edges) {
+        // write your code here
+        boolean[] visited = new boolean[n];
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for(int[] edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+            if(!map.containsKey(u))
+                map.put(u, new ArrayList<>());
+            map.get(u).add(v);
+            if(!map.containsKey(v))
+                map.put(v, new ArrayList<>());
+            map.get(v).add(u);
+        }
+        int count = 0;
+        for(int i=0;i<n;i++) {
+            if(!visited[i]) {
+                count++;
+                helper(i, visited, map);
+            }
+        }
+        return count;
+    }
+}
