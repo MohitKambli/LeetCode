@@ -3,12 +3,12 @@ class Solution {
         Map<String, Integer> map = new HashMap<>();
         for(String word : words)
             map.put(word, map.getOrDefault(word, 0) + 1);
-        PriorityQueue<String> heap = new PriorityQueue<>((a, b) ->
-            map.get(b) == map.get(a) ? a.compareTo(b) : map.get(b) - map.get(a)
-        );
+        PriorityQueue<String> heap = new PriorityQueue<>((a, b) -> {
+            return map.get(a) == map.get(b) ? a.compareTo(b) : map.get(b) - map.get(a);
+        });
+        List<String> ans = new ArrayList<>();
         for(String key : map.keySet())
             heap.add(key);
-        List<String> ans = new ArrayList<>();
         for(int i=0;i<k;i++)
             ans.add(heap.poll());
         return ans;
