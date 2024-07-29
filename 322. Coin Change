@@ -9,11 +9,11 @@ class Solution {
         if(dp[index][amount] != -1)
             return dp[index][amount];
 
-        int notPick = helper(index-1, coins, amount, dp);
-        int pick = 50000;
+        int notTake = helper(index-1, coins, amount, dp);
+        int take = 50000;
         if(coins[index] <= amount)
-            pick = 1 + helper(index, coins, amount-coins[index], dp);
-        return dp[index][amount] = Math.min(pick, notPick);
+            take = 1 + helper(index, coins, amount-coins[index], dp);
+        return dp[index][amount] = Math.min(take, notTake);
     }
     public int coinChange(int[] coins, int amount) {
         int n = coins.length;
