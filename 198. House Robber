@@ -6,10 +6,10 @@ class Solution {
             return nums[0];
         if(dp[index] != -1)
             return dp[index];
-
-        int notPick = helper(index-1, nums, dp);
-        int pick = nums[index] + helper(index-2, nums, dp);
-        return dp[index] = Math.max(pick, notPick);
+        
+        int notTake = helper(index-1, nums, dp);
+        int take = nums[index] + helper(index-2, nums, dp);
+        return dp[index] = Math.max(take, notTake);
     }
     public int rob(int[] nums) {
         int n = nums.length;
