@@ -21,8 +21,10 @@ class MinStack {
     }
     
     public void pop() {
-        stack.remove(stack.size()-1);
-        minStack.remove(minStack.size()-1);
+        if(!stack.isEmpty() && !minStack.isEmpty()) {
+            stack.remove(stack.size()-1);
+            minStack.remove(minStack.size()-1);
+        }
     }
     
     public int top() {
@@ -33,7 +35,6 @@ class MinStack {
         return minStack.get(minStack.size()-1);
     }
 }
-
 
 /**
  * Your MinStack object will be instantiated and called as such:
