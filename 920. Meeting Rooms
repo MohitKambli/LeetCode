@@ -1,16 +1,21 @@
 /**
  * Definition of Interval:
  * public class Interval {
- *     public int start, end;
- *     public Interval(int start, int end) {
+ *     int start, end;
+ *     Interval(int start, int end) {
  *         this.start = start;
  *         this.end = end;
  *     }
  * }
  */
 
-class Solution {
+public class Solution {
+    /**
+     * @param intervals: an array of meeting time intervals
+     * @return: if a person could attend all meetings
+     */
     public boolean canAttendMeetings(List<Interval> intervals) {
+        // Write your code here
         Collections.sort(intervals, (a, b) -> a.start - b.start);
         int n = intervals.size();
         for(int i=1;i<n;i++)
