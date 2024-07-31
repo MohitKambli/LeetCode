@@ -1,8 +1,8 @@
 class Solution {
     public String getHint(String secret, String guess) {
-        int m = secret.length(), n = guess.length(), bulls = 0, count = 0;
+        int n = secret.length(), m = guess.length(), bulls = 0, count = 0;
         int[] arr = new int[10];
-        for(int i=0;i<m;i++) {
+        for(int i=0;i<n;i++) {
             char s = secret.charAt(i);
             char g = guess.charAt(i);
             if(s == g)
@@ -15,6 +15,6 @@ class Solution {
         for(int i=0;i<10;i++)
             if(arr[i] > 0)
                 count += arr[i];
-        return bulls + "A" + (n-bulls-count) + "B";
+        return bulls + "A" + (n - bulls - count) + "B";
     }
 }
