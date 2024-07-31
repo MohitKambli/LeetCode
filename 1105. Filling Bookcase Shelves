@@ -1,0 +1,22 @@
+class Solution {
+    public int helper(int index, int remainingWidth, int maxHeight, int n, int[][] books, int shelfWidth, int[][] dp) {
+        if(index == n)
+            return maxHeight;
+        if(dp[index][remainingWidth] != -1)
+            return dp[index][remainingWidth];
+        
+        int take = Integer.MAX_VALUE, notTake = Integer.MAX_VALUE;
+        int bookWidth = books[index][0], bookHeight = books[index][1];
+        if(bookWidth <= remainingWidth)
+            take = helper(index+1, remainingWidth-bookWidth, Math.max(maxHeight, bookHeight), n, books, shelfWidth, dp);
+        notTake = maxHeight + helper(index+1, shelfWidth-bookWidth, bookHeight, n, books, shelfWidth, dp);
+        return dp[index][remainingWidth] = Math.min(take, notTake);
+    }
+    public int minHeightShelves(int[][] books, int shelfWidth) {
+        int n = books.length, remainingWidth = shelfWidth;
+        int[][] dp = new int[n][shelfWidth+1];
+        for(int[] arr : dp)
+            Arrays.fill(arr, -1);
+        return helper(0, remainingWidth, 0, n, books, shelfWidth, dp);
+    }
+}
