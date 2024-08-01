@@ -1,13 +1,13 @@
 class Solution {
-    public List<Integer> helper(int n, Map<Integer, List<Integer>> map, int[] indegree) {
+    public List<Integer> helper(int n, int[] indegree, Map<Integer, List<Integer>> map) {
         List<Integer> queue = new ArrayList<>();
         List<Integer> res = new ArrayList<>();
         int count = 0;
         for(int i=0;i<n;i++) {
             if(indegree[i] == 0) {
                 count++;
-                queue.add(i);
                 res.add(i);
+                queue.add(i);
             }
         }
         while(!queue.isEmpty()) {
@@ -17,8 +17,8 @@ class Solution {
                     indegree[x]--;
                     if(indegree[x] == 0) {
                         count++;
-                        queue.add(x);
                         res.add(x);
+                        queue.add(x);
                     }
                 }
             }
@@ -31,20 +31,16 @@ class Solution {
         for(int[] prerequisite : prerequisites) {
             int u = prerequisite[0];
             int v = prerequisite[1];
-            if(!map.containsKey(v)) {
-                List<Integer> arr = new ArrayList<>();
-                arr.add(u);
-                map.put(v, arr);
-            } else {
-                map.get(v).add(u);
-            }
+            if(!map.containsKey(v))
+                map.put(v, new ArrayList<>());
+            map.get(v).add(u);
             indegree[u]++;
         }
-        List<Integer> res = helper(numCourses, map, indegree);
+        List<Integer> res = helper(numCourses, indegree, map);
         int[] ans = new int[res.size()];
         int j = 0;
-        for(int x : res)
-            ans[j++] = x;
+        for(int val : res)
+            ans[j++] = val;
         return ans;
     }
 }
