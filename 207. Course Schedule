@@ -1,5 +1,5 @@
 class Solution {
-    public boolean helper(int n, Map<Integer, List<Integer>> map, int[] indegree) {
+    public boolean helper(int n, int[] indegree, Map<Integer, List<Integer>> map) {
         List<Integer> queue = new ArrayList<>();
         int count = 0;
         for(int i=0;i<n;i++) {
@@ -28,15 +28,11 @@ class Solution {
         for(int[] prerequisite : prerequisites) {
             int u = prerequisite[0];
             int v = prerequisite[1];
-            if(!map.containsKey(u)) {
-                List<Integer> arr = new ArrayList<>();
-                arr.add(v);
-                map.put(u, arr);
-            } else {
-                map.get(u).add(v);
-            }
-            indegree[v]++;
+            if(!map.containsKey(v))
+                map.put(v, new ArrayList<>());
+            map.get(v).add(u);
+            indegree[u]++;
         }
-        return helper(numCourses, map, indegree);
+        return helper(numCourses, indegree, map);
     }
 }
