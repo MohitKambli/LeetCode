@@ -16,18 +16,17 @@ public class Solution {
      */
     public int minMeetingRooms(List<Interval> intervals) {
         // Write your code here
-        List<Integer> startTimes = new ArrayList<>();
-        List<Integer> endTimes = new ArrayList<>();
+        List<Integer> start = new ArrayList<>();
+        List<Integer> end = new ArrayList<>();
         for(Interval i : intervals) {
-            startTimes.add(i.start);
-            endTimes.add(i.end);
+            start.add(i.start);
+            end.add(i.end);
         }
-        Collections.sort(startTimes);
-        Collections.sort(endTimes);
-        int n = intervals.size();
-        int count = 0, ans = 0, s = 0, e = 0;
+        Collections.sort(start);
+        Collections.sort(end);
+        int s = 0, e = 0, count = 0, ans = 0, n = intervals.size();
         while(s < n) {
-            if(startTimes.get(s) < endTimes.get(e)) {
+            if(start.get(s) < end.get(e)) {
                 count++;
                 s++;
             } else {
