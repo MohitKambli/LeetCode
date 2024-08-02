@@ -4,20 +4,23 @@ class Solution {
         List<Character> stack = new ArrayList<>();
         for(int i=0;i<n;i++) {
             char ch = s.charAt(i);
-            if(ch == '(' || ch == '[' || ch == '{') {
+            if(ch == '(' || ch == '{' || ch == '[') {
                 stack.add(ch);
                 continue;
-            } else {
-                if(!stack.isEmpty()) {
-                    char c = stack.remove(stack.size()-1);
-                    if(ch == ')' && (c == '[' || c == '{'))
+            }
+            if(stack.isEmpty())
+                return false;
+            else {
+                char tos = stack.remove(stack.size()-1);
+                if(ch == ')') {
+                    if(tos == '{' || tos == '[')
                         return false;
-                    if(ch == ']' && (c == '(' || c == '{'))
+                } else if(ch == '}') {
+                    if(tos == '(' || tos == '[')
                         return false;
-                    if(ch == '}' && (c == '[' || c == '('))
+                } else if(ch == ']') {
+                    if(tos == '{' || tos == '(')
                         return false;
-                } else {
-                    return false;
                 }
             }
         }
