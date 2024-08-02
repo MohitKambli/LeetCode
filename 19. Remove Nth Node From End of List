@@ -8,22 +8,21 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
-
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode temp = new ListNode(-1, head);
-        ListNode p = head, q = head, r = temp;
-        while(q != null && n > 0) {
-            q = q.next;
+        ListNode dummy = new ListNode(-1, head);
+        ListNode temp = dummy, p = head, q = head;
+        while(n != 0) {
+            p = p.next;
             n--;
         }
-        while(q != null) {
+        while(p != null) {
             q = q.next;
+            temp = temp.next;
             p = p.next;
-            r = r.next;
         }
-        r.next = p.next;
-        p.next = null;
-        return temp.next;
+        temp.next = q.next;
+        q.next = null;
+        return dummy.next;
     }
 }
