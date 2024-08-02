@@ -4,45 +4,35 @@ public class Solution {
      * @param edges: a list of undirected edges
      * @return: true if it's a valid tree, or false
      */
-    
-    public boolean helper(int node, int previous, int n, Set<Integer> visited, Map<Integer, List<Integer>> map) {
-        if(visited.contains(node))
+    public boolean helper(int currentNode, int previousNode, Set<Integer> visited, Map<Integer, List<Integer>> map) {
+        if(visited.contains(currentNode))
             return false;
-        
-        visited.add(node);
-        if(map.get(node) != null) {
-            for(int x : map.get(node)) {
-                if(x == previous)
+
+        visited.add(currentNode);
+        if(map.get(currentNode) != null) {
+            for(int adjNode : map.get(currentNode)) {
+                if(adjNode == previousNode)
                     continue;
-                if(!helper(x, node, n, visited, map))
+                if(!helper(adjNode, currentNode, visited, map))
                     return false;
             }
         }
         return true;
     }
     public boolean validTree(int n, int[][] edges) {
-        if(n == 0)
-            return true;
+        // write your code here
         Map<Integer, List<Integer>> map = new HashMap<>();
         for(int[] edge : edges) {
             int u = edge[0];
             int v = edge[1];
-            if(!map.containsKey(u)) {
-                List<Integer> arr = new ArrayList<>();
-                arr.add(v);
-                map.put(u, arr);
-            } else {
-                map.get(u).add(v);
-            }
-            if(!map.containsKey(v)) {
-                List<Integer> arr = new ArrayList<>();
-                arr.add(u);
-                map.put(v, arr);
-            } else {
-                map.get(v).add(u);
-            }
+            if(!map.containsKey(u))
+                map.put(u, new ArrayList<>());
+            map.get(u).add(v);
+            if(!map.containsKey(v))
+                map.put(v, new ArrayList<>());
+            map.get(v).add(u);
         }
         Set<Integer> visited = new HashSet<>();
-        return helper(0, -1, n, visited, map) && visited.size() == n;
+        return helper(0, -1, visited, map) && visited.size() == n;
     }
 }
