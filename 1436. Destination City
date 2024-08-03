@@ -1,6 +1,17 @@
 class Solution {
     public String destCity(List<List<String>> paths) {
-        Map<String, int[]> map = new HashMap<>();
+        // Set
+        Set<String> set = new HashSet<>();
+        for(List<String> path : paths)
+            set.add(path.get(1));
+        for(List<String> path : paths)
+            set.remove(path.get(0));
+        for(String ans : set)
+            return ans;
+        return "";
+
+        // HashMap
+        /*Map<String, int[]> map = new HashMap<>();
         for(List<String> path : paths) {
             String u = path.get(0);
             String v = path.get(1);
@@ -14,6 +25,6 @@ class Solution {
         for(Map.Entry<String, int[]> entry : map.entrySet())
             if(entry.getValue()[1] == 0)
                 return entry.getKey();
-        return "";
+        return "";*/
     }
 }
