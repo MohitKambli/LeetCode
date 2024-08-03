@@ -6,20 +6,21 @@ class Solution {
             return 0;
         if(dp[index] != -1)
             return dp[index];
-        
-        int ans = helper(index+1, n, s, dp);
-        if(index + 1 < n) {
+
+        int notTake = helper(index+1, n, s, dp);
+        int take = 0;
+        if(index+1 < n) {
             if(
                 s.charAt(index) == '1' ||
                 (
                     s.charAt(index) == '2' &&
-                    s.charAt(index+1) >= '0' &&
+                    s.charAt(index+1) >= '0' && 
                     s.charAt(index+1) <= '6'
                 )
             )
-                ans += helper(index+2, n, s, dp);
+                take = helper(index+2, n, s, dp);
         }
-        return dp[index] = ans;
+        return dp[index] = take + notTake;
     }
     public int numDecodings(String s) {
         int n = s.length();
