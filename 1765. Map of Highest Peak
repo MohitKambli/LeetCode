@@ -1,0 +1,38 @@
+class Solution {
+    public int[][] highestPeak(int[][] isWater) {
+        int m = isWater.length, n = isWater[0].length;
+        boolean[][] visited = new boolean[m][n];
+        int[][] ans = new int[m][n];
+        List<Pair<Integer, Integer>> queue = new ArrayList<>();
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(isWater[i][j] == 1) {
+                    queue.add(new Pair<>(i, j));
+                    visited[i][j] = true;
+                }
+            }
+        }
+        int level = 1;
+        int[][] directions = new int[][]{{-1,0},{1,0},{0,1},{0,-1}};
+        while(!queue.isEmpty()) {
+            int queueSize = queue.size();
+            while(queueSize-- > 0) {
+                Pair<Integer, Integer> cell = queue.remove(0);
+                int x = cell.getKey(), y = cell.getValue();
+                for(int[] direction : directions) {
+                    int dx = direction[0], dy = direction[1];
+                    int newX = x + dx, newY = y + dy;
+                    if(newX < 0 || newX == m || newY < 0 || newY == n)
+                        continue;
+                    if(!visited[newX][newY]) {
+                        queue.add(new Pair<>(newX, newY));
+                        ans[newX][newY] = level;
+                        visited[newX][newY] = true;
+                    }
+                }
+            }
+            level++;
+        }
+        return ans;
+    }
+}
