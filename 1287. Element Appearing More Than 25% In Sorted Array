@@ -2,15 +2,11 @@ class Solution {
     public int findSpecialInteger(int[] arr) {
         int n = arr.length;
         Map<Integer, Integer> map = new HashMap<>();
-        for(int x : arr)
-            map.put(x, map.getOrDefault(x, 0) + 1);
-        for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            int key = entry.getKey();
-            int value = entry.getValue();
-            double percent = (1.0 * value) / n;
-            if(percent > 0.25)
-                return key;
-        }
+        for(int num : arr)
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        for(Map.Entry<Integer, Integer> entry : map.entrySet())
+            if(((1.0 * entry.getValue()) / n) > 0.25)
+                return entry.getKey();
         return -1;
     }
 }
