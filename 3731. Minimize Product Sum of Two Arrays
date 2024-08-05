@@ -1,0 +1,16 @@
+public class Solution {
+    /**
+     * @param nums1: An integer array
+     * @param nums2: An integer array
+     * @return: Minimize product sum of two arrays
+     */
+    public int minProductSum(int[] nums1, int[] nums2) {
+        // write your code here
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        int n = nums1.length, ans = 0;
+        for(int i=0;i<n;i++)
+            ans += (nums1[n-i-1] * nums2[i]);
+        return ans;
+    }
+}
