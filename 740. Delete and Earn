@@ -4,21 +4,21 @@ class Solution {
             return 0;
         if(dp[index] != -1)
             return dp[index];
-
-        int i = index, sum = 0, element = nums[index];
+        
+        int sum = 0, i = index, element = nums[i];
         while(i < n && element == nums[i])
             sum += nums[i++];
         while(i < n && nums[i] == element+1)
             i++;
-        int take = sum + helper(i, n, nums, dp);
+        int take = sum + helper(i, n , nums, dp);
         int notTake = helper(index+1, n, nums, dp);
         return dp[index] = Math.max(take, notTake);
     }
     public int deleteAndEarn(int[] nums) {
-        Arrays.sort(nums);
         int n = nums.length;
         int[] dp = new int[n];
         Arrays.fill(dp, -1);
+        Arrays.sort(nums);
         return helper(0, n, nums, dp);
     }
 }
