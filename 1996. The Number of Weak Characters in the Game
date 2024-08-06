@@ -1,0 +1,14 @@
+class Solution {
+    public int numberOfWeakCharacters(int[][] properties) {
+        Arrays.sort(properties, (a, b) -> {
+            return (a[0] == b[0]) ? (a[1] - b[1]) : (b[0] - a[0]);
+        });
+        int maxDefence = Integer.MIN_VALUE, ans = 0;
+        for(int[] property : properties) {
+            if(maxDefence > property[1])
+                ans++;
+            maxDefence = Math.max(maxDefence, property[1]);
+        }
+        return ans;
+    }
+}
