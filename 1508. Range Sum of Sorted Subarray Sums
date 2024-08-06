@@ -10,8 +10,8 @@ class Solution {
         }
         Collections.sort(arr);
         int ans = 0;
-        for(int i=left-1;i<=right-1;i++)
-            ans = (ans + arr.get(i)) % 1000000007;
-        return ans;
+        for(int i=left;i<=right;i++)
+            ans = (ans + arr.get(i-1)) % 1000000007;
+        return ans % 1000000007;
     }
 }
