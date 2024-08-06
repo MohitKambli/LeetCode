@@ -19,7 +19,7 @@ class Solution {
             nums[trueIndex] = nums[swapIndex];
             nums[swapIndex] = temp;
         }
-        int left = trueIndex + 1, right = n-1;
+        int left = trueIndex+1, right = n-1;
         while(left < right) {
             int temp = nums[left];
             nums[left] = nums[right];
