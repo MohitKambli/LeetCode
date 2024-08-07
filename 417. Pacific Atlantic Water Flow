@@ -2,7 +2,7 @@ class Solution {
     public void helper(int i, int j, int m, int n, Set<List<Integer>> ocean, int previous, int[][] heights) {
         if(
             i < 0 ||
-            i == m || 
+            i == m ||
             j < 0 ||
             j == n ||
             ocean.contains(new ArrayList<>(Arrays.asList(i, j))) ||
