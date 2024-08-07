@@ -4,18 +4,25 @@
  *     int val;
  *     TreeNode left;
  *     TreeNode right;
- *     TreeNode(int x) { val = x; }
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
  * }
  */
+
 public class Codec {
 
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
         if(root == null)
             return "";
+        String ans = "";
         List<TreeNode> queue = new ArrayList<>();
         queue.add(root);
-        String ans = "";
         while(!queue.isEmpty()) {
             TreeNode node = queue.remove(0);
             if(node == null) {
@@ -24,7 +31,7 @@ public class Codec {
             }
             queue.add(node.left);
             queue.add(node.right);
-            ans += String.valueOf(node.val + " ");
+            ans += node.val + " ";
         }
         return ans;
     }
@@ -33,21 +40,21 @@ public class Codec {
     public TreeNode deserialize(String data) {
         if(data.equals(""))
             return null;
-        String[] nodes = data.split(" ");
-        int n = nodes.length;
+        String[] words = data.split(" ");
+        int n = words.length;
+        TreeNode root = new TreeNode(Integer.parseInt(words[0]));
         List<TreeNode> queue = new ArrayList<>();
-        TreeNode root = new TreeNode(Integer.parseInt(nodes[0]));
         queue.add(root);
         for(int i=1;i<n;i++) {
             TreeNode parent = queue.remove(0);
-            if(!nodes[i].equals("#")) {
-                TreeNode leftNode = new TreeNode(Integer.parseInt(nodes[i]));
+            if(!words[i].equals("#")) {
+                TreeNode leftNode = new TreeNode(Integer.parseInt(words[i]));
                 parent.left = leftNode;
                 queue.add(leftNode);
             }
             i++;
-            if(!nodes[i].equals("#")) {
-                TreeNode rightNode = new TreeNode(Integer.parseInt(nodes[i]));
+            if(!words[i].equals("#")) {
+                TreeNode rightNode = new TreeNode(Integer.parseInt(words[i]));
                 parent.right = rightNode;
                 queue.add(rightNode);
             }
@@ -55,8 +62,3 @@ public class Codec {
         return root;
     }
 }
-
-// Your Codec object will be instantiated and called as such:
-// Codec ser = new Codec();
-// Codec deser = new Codec();
-// TreeNode ans = deser.deserialize(ser.serialize(root));
