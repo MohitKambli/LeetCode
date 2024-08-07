@@ -1,0 +1,32 @@
+class Solution {
+    public boolean firstCondition(int n, String word) {
+        for(int i=0;i<n;i++) {
+            char ch = word.charAt(i);
+            if(!((int)ch >= 65 && (int)ch <= 90))
+                return false;
+        }
+        return true;
+    }
+    public boolean secondCondition(int n, String word) {
+        for(int i=0;i<n;i++) {
+            char ch = word.charAt(i);
+            if(!((int)ch >= 97 && (int)ch <= 122))
+                return false;
+        }
+        return true;
+    }
+    public boolean thirdCondition(int n, String word) {
+        if(!((int)word.charAt(0) >= 65 && (int)word.charAt(0) <= 90))
+            return false;
+        for(int i=1;i<n;i++) {
+            char ch = word.charAt(i);
+            if(!((int)ch >= 97 && (int)ch <= 122))
+                return false;
+        }
+        return true;
+    }
+    public boolean detectCapitalUse(String word) {
+        int n = word.length();
+        return firstCondition(n, word) || secondCondition(n, word) || thirdCondition(n, word);
+    }
+}
