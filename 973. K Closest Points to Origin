@@ -1,18 +1,17 @@
-import java.util.*;
 class Solution {
     public int[][] kClosest(int[][] points, int k) {
-        int n = points.length;
-        double[][] distances = new double[n][2];
-        int p=0;
-        int q = 0;
-        for(int i=0;i<n;i++) {
-            distances[i][0] = i;
-            distances[i][1] = Math.sqrt(Math.pow(points[i][0], 2) + Math.pow(points[i][1], 2));
+        PriorityQueue<Pair<Double, int[]>> minHeap = new PriorityQueue<>((a, b) -> {
+            return Double.compare(a.getKey(), b.getKey());
+        });
+        for(int[] point : points) {
+            int x = point[0], y = point[1];
+            double distance = Math.sqrt((x * x) + (y * y));
+            minHeap.add(new Pair<>(distance, new int[]{x, y}));
         }
-        Arrays.sort(distances, (a, b) -> Double.compare(a[1], b[1]));
-        int[][] res = new int[k][2];
+        int[][] ans = new int[k][2];
+        int j = 0;
         for(int i=0;i<k;i++)
-            res[i] = points[(int)distances[i][0]];
-        return res;
+            ans[j++] = minHeap.poll().getValue();
+        return ans;
     }
 }
