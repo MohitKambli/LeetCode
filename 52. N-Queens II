@@ -1,6 +1,5 @@
 class Solution {
-    int count = 0;
-    public boolean isValid(int row, int col, List<StringBuilder> board, int n) {
+    public boolean isPossible(int row, int col, int n, List<StringBuilder> board) {
         for(int i=row-1;i>=0;i--)
             if(board.get(i).charAt(col) == 'Q')
                 return false;
@@ -12,16 +11,19 @@ class Solution {
                 return false;
         return true;
     }
-    public void helper(int row, List<StringBuilder> board, int n) {
+    public void helper(int row, int n, List<StringBuilder> board, List<List<String>> ans) {
         if(row == n) {
-            count++;
+            List<String> temp = new ArrayList<>();
+            for(StringBuilder sb : board)
+                temp.add(sb.toString());
+            ans.add(temp);
             return;
         }
 
         for(int col=0;col<n;col++) {
-            if(isValid(row, col, board, n)) {
+            if(isPossible(row, col, n, board)) {
                 board.get(row).setCharAt(col, 'Q');
-                helper(row+1, board, n);
+                helper(row+1, n, board, ans);
                 board.get(row).setCharAt(col, '.');
             }
         }
@@ -29,12 +31,13 @@ class Solution {
     public int totalNQueens(int n) {
         List<StringBuilder> board = new ArrayList<>();
         for(int i=0;i<n;i++) {
-            StringBuilder temp = new StringBuilder();
+            StringBuilder sb = new StringBuilder("");
             for(int j=0;j<n;j++)
-                temp.append(".");
-            board.add(temp);
+                sb.append(".");
+            board.add(sb);
         }
-        helper(0, board, n);
-        return count;
+        List<List<String>> ans = new ArrayList<>();
+        helper(0, n, board, ans);
+        return ans.size();
     }
 }
