@@ -1,12 +1,11 @@
 class Solution {
     public void helper(String node, Map<String, PriorityQueue<String>> map, List<String> ans) {
-        PriorityQueue<String> queue = map.get(node);
-        while(queue != null && !queue.isEmpty())
-            helper(queue.poll(), map, ans);
+        PriorityQueue<String> heap = map.get(node);
+        while(heap != null && !heap.isEmpty())
+            helper(heap.poll(), map, ans);
         ans.add(0, node);
     }
     public List<String> findItinerary(List<List<String>> tickets) {
-        List<String> ans = new ArrayList<>();
         Map<String, PriorityQueue<String>> map = new HashMap<>();
         for(List<String> ticket : tickets) {
             String u = ticket.get(0);
@@ -15,6 +14,7 @@ class Solution {
                 map.put(u, new PriorityQueue<>());
             map.get(u).add(v);
         }
+        List<String> ans = new ArrayList<>();
         helper("JFK", map, ans);
         return ans;
     }
