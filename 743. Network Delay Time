@@ -1,41 +1,37 @@
 class Solution {
     public int networkDelayTime(int[][] times, int n, int k) {
-        Map<Integer, List<Pair<Integer, Integer>>> map = new HashMap<>();
+        Map<Integer, List<int[]>> map = new HashMap<>();
         for(int[] time : times) {
             int u = time[0];
             int v = time[1];
-            int cost = time[2];
-            if(!map.containsKey(u)) {
-                List<Pair<Integer, Integer>> arr = new ArrayList<>();
-                arr.add(new Pair<>(v, cost));
-                map.put(u, arr);
-            } else {
-                map.get(u).add(new Pair<>(v, cost));
-            }
+            int distance = time[2];
+            if(!map.containsKey(u))
+                map.put(u, new ArrayList<>(Arrays.asList(new int[2])));
+            map.get(u).add(new int[]{v, distance});
         }
+        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        heap.add(new int[]{k, 0});
         int[] time = new int[n+1];
         Arrays.fill(time, Integer.MAX_VALUE);
         time[k] = 0;
-        PriorityQueue<Pair<Integer, Integer>> heap = new PriorityQueue<>((a, b) -> a.getValue() - b.getValue());
-        heap.add(new Pair<Integer, Integer>(k, 0));
         while(!heap.isEmpty()) {
-            Pair<Integer, Integer> pair = heap.poll();
-            int node = pair.getKey();
-            int cost = pair.getValue();
+            int[] pair = heap.poll();
+            int node = pair[0];
+            int distance = pair[1];
             if(map.get(node) != null) {
-                for(Pair<Integer, Integer> p : map.get(node)) {
-                    int adjNode = p.getKey();
-                    int adjCost = p.getValue();
-                    if(time[adjNode] > cost + adjCost) {
-                        time[adjNode] = cost + adjCost;
-                        heap.add(new Pair<>(adjNode, cost + adjCost));
+                for(int[] p : map.get(node)) {
+                    int adjNode = p[0];
+                    int adjDistance = p[1];
+                    if(time[adjNode] > distance + adjDistance) {
+                        time[adjNode] = distance + adjDistance;
+                        heap.add(new int[]{adjNode, distance + adjDistance});
                     }
                 }
             }
         }
         int ans = Integer.MIN_VALUE;
-        for (int i = 1; i <= n; i++)
-            ans = Math.max(ans, time[i]);
+        for(int t : time)
+            ans = Math.max(ans, t);
         return ans == Integer.MAX_VALUE ? -1 : ans;
     }
 }
