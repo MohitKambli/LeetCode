@@ -1,17 +1,15 @@
 class Solution {
-
-    static class TrieNode {
-        boolean isEndOfWord;
+    class TrieNode {
         String word;
+        boolean isEndOfWord;
         TrieNode[] children;
         TrieNode() {
-            isEndOfWord = false;
             word = "";
+            isEndOfWord = false;
             children = new TrieNode[26];
         }
     }
-
-    private void insert(TrieNode root, String word) {
+    void insert(TrieNode root, String word) {
         TrieNode crawler = root;
         int n = word.length();
         for(int i=0;i<n;i++) {
@@ -24,8 +22,7 @@ class Solution {
         crawler.isEndOfWord = true;
         crawler.word = word;
     }
-
-    public void helper(int i, int j, int m, int n, char[][] board, TrieNode root, List<String> ans, boolean[][] visited) {
+    public void helper(int i, int j, int m, int n, int index, char[][] board, TrieNode root, boolean[][] visited, List<String> ans) {
         if(i < 0 || i == m || j < 0 || j == n || visited[i][j] || root.children[board[i][j] - 'a'] == null)
             return;
         
@@ -35,27 +32,25 @@ class Solution {
             root.isEndOfWord = false;
         }
         visited[i][j] = true;
-        helper(i-1, j, m, n, board, root, ans, visited);
-        helper(i+1, j, m, n, board, root, ans, visited);
-        helper(i, j-1, m, n, board, root, ans, visited);
-        helper(i, j+1, m, n, board, root, ans, visited);
+        helper(i-1, j, m, n, index, board, root, visited, ans);
+        helper(i+1, j, m, n, index, board, root, visited, ans);
+        helper(i, j-1, m, n, index, board, root, visited, ans);
+        helper(i, j+1, m, n, index, board, root, visited, ans);
         visited[i][j] = false;
     }
-
     public List<String> findWords(char[][] board, String[] words) {
-        int m = board.length, n = board[0].length, len = words.length;
-        boolean[][] visited = new boolean[m][n];
-        TrieNode root = new TrieNode();
         List<String> ans = new ArrayList<>();
+        TrieNode root = new TrieNode();
         for(String word : words)
             insert(root, word);
+        int m = board.length, n = board[0].length;
+        boolean[][] visited = new boolean[m][n];
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
                 char ch = board[i][j];
                 int index = ch - 'a';
-                if(root.children[index] != null) {
-                    helper(i, j, m, n, board, root, ans, visited);
-                }
+                if(root.children[index] != null)
+                    helper(i, j, m, n, index, board, root, visited, ans);
             }
         }
         return ans;
