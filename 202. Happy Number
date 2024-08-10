@@ -3,15 +3,15 @@ class Solution {
         Set<Integer> set = new HashSet<>();
         while(!set.contains(n)) {
             set.add(n);
-            int val = 0;
+            int sum = 0;
             while(n > 0) {
-                int x = n % 10;
-                val += (x * x);
+                int d = n % 10;
+                sum += (d * d);
                 n /= 10;
             }
-            if(val == 1)
+            if(sum == 1)
                 return true;
-            n = val;
+            n = sum;
         }
         return false;
     }
