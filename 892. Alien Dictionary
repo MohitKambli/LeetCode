@@ -1,0 +1,56 @@
+public class Solution {
+    /**
+     * @param words: a list of words
+     * @return: a string which is correct order
+     */
+    public String alienOrder(String[] words) {
+        Map<Character, List<Character>> map = new HashMap<>();
+        Map<Character, Integer> indegree = new HashMap<>();
+        for(String word : words) {
+            for(char ch : word.toCharArray()) {
+                if(!map.containsKey(ch))
+                    map.put(ch, new ArrayList<>());
+                if(!indegree.containsKey(ch))
+                    indegree.put(ch, 0);
+            }
+        }
+        int n = words.length;
+        for(int i=0;i<n-1;i++) {
+            String s1 = words[i];
+            String s2 = words[i+1];
+            int len = Math.min(s1.length(), s2.length());
+            boolean found = false;
+            for(int j=0;j<len;j++) {
+                char u = s1.charAt(j);
+                char v = s2.charAt(j);
+                if(u != v) {
+                    map.get(u).add(v);
+                    indegree.put(v, indegree.get(v) + 1);
+                    found = true;
+                    break;
+                }
+            }
+            if(!found && s1.length() > s2.length())
+                return "";
+        }
+        PriorityQueue<Character> queue = new PriorityQueue<>();
+        for(Map.Entry<Character, Integer> entry : indegree.entrySet())
+            if(entry.getValue() == 0)
+                queue.add(entry.getKey());
+        String ans = "";
+        while(!queue.isEmpty()) {
+            char ch = queue.poll();
+            ans += ch;
+            if(map.containsKey(ch)) {
+                for(char x : map.get(ch)) {
+                    indegree.put(x, indegree.get(x) - 1);
+                    if(indegree.get(x) == 0)
+                        queue.add(x);
+                }
+            }
+        }
+        if(ans.length() == indegree.size())
+            return ans;
+        return "";
+    }
+}
