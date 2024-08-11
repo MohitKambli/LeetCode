@@ -8,26 +8,23 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+
 class Solution {
     public void reorderList(ListNode head) {
-        ListNode slow = head, fast = head.next;
+        ListNode slow = head, fast = head;
         while(fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
-        ListNode second = slow.next;
+        ListNode q = slow.next, p = null;
         slow.next = null;
-
-        ListNode prev = null;
-        while(second != null) {
-            ListNode temp = second.next;
-            second.next = prev;
-            prev = second;
-            second = temp;
+        while(q != null) {
+            ListNode r = q.next;
+            q.next = p;
+            p = q;
+            q = r;
         }
-
-        ListNode first = head;
-        second = prev;
+        ListNode first = head, second = p;
         while(second != null) {
             ListNode firstNext = first.next;
             ListNode secondNext = second.next;
