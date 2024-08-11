@@ -1,26 +1,25 @@
 class Solution {
-    public boolean isMatched(int[] arr1, int[] arr2) {
+    public boolean areAllZeroes(int[] count) {
         for(int i=0;i<26;i++)
-            if(arr1[i] != arr2[i])
+            if(count[i] != 0)
                 return false;
         return true;
     }
     public boolean checkInclusion(String s1, String s2) {
-        int n = s1.length(), m = s2.length();
-        if(n > m)
+        int m = s1.length(), n = s2.length();
+        if(m > n)
             return false;
-        int[] arr1 = new int[26];
-        int[] arr2 = new int[26];
-        for(int i=0;i<n;i++) {
-            arr1[s1.charAt(i) - 'a']++;
-            arr2[s2.charAt(i) - 'a']++;
+        int[] count = new int[26];
+        for(int i=0;i<m;i++) {
+            count[s1.charAt(i) - 'a']++;
+            count[s2.charAt(i) - 'a']--;
         }
-        if(isMatched(arr1, arr2))
+        if(areAllZeroes(count))
             return true;
-        for(int i=n;i<m;i++) {
-            arr2[s2.charAt(i) - 'a']++;
-            arr2[s2.charAt(i-n) - 'a']--;
-            if(isMatched(arr1, arr2))
+        for(int i=m;i<n;i++) {
+            count[s2.charAt(i) - 'a']--;
+            count[s2.charAt(i-m) - 'a']++;
+            if(areAllZeroes(count))
                 return true;
         }
         return false;
