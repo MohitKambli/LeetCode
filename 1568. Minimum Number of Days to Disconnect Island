@@ -1,0 +1,43 @@
+class Solution {
+    public void helper(int i, int j, int m, int n, boolean[][] visited, int[][] grid) {
+        if(i < 0 || i == m || j < 0 || j == n || visited[i][j] || grid[i][j] == 0)
+            return;
+        
+        visited[i][j] = true;
+        helper(i-1, j, m, n, visited, grid);
+        helper(i+1, j, m, n, visited, grid);
+        helper(i, j-1, m, n, visited, grid);
+        helper(i, j+1, m, n, visited, grid);
+    }
+    public int numberOfIslands(int[][] grid) {
+        int m = grid.length, n = grid[0].length, count = 0;
+        boolean[][] visited = new boolean[m][n];
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(grid[i][j] == 1 && !visited[i][j]) {
+                    helper(i, j, m, n, visited, grid);
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    public int minDays(int[][] grid) {
+        int ans = numberOfIslands(grid);
+        int m = grid.length, n = grid[0].length;
+        if(ans == 0 || ans > 1)
+            return 0;
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(grid[i][j] == 1) {
+                    grid[i][j] = 0;
+                    int count = numberOfIslands(grid);
+                    if(count == 0 || count > 1)
+                        return 1;
+                    grid[i][j] = 1;
+                }
+            }
+        }
+        return 2;
+    }
+}
