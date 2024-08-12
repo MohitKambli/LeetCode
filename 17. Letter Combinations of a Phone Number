@@ -5,18 +5,17 @@ class Solution {
             return;
         }
 
-        String value = map.get(digits.charAt(index));
-        int len = value.length();
+        String s = map.get(digits.charAt(index));
+        int len = s.length();
         for(int i=0;i<len;i++) {
-            temp += value.charAt(i);
+            temp += s.charAt(i);
             helper(index+1, n, digits, map, temp, ans);
             temp = temp.substring(0, temp.length()-1);
         }
     }
     public List<String> letterCombinations(String digits) {
-        if(digits.isEmpty())
+        if(digits.equals(""))
             return new ArrayList<>();
-        int n = digits.length();
         Map<Character, String> map = new HashMap<>();
         map.put('2', "abc");
         map.put('3', "def");
@@ -26,6 +25,7 @@ class Solution {
         map.put('7', "pqrs");
         map.put('8', "tuv");
         map.put('9', "wxyz");
+        int n = digits.length();
         List<String> ans = new ArrayList<>();
         helper(0, n, digits, map, "", ans);
         return ans;
