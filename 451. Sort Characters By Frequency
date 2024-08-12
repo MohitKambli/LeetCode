@@ -1,21 +1,18 @@
 class Solution {
     public String frequencySort(String s) {
-        int n = s.length();
         Map<Character, Integer> map = new HashMap<>();
-        for(int i=0;i<n;i++) {
-            char ch = s.charAt(i);
+        for(char ch : s.toCharArray())
             map.put(ch, map.getOrDefault(ch, 0) + 1);
-        }
-        PriorityQueue<Map.Entry<Character, Integer>> heap = new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
+        PriorityQueue<Pair<Character, Integer>> maxHeap = new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
         for(Map.Entry<Character, Integer> entry : map.entrySet())
-            heap.add(entry);
+            maxHeap.add(new Pair<>(entry.getKey(), entry.getValue()));
         String ans = "";
-        while(!heap.isEmpty()) {
-            Map.Entry<Character, Integer> entry = heap.poll();
-            char key = entry.getKey();
-            int value = entry.getValue();
+        while(!maxHeap.isEmpty()) {
+            Pair<Character, Integer> pair = maxHeap.poll();
+            char ch = pair.getKey();
+            int value = pair.getValue();
             for(int i=0;i<value;i++)
-                ans += key;
+                ans += ch;
         }
         return ans;
     }
