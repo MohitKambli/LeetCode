@@ -1,21 +1,18 @@
 class Solution {
     public boolean isPalindrome(int left, int right, String s) {
-        while(left < right) {
-            if(s.charAt(left) != s.charAt(right))
+        while(left < right)
+            if(s.charAt(left++) != s.charAt(right--))
                 return false;
-            left++;
-            right--;
-        }
         return true;
     }
     public String longestPalindrome(String s) {
-        int n = s.length(), count = Integer.MIN_VALUE;
+        int n = s.length(), max = 0;
         String ans = "";
         for(int i=0;i<n;i++) {
             for(int j=i;j<n;j++) {
                 if(isPalindrome(i, j, s)) {
-                    if(count < j - i + 1) {
-                        count = j - i + 1;
+                    if(j - i + 1 > max) {
+                        max = j - i + 1;
                         ans = s.substring(i, j+1);
                     }
                 }
