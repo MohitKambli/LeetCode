@@ -1,23 +1,23 @@
 class Solution {
-    public void helper(int index, int k, int n, List<Integer> temp, List<List<Integer>> ans) {
+    public void helper(int index, int k, int n, List<Integer> arr, List<List<Integer>> ans) {
         if(n < 0)
             return;
         if(n == 0) {
-            if(temp.size() == k)
-                ans.add(new ArrayList<>(temp));
+            if(arr.size() == k)
+                ans.add(new ArrayList<>(arr));
             return;
         }
 
         for(int i=index;i<=9;i++) {
-            temp.add(i);
-            helper(i+1, k, n-i, temp, ans);
-            temp.remove(temp.size()-1);
+            arr.add(i);
+            helper(i+1, k, n-i, arr, ans);
+            arr.remove(arr.size()-1);
         }
     }
     public List<List<Integer>> combinationSum3(int k, int n) {
+        List<Integer> arr = new ArrayList<>();a
         List<List<Integer>> ans = new ArrayList<>();
-        List<Integer> temp = new ArrayList<>();
-        helper(1, k, n, temp, ans);
+        helper(1, k, n, arr, ans);
         return ans;
     }
 }
