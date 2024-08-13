@@ -1,0 +1,43 @@
+class Solution {
+    public void helper(int node, Set<Integer> visited, Map<Integer, List<Integer>> map) {
+        if(visited.contains(node))
+            return;
+        
+        visited.add(node);
+        if(map.containsKey(node))
+            for(int adjNode : map.get(node))
+                helper(adjNode, visited, map);
+    }
+    public int maximumDetonation(int[][] bombs) {
+        int n = bombs.length;
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for(int i=0;i<n;i++) {
+            for(int j=0;j<n;j++) {
+                if(i == j)
+                    continue;
+                int[] point1 = bombs[i];
+                long x1 = point1[0];
+                long y1 = point1[1];
+                double r1 = point1[2];
+                int[] point2 = bombs[j];
+                long x2 = point2[0];
+                long y2 = point2[1];
+                double distance = ((x2-x1) * (x2-x1)) + ((y2-y1) * (y2-y1));
+                if((r1*r1) >= distance) {
+                    if(!map.containsKey(i))
+                        map.put(i, new ArrayList<>());
+                    map.get(i).add(j);
+                }
+            }
+        }
+        int ans = 0;
+        Set<Integer> visited = new HashSet<>();
+        for(int i=0;i<n;i++) {
+            helper(i, visited, map);
+            int count = visited.size();
+            ans = Math.max(ans, count);
+            visited.clear();
+        }
+        return ans;
+    }
+}
