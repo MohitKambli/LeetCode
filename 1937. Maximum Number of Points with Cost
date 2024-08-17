@@ -1,0 +1,45 @@
+class Solution {
+    public long helper(int i, int j, int m, int n, int[][] points, long[][] dp) {
+        if(i == 0)
+            return points[0][j];
+        if(dp[i][j] != -1)
+            return dp[i][j];
+
+        long res = Long.MIN_VALUE;
+        for(int k=0;k<n;k++) {
+            long value = points[i][j] - Math.abs(j - k) + helper(i-1, k, m, n, points, dp);
+            res = Math.max(res, value);
+        }
+        return dp[i][j] = res;
+    }
+    public long maxPoints(int[][] points) {
+        int m = points.length, n = points[0].length;
+        long[][] dp = new long[m][n];
+        // for(long[] arr : dp)
+        //     Arrays.fill(arr, -1);
+
+        for(int j=0;j<n;j++)
+            dp[0][j] = points[0][j];
+
+        for(int i=1;i<m;i++) {
+            long[] left = new long[n];
+            long[] right = new long[n];
+
+            left[0] = dp[i-1][0];
+            for (int j=1;j<n;j++)
+                left[j] = Math.max(left[j-1]-1, dp[i-1][j]);
+
+            right[n-1] = dp[i-1][n-1];
+            for (int j=n-2;j>=0;j--)
+                right[j] = Math.max(right[j+1]-1, dp[i-1][j]);
+
+            for (int j=0;j<n;j++)
+                dp[i][j] = points[i][j] + Math.max(left[j], right[j]);
+        }
+
+        long ans = Integer.MIN_VALUE;
+        for(int i=0;i<n;i++)
+            ans = Math.max(ans, dp[m-1][i]);
+        return ans;
+    }
+}
