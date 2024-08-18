@@ -1,0 +1,22 @@
+class Solution {
+    public int nthUglyNumber(int n) {
+        List<Integer> nums = new ArrayList<>(Arrays.asList(1));
+        int i2 = 0, i3 = 0, i5 = 0;
+        for(int i=1;i<n;i++) {
+            int nextNum = Math.min(
+                nums.get(i2) * 2, 
+                Math.min(
+                    nums.get(i3) * 3, nums.get(i5) * 5
+                )
+            );
+            nums.add(nextNum);
+            if(nextNum == nums.get(i2) * 2)
+                i2++;
+            if(nextNum == nums.get(i3) * 3)
+                i3++;
+            if(nextNum == nums.get(i5) * 5)
+                i5++;
+        }
+        return nums.get(n-1);
+    }
+}
