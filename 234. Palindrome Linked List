@@ -9,23 +9,17 @@
  * }
  */
 class Solution {
-    public boolean checkPalindrome(String s) {
-        int left = 0, right = s.length()-1;
-        while(left < right) {
-            if(s.charAt(left) != s.charAt(right))
-                return false;
-            left++;
-            right--;
-        }
-        return true;
-    }
     public boolean isPalindrome(ListNode head) {
-        String temp = "";
         ListNode p = head;
+        List<Integer> arr = new ArrayList<>();
         while(p != null) {
-            temp += String.valueOf(p.val);
+            arr.add(p.val);
             p = p.next;
         }
-        return checkPalindrome(temp);
+        int left = 0, right = arr.size()-1;
+        while(left < right)
+            if(arr.get(left++) != arr.get(right--))
+                return false;
+        return true;
     }
 }
