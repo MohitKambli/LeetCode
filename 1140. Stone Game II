@@ -1,0 +1,28 @@
+class Solution {
+    public int helper(int person, int index, int M, int n, int[] piles, int[][][] dp) {
+        if(index == n)
+            return 0;
+        if(dp[person][index][M] != -1)
+            return dp[person][index][M];
+        
+        int stones = 0;
+        int ans = person == 1 ? -1 : Integer.MAX_VALUE;
+        for(int x=1;x<=Math.min(2*M, n-index);x++) {
+            stones += piles[index + x - 1];
+            if(person == 1) {
+                ans = Math.max(ans, stones + helper(0, index + x, Math.max(M, x), n, piles, dp));
+            } else {
+                ans = Math.min(ans, helper(1, index + x, Math.max(M, x), n, piles, dp));
+            }
+        }
+        return dp[person][index][M] = ans;
+    }
+    public int stoneGameII(int[] piles) {
+        int n = piles.length;
+        int[][][] dp = new int[2][n+1][n+1];
+        for(int[][] arr : dp)
+            for(int[] ar : arr)
+                Arrays.fill(ar, -1);
+        return helper(1, 0, 1, n, piles, dp);
+    }
+}
