@@ -1,0 +1,15 @@
+class Solution {
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        PriorityQueue<Integer> heap = new PriorityQueue<>((a, b) -> {
+            return Math.abs(a-x) != Math.abs(b-x) ? Math.abs(b-x) - Math.abs(a-x) : b-a;
+        });
+        for(int num : arr) {
+            heap.add(num);
+            if(heap.size() > k)
+                heap.poll();
+        }
+        List<Integer> ans = new ArrayList<>(heap);
+        Collections.sort(ans);
+        return ans;
+    }
+}
