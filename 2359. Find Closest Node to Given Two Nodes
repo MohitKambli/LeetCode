@@ -1,0 +1,35 @@
+class Solution {
+    public void helper(int n, int[] edges, int node, int[] distance) {
+        List<Integer> queue = new ArrayList<>();
+        queue.add(node);
+        Arrays.fill(distance, Integer.MAX_VALUE);
+        distance[node] = 0;
+        boolean[] visited = new boolean[n];
+        visited[node] = true;
+        while(!queue.isEmpty()) {
+            int u = queue.remove(0);
+            int v = edges[u];
+            if(v != -1 && !visited[v]) {
+                queue.add(v);
+                visited[v] = true;
+                distance[v] = 1 + distance[u];
+            }
+        }
+    }
+    public int closestMeetingNode(int[] edges, int node1, int node2) {
+        int n = edges.length;
+        int[] distance_1 = new int[n];
+        helper(n, edges, node1, distance_1);
+        int[] distance_2 = new int[n];
+        helper(n, edges, node2, distance_2);
+        int minDistance = Integer.MAX_VALUE, ans = -1;
+        for(int i=0;i<n;i++) {
+            int value = Math.max(distance_1[i], distance_2[i]);
+            if(value < minDistance) {
+                minDistance = value;
+                ans = i;
+            }
+        }
+        return ans;
+    }
+}
