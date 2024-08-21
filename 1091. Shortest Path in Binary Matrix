@@ -1,0 +1,29 @@
+class Solution {
+    public int shortestPathBinaryMatrix(int[][] grid) {
+        if(grid[0][0] == 1)
+            return -1;
+        int n = grid.length;
+        List<int[]> queue = new ArrayList<>();
+        queue.add(new int[]{0,0,1});
+        boolean[][] visited = new boolean[n][n];
+        visited[0][0] = true;
+        int[][] directions = new int[][]{{-1,-1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};
+        while(!queue.isEmpty()) {
+            int[] pair = queue.remove(0);
+            int x = pair[0];
+            int y = pair[1];
+            int level = pair[2];
+            if(x == n-1 && y == n-1)
+                return level;
+            for(int[] direction : directions) {
+                int dx = direction[0], dy = direction[1];
+                int newX = x + dx, newY = y + dy;
+                if(newX < 0 || newX == n || newY < 0 || newY == n || visited[newX][newY] || grid[newX][newY] == 1)
+                    continue;
+                visited[newX][newY] = true;
+                queue.add(new int[]{newX, newY, level + 1});
+            }
+        }
+        return -1;
+    }
+}
