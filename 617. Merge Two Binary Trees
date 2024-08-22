@@ -21,7 +21,7 @@ class Solution {
             return q;
         if(q == null)
             return p;
-
+        
         TreeNode node = new TreeNode(p.val + q.val);
         node.left = helper(p.left, q.left);
         node.right = helper(p.right, q.right);
