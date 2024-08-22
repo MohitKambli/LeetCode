@@ -1,20 +1,22 @@
 class Solution {
     public int helper(int i, int j, int n, int[][] grid, int[][] dp) {
-        if(i == 0)
-            return grid[0][j];
+        if(i < 0)
+            return 0;
         if(dp[i][j] != -1)
             return dp[i][j];
-        
-        int value = 20000;
-        for(int col=0;col<n;col++)
-            if(j != col)
-                value = Math.min(value, grid[i][j] + helper(i-1, col, n, grid, dp));
-        return dp[i][j] = value;
+
+        int value = 50000;
+        for(int jj=0;jj<n;jj++)
+            if(jj != j)
+                value = Math.min(value, grid[i][j] + helper(i-1, jj, n, grid, dp));
+        return dp[i][j] = value; 
     }
     public int minFallingPathSum(int[][] grid) {
-        int n = grid.length, ans = 20000;
+        int n = grid.length, ans = Integer.MAX_VALUE;
+        if(n == 1)
+            return grid[0][0];
         int[][] dp = new int[n][n];
-        for(int[] arr : dp)
+        for(int[] arr : dp) 
             Arrays.fill(arr, -1);
         for(int i=0;i<n;i++)
             ans = Math.min(ans, helper(n-1, i, n, grid, dp));
