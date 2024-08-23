@@ -1,18 +1,15 @@
 class Solution {
-    public boolean isPalindrome(String x) {
-        int left = 0, right = x.length()-1;
-        while(left < right) {
-            if(x.charAt(left) != x.charAt(right))
+    public boolean isPalindrome(String word) {
+        int left = 0, right = word.length()-1;
+        while(left <= right)
+            if(word.charAt(left++) != word.charAt(right--))
                 return false;
-            left++;
-            right--;
-        }
         return true;
     }
     public String firstPalindrome(String[] words) {
         for(String word : words)
             if(isPalindrome(word))
                 return word;
-        return new String("");
+        return "";
     }
 }
