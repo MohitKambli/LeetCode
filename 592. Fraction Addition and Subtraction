@@ -1,0 +1,37 @@
+class Solution {
+    public int helper(int x, int y) {
+        if(y == 0)
+            return x;
+        else
+            return helper(y, x % y);
+    }
+    public String fractionAddition(String exp) {
+        int n = exp.length();
+        int num = 0, den = 1, i = 0;
+        while(i < n) {
+            int currentNum = 0, currentDen = 0;
+            boolean isNegative = (exp.charAt(i) == '-');
+            if(exp.charAt(i) == '+' || exp.charAt(i) == '-')
+                i++;
+            while(i < n && Character.isDigit(exp.charAt(i))) {
+                int value = exp.charAt(i) - '0';
+                currentNum = (currentNum * 10) + value;
+                i++;
+            }
+            i++;
+            if(isNegative)
+                currentNum *= -1;
+            while(i < n && Character.isDigit(exp.charAt(i))) {
+                int value = exp.charAt(i) - '0';
+                currentDen = (currentDen * 10) + value;
+                i++;
+            }
+            num = (num * currentDen) + (currentNum * den);
+            den = den * currentDen;
+        }
+        int gcd = Math.abs(helper(num, den));
+        num /= gcd;
+        den /= gcd;
+        return String.valueOf(num) + "/" + String.valueOf(den);
+    }
+}
