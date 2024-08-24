@@ -10,7 +10,7 @@ class Solution {
                 right--;
             } else if(nums[left] % 2 == 0) {
                 left++;
-            } else if(nums[left] % 2 == 1 && nums[right] % 2 == 1) {
+            } else if(nums[right] % 2 == 1 && nums[left] % 2 == 1) {
                 right--;
             }
         }
