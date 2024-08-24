@@ -1,0 +1,39 @@
+class Solution {
+    public long helper(long firstHalf, boolean isEven) {
+        long resultNum = firstHalf;
+        if(!isEven)
+            firstHalf /= 10;
+        while(firstHalf > 0) {
+            long digit = firstHalf % 10;
+            resultNum = resultNum * 10 + digit;
+            firstHalf /= 10;
+        }
+        return resultNum;
+    }
+    public String nearestPalindromic(String s) {
+        int n = s.length();
+        int mid = n / 2;
+        long firstHalfLength = (n % 2 == 0) ? mid : mid + 1;
+        long firstHalf = Long.parseLong(s.substring(0, (int)firstHalfLength));
+        List<Long> possibleResults = new ArrayList<>();
+        possibleResults.add(helper(firstHalf, n % 2 == 0));
+        possibleResults.add(helper(firstHalf+1, n % 2 == 0));
+        possibleResults.add(helper(firstHalf-1, n % 2 == 0));
+        possibleResults.add((long)Math.pow(10, n-1) - 1);
+        possibleResults.add((long)Math.pow(10, n) + 1);
+        long diff = Long.MAX_VALUE;
+        long result = Long.MAX_VALUE;
+        long originalNum = Long.parseLong(s);
+        for(long num : possibleResults) {
+            if(num == originalNum)
+                continue;
+            if(Math.abs(num - originalNum) < diff) {
+                diff = Math.abs(num - originalNum);
+                result = num;
+            } else if(Math.abs(num - originalNum) == diff) {
+                result = Math.min(result, num);
+            }
+        }
+        return String.valueOf(result);
+    }
+}
