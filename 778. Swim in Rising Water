@@ -7,13 +7,11 @@ class Solution {
         for(int[] arr : ans)
             Arrays.fill(arr, Integer.MAX_VALUE);
         ans[0][0] = 0;
-        int[][] directions = new int[][]{{1,0},{-1,0},{0,1},{0,-1}};
+        int[][] directions = new int[][]{{-1,0},{1,0},{0,-1},{0,1}};
         while(!heap.isEmpty()) {
             int[] pair = heap.poll();
             int height = pair[0];
             int x = pair[1], y = pair[2];
-            if(x == n-1 && y == n-1)
-                return height;
             for(int[] direction : directions) {
                 int dx = direction[0], dy = direction[1];
                 int newX = x + dx, newY = y + dy;
