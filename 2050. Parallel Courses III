@@ -1,21 +1,17 @@
 class Solution {
     public int minimumTime(int n, int[][] relations, int[] time) {
-        Map<Integer, List<Integer>> adj = new HashMap<>();
-        int[] indegree = new int[n];
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        int[] indegree = new int[n+1];
+        int[] ans = new int[n+1];
         for(int[] relation : relations) {
             int u = relation[0] - 1;
             int v = relation[1] - 1;
-            if(!adj.containsKey(u)) {
-                List<Integer> arr = new ArrayList<>();
-                arr.add(v);
-                adj.put(u, arr);
-            } else {
-                adj.get(u).add(v);
-            }
+            if(!map.containsKey(u))
+                map.put(u, new ArrayList<>());
+            map.get(u).add(v);
             indegree[v]++;
         }
         List<Integer> queue = new ArrayList<>();
-        int[] ans = new int[n];
         for(int i=0;i<n;i++) {
             if(indegree[i] == 0) {
                 queue.add(i);
@@ -24,18 +20,18 @@ class Solution {
         }
         while(!queue.isEmpty()) {
             int node = queue.remove(0);
-            if(adj.containsKey(node)) {
-                for(int x : adj.get(node)) {
-                    ans[x] = Math.max(ans[x], ans[node] + time[x]);
+            if(map.containsKey(node)) {
+                for(int x : map.get(node)) {
                     indegree[x]--;
+                    ans[x] = Math.max(ans[x], ans[node] + time[x]);
                     if(indegree[x] == 0)
                         queue.add(x);
                 }
             }
         }
-        int max = Integer.MIN_VALUE;
+        int value = Integer.MIN_VALUE;
         for(int x : ans)
-            max = Math.max(max, x);
-        return max;
+            value = Math.max(value, x);
+        return value == Integer.MAX_VALUE ? -1 : value;
     }
 }
