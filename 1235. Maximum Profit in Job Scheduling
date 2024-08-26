@@ -1,0 +1,36 @@
+class Solution {
+    public int getNextIndex(int index, int n, List<int[]> arr) {
+        int left = index+1, right = n-1, ans = n+1;
+        while(left <= right) {
+            int mid = (left + right) / 2;
+            if(arr.get(mid)[0] >= arr.get(index)[1]) {
+                ans = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return ans;
+    }
+    public int helper(int index, int n, List<int[]> arr, int[] dp) {
+        if(index >= n)
+            return 0;
+        if(dp[index] != -1)
+            return dp[index];
+        
+        int notTake = helper(index+1, n, arr, dp);
+        int take = arr.get(index)[2] + helper(getNextIndex(index, n, arr), n, arr, dp);
+
+        return dp[index] = Math.max(take, notTake);
+    }
+    public int jobScheduling(int[] startTime, int[] endTime, int[] profit) {
+        int n = startTime.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp, -1);
+        List<int[]> arr = new ArrayList<>();
+        for(int i=0;i<n;i++)
+            arr.add(new int[]{startTime[i], endTime[i], profit[i]});
+        Collections.sort(arr, (a, b) -> Integer.compare(a[0], b[0]));
+        return helper(0, n, arr, dp);
+    }
+}
