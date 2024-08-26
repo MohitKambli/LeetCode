@@ -1,0 +1,34 @@
+class Solution {
+    public int helper(int index, int n, int[] days, int[] costs, int[] dp) {
+        if(index == n)
+            return 0;
+        if(dp[index] != -1)
+            return dp[index];
+        
+        // 1-Day Pass
+        int firstCost = costs[0] + helper(index+1, n, days, costs, dp);
+
+        // 7-Day Pass
+        int maxDaySecond = days[index] + 7;
+        int j = index;
+        while(j < n && days[j] < maxDaySecond)
+            j++;
+        int secondCost = costs[1] + helper(j, n, days, costs, dp);
+
+        // 30-Day Pass
+        int maxDayThird = days[index] + 30;
+        int k = index;
+        while(k < n && days[k] < maxDayThird)
+            k++;
+        int thirdCost = costs[2] + helper(k, n, days, costs, dp);
+
+        // Find Minimum Out Of The Three Values
+        return dp[index] = Math.min(firstCost, Math.min(secondCost, thirdCost));
+    }
+    public int mincostTickets(int[] days, int[] costs) {
+        int n = days.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp, -1);
+        return helper(0, n, days, costs, dp);
+    }
+}
