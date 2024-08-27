@@ -5,19 +5,20 @@ class Solution {
         for(int i=0;i<nEdges;i++) {
             int u = edges[i][0];
             int v = edges[i][1];
+            double prob = succProb[i];
             if(!map.containsKey(u))
                 map.put(u, new ArrayList<>());
-            Pair<Integer, Double> p1 = new Pair<>(v, succProb[i]);
+            Pair<Integer, Double> p1 = new Pair<>(v, prob);
             map.get(u).add(p1);
             if(!map.containsKey(v))
                 map.put(v, new ArrayList<>());
-            Pair<Integer, Double> p2 = new Pair<>(u, succProb[i]);
+            Pair<Integer, Double> p2 = new Pair<>(u, prob);
             map.get(v).add(p2);
         }
-        double[] probability = new double[n];
-        probability[start_node] = 1.0;
         PriorityQueue<Pair<Integer, Double>> heap = new PriorityQueue<>((a, b) -> Double.compare(b.getValue(), a.getValue()));
         heap.add(new Pair<>(start_node, 1.0));
+        double[] probability = new double[n];
+        probability[start_node] = 1.0;
         while(!heap.isEmpty()) {
             Pair<Integer, Double> pair = heap.poll();
             int node = pair.getKey();
