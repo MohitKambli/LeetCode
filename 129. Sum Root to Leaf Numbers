@@ -14,30 +14,19 @@
  * }
  */
 class Solution {
-    List<List<Integer>> paths = new ArrayList<>();
-    public void helper(TreeNode node, List<Integer> path) {
+    public void helper(TreeNode node, String temp, int[] ans) {
         if(node == null)
             return;
         
-        path.add(node.val);
-        if(node.left == null && node.right == null) {
-            paths.add(new ArrayList<>(path));
-        } else {
-            helper(node.left, path);
-            helper(node.right, path);
-        }
-        path.remove(path.size()-1);
+        temp += String.valueOf(node.val);
+        if(node.left == null && node.right == null)
+            ans[0] += Integer.parseInt(temp);
+        helper(node.left, temp, ans);
+        helper(node.right, temp, ans);
     }
     public int sumNumbers(TreeNode root) {
-        List<Integer> path = new ArrayList<>();
-        helper(root, path);
-        int sum = 0;
-        for(List<Integer> arr : paths) {
-            String temp = "";
-            for(int x : arr)
-                temp += String.valueOf(x);
-            sum += Integer.parseInt(temp);
-        }
-        return sum;
+        int[] ans = new int[]{0};
+        helper(root, "", ans);
+        return ans[0];
     }
 }
