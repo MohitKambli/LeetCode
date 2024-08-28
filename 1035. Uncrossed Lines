@@ -1,5 +1,5 @@
 class Solution {
-    public int helper(int i, int j, int[] nums1, int[] nums2, int[][] dp) {
+    public int helper(int i, int j , int[] nums1, int[] nums2, int[][] dp) {
         if(i < 0 || j < 0)
             return 0;
         if(dp[i][j] != -1)
