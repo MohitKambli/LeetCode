@@ -1,0 +1,17 @@
+class Solution {
+    public boolean carPooling(int[][] trips, int capacity) {
+        Arrays.sort(trips, (a, b) -> a[1] - b[1]);
+        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> a[2] - b[2]);
+        int count = 0;
+        for(int[] trip : trips) {
+            int passengers = trip[0], from = trip[1], to = trip[2];
+            while(!heap.isEmpty() && from >= heap.peek()[2])
+                count -= heap.poll()[0];
+            heap.add(new int[]{passengers, from, to});
+            count += passengers;
+            if(count > capacity)
+                return false;
+        }
+        return true;
+    }
+}
