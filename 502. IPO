@@ -7,13 +7,13 @@ class Solution {
             projects[i][1] = capital[i];
         }
         Arrays.sort(projects, (a, b) -> a[1] - b[1]);
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
+        PriorityQueue<Integer> heap = new PriorityQueue<>((a, b) -> b - a);
         int i = 0;
         while(k > 0) {
             while(i < n && projects[i][1] <= w)
-                maxHeap.add(projects[i++][0]);
-            if(!maxHeap.isEmpty())
-                w += maxHeap.poll();
+                heap.add(projects[i++][0]);
+            if(!heap.isEmpty())
+                w += heap.poll();
             k--;
         }
         return w;
