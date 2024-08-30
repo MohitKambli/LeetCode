@@ -1,0 +1,58 @@
+class Solution {
+    int largeValue = (int) 2e9;
+    public int dijkstra(int n, int[][] edges, int source, int destination) {
+        Map<Integer, List<int[]>> map = new HashMap<>();
+        for(int[] edge : edges) {
+            if(edge[2] != -1) {
+                int u = edge[0], v = edge[1], cost = edge[2];
+                if(!map.containsKey(u))
+                    map.put(u, new ArrayList<>());
+                map.get(u).add(new int[]{v, cost});
+                if(!map.containsKey(v))
+                    map.put(v, new ArrayList<>());
+                map.get(v).add(new int[]{u, cost});
+            }
+        }
+        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        heap.add(new int[]{source, 0});
+        int[] distance = new int[n];
+        Arrays.fill(distance, Integer.MAX_VALUE);
+        distance[source] = 0;
+        boolean[] visited = new boolean[n];
+        while(!heap.isEmpty()) {
+            int[] pair = heap.poll();
+            int node = pair[0], cost = pair[1];
+            if(visited[node])
+                continue;
+            if(map.containsKey(node)) {
+                for(int[] p : map.get(node)) {
+                    int adjNode = p[0], adjCost = p[1];
+                    if(distance[adjNode] > cost + adjCost) {
+                        distance[adjNode] = cost + adjCost;
+                        heap.add(new int[]{adjNode, distance[adjNode]});
+                    }
+                }
+            }
+        }
+        return distance[destination];
+    }
+    public int[][] modifiedGraphEdges(int n, int[][] edges, int source, int destination, int target) {
+        int currentShortestDistance = dijkstra(n, edges, source, destination);
+        if(currentShortestDistance < target)
+            return new int[0][];
+        boolean matchedTarget = (currentShortestDistance == target);
+        for(int[] edge : edges) {
+            if(edge[2] == -1) {
+                edge[2] = (matchedTarget) ? largeValue : 1;
+                if(!matchedTarget) {
+                    int newShortestDistance = dijkstra(n, edges, source, destination);
+                    if(newShortestDistance <= target) {
+                        matchedTarget = true;
+                        edge[2] += (target - newShortestDistance);
+                    }
+                }
+            }
+        }
+        return !matchedTarget ? new int[0][] : edges;
+    }
+}
