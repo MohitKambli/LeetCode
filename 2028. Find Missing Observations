@@ -1,0 +1,19 @@
+class Solution {
+    public int[] missingRolls(int[] rolls, int mean, int n) {
+        int m = rolls.length, totalSum = mean * (m + n), rollsSum = 0;
+        for(int roll : rolls)
+            rollsSum += roll;
+        int missingSum = totalSum - rollsSum;
+        if((missingSum > 6 * n) || (missingSum < n))
+            return new int[]{};
+        int[] ans = new int[n];
+        int j = 0;
+        while(n > 0) {
+            int dice = Math.min(6, missingSum - n + 1);
+            ans[j++] = dice;
+            missingSum -= dice;
+            n--;
+        }
+        return ans;
+    }
+}
