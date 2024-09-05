@@ -1,0 +1,47 @@
+class Solution {
+    public void helper(int i, int j, boolean[][] visited, int[][] grid, int n, List<int[]> queue) {
+        if(i < 0 || i == n || j < 0 || j == n || visited[i][j] || grid[i][j] == 0)
+            return;
+        
+        visited[i][j] = true;
+        queue.add(new int[]{i, j});
+        helper(i-1, j, visited, grid, n, queue);
+        helper(i+1, j, visited, grid, n, queue);
+        helper(i, j-1, visited, grid, n, queue);
+        helper(i, j+1, visited, grid, n, queue);
+    }
+    public int shortestBridge(int[][] grid) {
+        int n = grid.length, ans = 0;
+        boolean[][] visited = new boolean[n][n];
+        List<int[]> queue = new ArrayList<>();
+        boolean found = false;
+        for(int i=0;i<n && !found;i++) {
+            for(int j=0;j<n && !found;j++) {
+                if(grid[i][j] == 1) {
+                    helper(i, j, visited, grid, n, queue);
+                    found = true;
+                }
+            }
+        }
+        int[][] directions = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+        while(!queue.isEmpty()) {
+            int size = queue.size();
+            while(size-- > 0) {
+                int[] cell = queue.remove(0);
+                int x = cell[0], y = cell[1];
+                for(int[] direction : directions) {
+                    int dx = direction[0], dy = direction[1];
+                    int newX = x + dx, newY = y + dy;
+                    if(newX < 0 || newX == n || newY < 0 || newY == n || visited[newX][newY])
+                        continue;
+                    if(grid[newX][newY] == 1)
+                        return ans;
+                    queue.add(new int[]{newX, newY});
+                    visited[newX][newY] = true;
+                }
+            }
+            ans++;
+        }
+        return -1;
+    }
+}
