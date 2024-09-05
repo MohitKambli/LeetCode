@@ -1,0 +1,52 @@
+class Solution {
+    public int[] shortestAlternatingPaths(int n, int[][] redEdges, int[][] blueEdges) {
+        Map<Integer, List<Integer>> red = new HashMap<>();
+        for(int[] edge : redEdges) {
+            int u = edge[0], v = edge[1];
+            if(!red.containsKey(u))
+                red.put(u, new ArrayList<>());
+            red.get(u).add(v);
+        }
+        Map<Integer, List<Integer>> blue = new HashMap<>();
+        for(int[] edge : blueEdges) {
+            int u = edge[0], v = edge[1];
+            if(!blue.containsKey(u))
+                blue.put(u, new ArrayList<>());
+            blue.get(u).add(v);
+        }
+        int[] ans = new int[n];
+        Arrays.fill(ans, -1);
+        List<int[]> queue = new ArrayList<>();
+        queue.add(new int[]{0, 0, 0});  // {node, length, color}
+        Set<String> set = new HashSet<>();
+        set.add(0 + "," + 0);   // {node, color}
+        while(!queue.isEmpty()) {
+            int[] pair = queue.remove(0);
+            int node = pair[0], length = pair[1], color = pair[2];
+            if(ans[node] == -1)
+                ans[node] = length;
+
+            if(color != 1) {    // 1 - RED
+                if(red.containsKey(node)) {
+                    for(int adjNode : red.get(node)) {
+                        if(!set.contains(adjNode + "," + 1)) {
+                            set.add(adjNode + "," + 1);
+                            queue.add(new int[]{adjNode, length+1, 1});
+                        }
+                    }
+                }
+            }
+            if(color != 2) {    // 2 - BLUE
+                if(blue.containsKey(node)) {
+                    for(int adjNode : blue.get(node)) {
+                        if(!set.contains(adjNode + "," + 2)) {
+                            set.add(adjNode + "," + 2);
+                            queue.add(new int[]{adjNode, length+1, 2});
+                        }
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+}
