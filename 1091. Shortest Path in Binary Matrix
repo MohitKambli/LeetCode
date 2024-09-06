@@ -1,18 +1,16 @@
 class Solution {
     public int shortestPathBinaryMatrix(int[][] grid) {
-        if(grid[0][0] == 1)
-            return -1;
         int n = grid.length;
+        if(grid[0][0] == 1 || grid[n-1][n-1] == 1)
+            return -1;
         List<int[]> queue = new ArrayList<>();
         queue.add(new int[]{0,0,1});
         boolean[][] visited = new boolean[n][n];
         visited[0][0] = true;
-        int[][] directions = new int[][]{{-1,-1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};
+        int[][] directions = new int[][]{{-1,-1},{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0}};
         while(!queue.isEmpty()) {
-            int[] pair = queue.remove(0);
-            int x = pair[0];
-            int y = pair[1];
-            int level = pair[2];
+            int[] cell = queue.remove(0);
+            int x = cell[0], y = cell[1], level = cell[2];
             if(x == n-1 && y == n-1)
                 return level;
             for(int[] direction : directions) {
@@ -20,8 +18,8 @@ class Solution {
                 int newX = x + dx, newY = y + dy;
                 if(newX < 0 || newX == n || newY < 0 || newY == n || visited[newX][newY] || grid[newX][newY] == 1)
                     continue;
+                queue.add(new int[]{newX, newY, level+1});
                 visited[newX][newY] = true;
-                queue.add(new int[]{newX, newY, level + 1});
             }
         }
         return -1;
