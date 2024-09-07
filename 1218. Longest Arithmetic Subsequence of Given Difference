@@ -1,0 +1,33 @@
+class Solution {
+    /*public int helper(int index, int difference, int[] arr, int[] dp) {
+        if(index < 0)
+            return 0;
+        if(dp[index] != -1)
+            return dp[index];
+        
+        int ans = 0;
+        for(int i=index-1;i>=0;i--)
+            if(arr[index] - arr[i] == difference)
+                ans = Math.max(ans, 1 + helper(i, difference, arr, dp));
+        return dp[index] = ans;
+    }*/
+    public int longestSubsequence(int[] arr, int difference) {
+        /*int n = arr.length, ans = 1;
+        int[] dp = new int[n];
+        Arrays.fill(dp, -1);
+        for(int i=0;i<n;i++)
+            for(int j=i+1;j<n;j++)
+                if(arr[j] - arr[i] == difference)
+                    ans = Math.max(ans, 2 + helper(i, difference, arr, dp));
+        return ans;*/
+
+        Map<Integer, Integer> map = new HashMap<>();
+        int ans = 1;
+        for(int num : arr) {
+            int previousLength = map.getOrDefault(num - difference, 0);
+            map.put(num, previousLength + 1);
+            ans = Math.max(ans, map.get(num));
+        }
+        return ans;
+    }
+}
