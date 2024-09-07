@@ -1,0 +1,27 @@
+class Solution {
+    public int helper(int index, int diff, int[] nums, int n, int[][] dp) {
+        if(index < 0)
+            return 0;
+        if(dp[index][501+diff] != -1)
+            return dp[index][501+diff];
+        
+        int ans = 0;
+        for(int i=index-1;i>=0;i--)
+            if(nums[index] - nums[i] == diff)
+                ans = Math.max(ans, 1 + helper(i, diff, nums, n, dp));
+        return dp[index][501+diff] = ans;
+    }
+    public int longestArithSeqLength(int[] nums) {
+        int n = nums.length, ans = 0;
+        int[][] dp = new int[n][1003];
+        for(int[] arr : dp)
+            Arrays.fill(arr, -1);
+        for(int i=0;i<n;i++) {
+            for(int j=i+1;j<n;j++) {
+                int diff = nums[j] - nums[i];
+                ans = Math.max(ans, 2 + helper(i, diff, nums, n, dp));
+            }
+        }
+        return ans;
+    }
+}
