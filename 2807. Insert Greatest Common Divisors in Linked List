@@ -9,22 +9,20 @@
  * }
  */
 class Solution {
-    public int findGCD(int x, int y) {
+    public int helper(int x, int y) {
         if(y == 0)
             return x;
-        else
-            return findGCD(y, x % y);
+        return helper(y, x % y);
     }
     public ListNode insertGreatestCommonDivisors(ListNode head) {
         if(head == null || head.next == null)
             return head;
-        ListNode left = head;
-        ListNode right = head.next;
+        ListNode left = head, right = head.next;
         while(right != null) {
-            int value = findGCD(left.val, right.val);
-            ListNode node = new ListNode(value);
-            left.next = node;
+            int gcd = helper(left.val, right.val);
+            ListNode node = new ListNode(gcd);
             node.next = right;
+            left.next = node;
             left = right;
             right = right.next;
         }
