@@ -1,28 +1,27 @@
 class Solution {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        Set<String> set = new HashSet<>();
+        Set<String> wordBank = new HashSet<>();
         for(String word : wordList)
-            set.add(word);
-        Set<String> visited = new HashSet<>();
-        visited.add(beginWord);
+            wordBank.add(word);
         List<Pair<String, Integer>> queue = new ArrayList<>();
+        Set<String> visited = new HashSet<>();
         queue.add(new Pair<>(beginWord, 1));
+        visited.add(beginWord);
         while(!queue.isEmpty()) {
-            int queueSize = queue.size();
-            for(int i=0;i<queueSize;i++) {
+            int size = queue.size();
+            while(size-- > 0) {
                 Pair<String, Integer> pair = queue.remove(0);
-                String current = pair.getKey();
+                String currentWord = pair.getKey();
                 int level = pair.getValue();
-                if(current.equals(endWord))
+                if(currentWord.equals(endWord))
                     return level;
-                int n = current.length();
-                for(int j=0;j<n;j++) {
-                    for(char ch='a';ch<='z';ch++) {
-                        String temp = current;
-                        temp = temp.substring(0, j) + ch + temp.substring(j+1, n);
-                        if(!visited.contains(temp) && set.contains(temp)) {
-                            visited.add(temp);
+                int n = currentWord.length();
+                for(char ch='a';ch<='z';ch++) {
+                    for(int i=0;i<n;i++) {
+                        String temp = currentWord.substring(0, i) + ch + currentWord.substring(i+1, n);
+                        if(wordBank.contains(temp) && !visited.contains(temp)) {
                             queue.add(new Pair<>(temp, level + 1));
+                            visited.add(temp);
                         }
                     }
                 }
