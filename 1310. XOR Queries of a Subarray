@@ -1,0 +1,14 @@
+class Solution {
+    public int[] xorQueries(int[] arr, int[][] queries) {
+        int n = queries.length;
+        int[] ans = new int[n];
+        for(int i=0;i<n;i++) {
+            int x = queries[i][0], y = queries[i][1];
+            int xor = arr[x];
+            for(int j=x+1;j<=y;j++)
+                xor ^= arr[j];
+            ans[i] = xor;
+        }
+        return ans;
+    }
+}
