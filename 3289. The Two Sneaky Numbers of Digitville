@@ -1,0 +1,19 @@
+class Solution {
+    public int[] getSneakyNumbers(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int num : nums)
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        List<Integer> arr = new ArrayList<>();
+        for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            int key = entry.getKey();
+            int value = entry.getValue();
+            if(value == 2)
+                arr.add(key);
+        }
+        int n = arr.size(), j = 0;
+        int[] ans = new int[n];
+        for(int x : arr)
+            ans[j++] = x;
+        return ans;
+    }
+}
