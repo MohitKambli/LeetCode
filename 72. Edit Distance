@@ -1,5 +1,5 @@
 class Solution {
-    public int helper(int i, int j, int m, int n, String s, String t, int[][] dp) {
+    public int helper(int i, int j, String s, String p, int[][] dp) {
         if(i < 0)
             return j+1;
         if(j < 0)
@@ -7,21 +7,21 @@ class Solution {
         if(dp[i][j] != -1)
             return dp[i][j];
 
-        if(s.charAt(i) == t.charAt(j))
-            return dp[i][j] = helper(i-1, j-1, m, n, s, t, dp);
+        if(s.charAt(i) == p.charAt(j))
+            return dp[i][j] = helper(i-1, j-1, s, p, dp);
         return dp[i][j] = 1 + Math.min(
-            helper(i-1, j-1, m, n, s, t, dp),
+            helper(i-1, j-1, s, p, dp),
             Math.min(
-                helper(i-1, j, m, n, s, t, dp),
-                helper(i, j-1, m, n, s, t, dp)
+                helper(i-1, j, s, p, dp),
+                helper(i, j-1, s, p, dp)
             )
         );
     }
-    public int minDistance(String word1, String word2) {
-        int m = word1.length(), n = word2.length();
+    public int minDistance(String s, String p) {
+        int m = s.length(), n = p.length();
         int[][] dp = new int[m][n];
         for(int[] arr : dp)
             Arrays.fill(arr, -1);
-        return helper(m-1, n-1, m, n, word1, word2, dp);
+        return helper(m-1, n-1, s, p, dp);
     }
 }
