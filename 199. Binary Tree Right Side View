@@ -13,24 +13,24 @@
  *     }
  * }
  */
-
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
-        List<Integer> ans = new ArrayList<>();
         List<TreeNode> queue = new ArrayList<>();
         queue.add(root);
+        List<Integer> ans = new ArrayList<>();
         while(!queue.isEmpty()) {
-            int size = queue.size();
+            int size = queue.size(), queueSize = size, count = 1;
             while(size-- > 0) {
                 TreeNode node = queue.remove(0);
                 if(node != null) {
+                    if(count == queueSize)
+                        ans.add(node.val);
                     if(node.left != null)
                         queue.add(node.left);
                     if(node.right != null)
                         queue.add(node.right);
-                    if(size == 0)
-                        ans.add(node.val);
                 }
+                count++;
             }
         }
         return ans;
