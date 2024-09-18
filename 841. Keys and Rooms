@@ -1,16 +1,14 @@
 class Solution {
-    public void helper(int node, int n, boolean[] visited, List<List<Integer>> rooms) {
-        if(visited[node])
-            return;
-        
+    public void helper(int node, int n, List<List<Integer>> rooms, boolean[] visited) {
         visited[node] = true;
         for(int adjNode : rooms.get(node))
-            helper(adjNode, n, visited, rooms);
+            if(!visited[adjNode])
+                helper(adjNode, n, rooms, visited);
     }
     public boolean canVisitAllRooms(List<List<Integer>> rooms) {
         int n = rooms.size();
         boolean[] visited = new boolean[n];
-        helper(0, n, visited, rooms);
+        helper(0, n, rooms, visited);
         for(boolean value : visited)
             if(!value)
                 return false;
