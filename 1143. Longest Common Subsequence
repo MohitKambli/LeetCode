@@ -9,11 +9,11 @@ class Solution {
             return dp[i][j] = 1 + helper(i-1, j-1, s, t, dp);
         return dp[i][j] = Math.max(helper(i-1, j, s, t, dp), helper(i, j-1, s, t, dp));
     }
-    public int longestCommonSubsequence(String text1, String text2) {
-        int m = text1.length(), n = text2.length();
+    public int longestCommonSubsequence(String s, String t) {
+        int m = s.length(), n = t.length();
         int[][] dp = new int[m][n];
         for(int[] arr : dp)
             Arrays.fill(arr, -1);
-        return helper(m-1, n-1, text1, text2, dp);
+        return helper(m-1, n-1, s, t, dp);
     }
 }
