@@ -1,8 +1,8 @@
 class Solution {
     public int nearestExit(char[][] maze, int[] entrance) {
-        int m = maze.length, n = maze[0].length, ans = 0;
+        int m = maze.length, n = maze[0].length, level = 0;
         List<int[]> queue = new ArrayList<>();
-        queue.add(new int[]{entrance[0], entrance[1]});
+        queue.add(entrance);
         int[][] directions = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
         while(!queue.isEmpty()) {
             int size = queue.size();
@@ -10,7 +10,7 @@ class Solution {
                 int[] cell = queue.remove(0);
                 int x = cell[0], y = cell[1];
                 if((x != entrance[0] || y != entrance[1]) && (x == 0 || x == m-1 || y == 0 || y == n-1))
-                    return ans;
+                    return level;
                 for(int[] direction : directions) {
                     int dx = direction[0], dy = direction[1];
                     int newX = x + dx, newY = y + dy;
@@ -20,7 +20,7 @@ class Solution {
                     queue.add(new int[]{newX, newY});
                 }
             }
-            ans++;
+            level++;
         }
         return -1;
     }
