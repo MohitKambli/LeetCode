@@ -14,7 +14,7 @@ class Solution {
         }
     }
     public List<String> letterCombinations(String digits) {
-        if(digits.equals(""))
+        if(digits.isEmpty())
             return new ArrayList<>();
         Map<Character, String> map = new HashMap<>();
         map.put('2', "abc");
@@ -25,8 +25,8 @@ class Solution {
         map.put('7', "pqrs");
         map.put('8', "tuv");
         map.put('9', "wxyz");
-        int n = digits.length();
         List<String> ans = new ArrayList<>();
+        int n = digits.length();
         helper(0, n, digits, map, "", ans);
         return ans;
     }
