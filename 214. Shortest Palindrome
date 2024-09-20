@@ -1,0 +1,17 @@
+class Solution {
+    public String shortestPalindrome(String s) {
+        char[] ch = s.toCharArray();
+        int left = 0, right = s.length() - 1;
+        int idx = right;
+        while (left < right) {
+            if (ch[left] == ch[right]) {
+                left++;
+                right--;
+            } else {
+                left = 0;
+                right = --idx;
+            }
+        }
+        return new StringBuilder(s.substring(idx + 1)).reverse().toString() + s;
+    }
+}
