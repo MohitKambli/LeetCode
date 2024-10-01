@@ -1,0 +1,29 @@
+class Solution {
+    public boolean canArrange(int[] arr, int k) {
+        HashMap <Integer, Integer> map= new HashMap<>();
+        int x = 0;
+        for(int i=0;i<arr.length;i++) {
+            x = arr[i] % k;
+            if(x < 0)
+                x += k;
+            map.put(x, map.getOrDefault(x, 0) + 1);
+        }
+        for(int e : map.keySet()) {
+            x = k - e;
+            if(e == 0) {
+                if(map.get(e) % 2 != 0)
+                    return false;
+            } else {
+                if(!map.containsKey(x))
+                    return false;
+                else {
+                    int p = map.get(x);
+                    int q = map.get(e);
+                    if(p != q)
+                        return false;
+                }
+            }
+        }
+        return true;
+    }
+}
