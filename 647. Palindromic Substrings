@@ -1,20 +1,20 @@
 class Solution {
-    public boolean isPalindrome(int left, int right, String s, Boolean[][] dp) {
-        if(left > right)
+    public boolean isPalindrome(String s, int left, int right, Boolean[][] dp) {
+        if(left >= right)
             return true;
         if(dp[left][right] != null)
             return dp[left][right];
-
-        if(s.charAt(left) == s.charAt(right))
-            return dp[left][right] = isPalindrome(left+1, right-1, s, dp);
-        return dp[left][right] = false;
+        
+        if(s.charAt(left) != s.charAt(right))
+            return dp[left][right] = false;
+        return dp[left][right] = isPalindrome(s, left+1, right-1, dp);
     }
     public int countSubstrings(String s) {
         int n = s.length(), count = 0;
         Boolean[][] dp = new Boolean[n][n];
         for(int i=0;i<n;i++) {
             for(int j=i;j<n;j++) {
-                if(isPalindrome(i, j, s, dp))
+                if(isPalindrome(s, i, j, dp))
                     count++;
             }
         }
