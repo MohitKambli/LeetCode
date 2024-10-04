@@ -1,0 +1,17 @@
+class Solution {
+    public long dividePlayers(int[] skill) {
+        Arrays.sort(skill);
+        int left = 0, right = skill.length-1;
+        long ans = 0;
+        long value = skill[left] + skill[right];
+        while(left < right) {
+            long diff = skill[left] + skill[right];
+            ans += skill[left] * skill[right];
+            left++;
+            right--;
+            if(value != diff)
+                return -1;
+        }
+        return ans;
+    }
+}
