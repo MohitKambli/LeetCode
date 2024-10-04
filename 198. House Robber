@@ -20,28 +20,15 @@ class Solution {
         return helper(n-1, nums, dp);*/
 
         // Tabulation
-        /*int[] dp = new int[n];
+        int[] dp = new int[n];
         dp[0] = nums[0];
         for(int index=1;index<n;index++) {
-            int take = nums[index];
             int notTake = dp[index-1];
+            int take = nums[index];
             if(index-2 >= 0)
                 take += dp[index-2];
             dp[index] = Math.max(take, notTake);
         }
-        return dp[n-1];*/
-
-        // Space Optimization
-        int prev = nums[0], prev2 = 0;
-        for(int index=1;index<n;index++) {
-            int notPick = prev;
-            int pick = nums[index];
-            if(index > 1)
-                pick += prev2;
-            int curr = Math.max(pick, notPick);
-            prev2 = prev;
-            prev = curr;
-        }
-        return prev;
+        return dp[n-1];
     }
 }
