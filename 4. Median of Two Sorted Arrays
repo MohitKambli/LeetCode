@@ -13,8 +13,8 @@ class Solution {
         while(j < n)
             arr[k++] = nums2[j++];
         if((m + n) % 2 == 0)
-            return 1.0 * ((arr[(m + n) / 2]) + (arr[((m + n) / 2) - 1])) / 2;
-        else 
-            return 1.0 * (arr[(m + n) / 2]);
+            return 1.0 * (((arr[(m+n)/2]) + (arr[((m+n)/2)-1]))) / 2;
+        else
+            return 1.0 * arr[(m + n) / 2];
     }
 }
