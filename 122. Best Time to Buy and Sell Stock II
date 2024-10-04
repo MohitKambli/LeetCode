@@ -1,18 +1,19 @@
 class Solution {
-    public int helper(int index, int isBuyable, int[] prices, int[][] dp) {
-        if(index == prices.length)
+    public int helper(int index, int isBuyable, int n, int[] prices, int[][] dp) {
+        if(index == n)
             return 0;
         if(dp[index][isBuyable] != -1)
             return dp[index][isBuyable];
+        
         if(isBuyable == 1) {
             return dp[index][isBuyable] = Math.max(
-                -prices[index] + helper(index+1, 0, prices, dp),
-                0 + helper(index+1, 1, prices, dp)
+                -prices[index] + helper(index+1, 0, n, prices, dp),
+                helper(index+1, 1, n, prices, dp)
             );
         } else {
             return dp[index][isBuyable] = Math.max(
-                prices[index] + helper(index+1, 1, prices, dp),
-                0 + helper(index+1, 0, prices, dp)
+                prices[index] + helper(index+1, 1, n, prices, dp),
+                helper(index+1, 0, n, prices, dp)
             );
         }
     }
@@ -21,7 +22,7 @@ class Solution {
         int[][] dp = new int[n+1][2];
         // for(int[] row : dp)
         //     Arrays.fill(row, -1);
-        // return helper(0, 1, prices, dp);
+        // return helper(0, 1, n, prices, dp);
         for(int index=n-1;index>=0;index--) {
             dp[index][1] = Math.max(
                 -prices[index] + dp[index+1][0],
