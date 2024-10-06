@@ -1,21 +1,29 @@
 class Solution {
-    public int helper(int i, int j, int n, int[][] matrix) {
+    public int helper(int i, int j, int n, int[][] matrix, int[][] dp) {
         if(j < 0 || j == n)
             return 50000;
         if(i == 0)
             return matrix[0][j];
-
-        int upLeft = helper(i-1, j-1, n, matrix);
-        int up = helper(i-1, j, n, matrix);
-        int upRight = helper(i-1, j+1, n, matrix);
-        return matrix[i][j] + Math.min(upLeft, Math.min(up, upRight));
+        if(dp[i][j] != -1)
+            return dp[i][j];
+        
+        int upLeft = helper(i-1, j-1, n, matrix, dp);
+        int up = helper(i-1, j, n, matrix, dp);
+        int upRight = helper(i-1, j+1, n, matrix, dp);
+        return dp[i][j] = matrix[i][j] + Math.min(upLeft, Math.min(up, upRight));
     }
     public int minFallingPathSum(int[][] matrix) {
         int n = matrix.length, ans = 50000;
         int[][] dp = new int[n][n];
-        /*for(int i=0;i<n;i++)
-            ans = Math.min(ans, helper(n-1, i, n, matrix));
+        
+        // Recursion + Memoization
+        /*for(int[] arr : dp)
+            Arrays.fill(arr, -1);
+        for(int i=0;i<n;i++)
+            ans = Math.min(ans, helper(n-1, i, n, matrix, dp));
         return ans;*/
+
+        // Tabulation
         for(int i=0;i<n;i++)
             dp[0][i] = matrix[0][i];
         for(int i=1;i<n;i++) {
