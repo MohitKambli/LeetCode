@@ -1,0 +1,28 @@
+public class Solution {
+    /**
+     * @param s: the string
+     * @param shift: the shift operations
+     * @return: the string after shifts
+     */
+    public String stringShift(String s, int[][] shift) {
+        int n = s.length();
+        StringBuilder sb = new StringBuilder(s);
+        for(int[] arr : shift) {
+            int dir = arr[0], moves = arr[1];
+            if(dir == 0) {
+                for(int i=0;i<moves;i++) {
+                    char ch = sb.charAt(0);
+                    sb = sb.deleteCharAt(0);
+                    sb.append(ch);
+                }
+            } else {
+                for(int i=0;i<moves;i++) {
+                    char ch = sb.charAt(sb.length()-1);
+                    sb = sb.deleteCharAt(sb.length()-1);
+                    sb.insert(0, Character.toString(ch));
+                }
+            }
+        }
+        return sb.toString();
+    }
+}
