@@ -1,0 +1,15 @@
+class Solution {
+    public int characterReplacement(String s, int k) {
+        int j = 0, maxFrequency = 0, maxLength = 0, n = s.length();
+        int[] hash = new int[26];
+        for(int i=0;i<n;i++) {
+            hash[s.charAt(i) - 'A']++;
+            maxFrequency = Math.max(maxFrequency, hash[s.charAt(i) - 'A']);
+            if((i - j + 1) - maxFrequency > k)
+                hash[s.charAt(j++) - 'A']--;
+            if((i - j + 1) - maxFrequency <= k)
+                maxLength = Math.max(maxLength, (i - j + 1));
+        }
+        return maxLength;
+    }
+}
