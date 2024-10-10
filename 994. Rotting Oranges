@@ -1,6 +1,6 @@
 class Solution {
     public int orangesRotting(int[][] grid) {
-        int m = grid.length, n = grid[0].length, fresh = 0, level = 0;
+        int m = grid.length, n = grid[0].length, fresh = 0;
         List<int[]> queue = new ArrayList<>();
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
@@ -10,7 +10,8 @@ class Solution {
                     fresh++;
             }
         }
-        int[][] directions = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+        int[][] directions = new int[][]{{1,0},{-1,0},{0,1},{0,-1}};
+        int level = 0;
         while(!queue.isEmpty() && fresh > 0) {
             int size = queue.size();
             while(size-- > 0) {
