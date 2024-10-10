@@ -3,14 +3,15 @@ class Solution {
         Map<Integer, List<Integer>> map = new HashMap<>();
         int[] indegree = new int[n];
         for(int[] prerequisite : prerequisites) {
-            int u = prerequisite[0], v = prerequisite[1];
+            int u = prerequisite[0];
+            int v = prerequisite[1];
             if(!map.containsKey(v))
                 map.put(v, new ArrayList<>());
             map.get(v).add(u);
             indegree[u]++;
         }
-        List<Integer> queue = new ArrayList<>();
         int count = 0;
+        List<Integer> queue = new ArrayList<>();
         for(int i=0;i<n;i++) {
             if(indegree[i] == 0) {
                 queue.add(i);
@@ -20,11 +21,11 @@ class Solution {
         while(!queue.isEmpty()) {
             int node = queue.remove(0);
             if(map.containsKey(node)) {
-                for(int adjNode : map.get(node)) {
-                    indegree[adjNode]--;
-                    if(indegree[adjNode] == 0) {
-                        queue.add(adjNode);
+                for(int x : map.get(node)) {
+                    indegree[x]--;
+                    if(indegree[x] == 0) {
                         count++;
+                        queue.add(x);
                     }
                 }
             }
