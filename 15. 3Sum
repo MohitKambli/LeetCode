@@ -1,13 +1,12 @@
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        int n = nums.length;
         Arrays.sort(nums);
+        int n = nums.length;
         List<List<Integer>> ans = new ArrayList<>();
         for(int i=0;i<n;i++) {
             if(i > 0 && nums[i] == nums[i-1])
                 continue;
-            int value = nums[i];
-            int target = -value;
+            int value = nums[i], target = -value;
             int left = i+1, right = n-1;
             while(left < right) {
                 int sum = nums[left] + nums[right];
@@ -21,7 +20,9 @@ class Solution {
                     while(left < right && nums[right] == nums[right-1])
                         right--;
                     List<Integer> temp = new ArrayList<>();
-                    temp.add(value);temp.add(nums[left]);temp.add(nums[right]);
+                    temp.add(nums[left]);
+                    temp.add(nums[right]);
+                    temp.add(value);
                     ans.add(temp);
                     left++;
                     right--;
