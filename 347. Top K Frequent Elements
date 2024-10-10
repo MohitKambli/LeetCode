@@ -6,10 +6,12 @@ class Solution {
         PriorityQueue<Integer> heap = new PriorityQueue<>((a, b) -> map.get(b) - map.get(a));
         for(int key : map.keySet())
             heap.add(key);
-        int[] ans = new int[k];
         int j = 0;
-        for(int i=0;i<k;i++)
+        int[] ans = new int[k];
+        while(k > 0) {
             ans[j++] = heap.poll();
+            k--;
+        }
         return ans;
     }
 }
