@@ -1,26 +1,25 @@
 class Solution {
-    public boolean helper(int[] piles, int mid, int h) {
-        int count = 0;
+    public boolean helper(int[] piles, int count, int h) {
+        int ans = 0;
         for(int pile : piles) {
-            count += pile / mid;
-            if(pile % mid != 0)
-                count++;
+            ans += pile / count;
+            if(pile % count != 0)
+                ans++;
         }
-        return count <= h;
+        return ans <= h;
     }
     public int minEatingSpeed(int[] piles, int h) {
-        int n = piles.length, max = -1;
+        int n = piles.length, left = 1, max = -1;
         for(int pile : piles)
             max = Math.max(max, pile);
-        int left = 1, right = max;
+        int right = max;
         while(left < right) {
             int mid = left + (right - left) / 2;
-            if(helper(piles, mid, h)) {
+            if(helper(piles, mid, h))
                 right = mid;
-            } else {
+            else
                 left = mid + 1;
-            }
         }
-        return left;
+        return right;
     }
 }
