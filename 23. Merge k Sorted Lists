@@ -11,21 +11,21 @@
 class Solution {
     public ListNode merge(ListNode p, ListNode q) {
         ListNode dummy = new ListNode(-1);
-        ListNode current = dummy;
+        ListNode curr = dummy;
         while(p != null && q != null) {
             if(p.val < q.val) {
-                current.next = p;
+                curr.next = p;
                 p = p.next;
             } else {
-                current.next = q;
+                curr.next = q;
                 q = q.next;
             }
-            current = current.next;
+            curr = curr.next;
         }
         if(p != null)
-            current.next = p;
+            curr.next = p;
         if(q != null)
-            current.next = q;
+            curr.next = q;
         return dummy.next;
     }
     public ListNode partition(int left, int right, ListNode[] lists) {
@@ -34,7 +34,7 @@ class Solution {
         if(left > right)
             return null;
         
-        int mid = (left + right) / 2;
+        int mid = left + (right - left) / 2;
         ListNode p = partition(left, mid, lists);
         ListNode q = partition(mid+1, right, lists);
         return merge(p, q);
