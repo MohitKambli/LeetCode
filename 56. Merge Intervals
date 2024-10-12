@@ -2,25 +2,25 @@ class Solution {
     public int[][] merge(int[][] intervals) {
         Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
         int n = intervals.length;
-        List<int[]> stack = new ArrayList<>();
-        stack.add(intervals[0]);
+        List<int[]> arr = new ArrayList<>();
+        arr.add(intervals[0]);
         for(int i=1;i<n;i++) {
-            int previousStart = stack.get(stack.size()-1)[0];
-            int previousEnd = stack.get(stack.size()-1)[1];
+            int previousStart = arr.get(arr.size()-1)[0];
+            int previousEnd = arr.get(arr.size()-1)[1];
             int currentStart = intervals[i][0];
             int currentEnd = intervals[i][1];
-            if(previousEnd < currentStart)
-                stack.add(intervals[i]);
-            else {
-                int[] interval = stack.remove(stack.size()-1);
-                interval[0] = Math.min(interval[0], currentStart);
-                interval[1] = Math.max(interval[1], currentEnd);
-                stack.add(interval);
+            if(previousEnd < currentStart) {
+                arr.add(intervals[i]);
+            } else {
+                int[] interval = arr.remove(arr.size()-1);
+                interval[0] = Math.min(previousStart, currentStart);
+                interval[1] = Math.max(previousEnd, currentEnd);
+                arr.add(interval);
             }
         }
-        int len = stack.size(), j = 0;
+        int len = arr.size(), j = 0;
         int[][] ans = new int[len][2];
-        for(int[] x : stack) {
+        for(int[] x : arr) {
             ans[j][0] = x[0];
             ans[j][1] = x[1];
             j++;
