@@ -11,7 +11,7 @@ class Solution {
                     x--;
                 else if(direction == 'N')
                     y++;
-                else
+                else if(direction == 'S')
                     y--;
             } else if(ch == 'L') {
                 if(direction == 'E')
@@ -20,7 +20,7 @@ class Solution {
                     direction = 'S';
                 else if(direction == 'N')
                     direction = 'W';
-                else
+                else if(direction == 'S')
                     direction = 'E';
             } else if(ch == 'R') {
                 if(direction == 'E')
@@ -29,7 +29,7 @@ class Solution {
                     direction = 'N';
                 else if(direction == 'N')
                     direction = 'E';
-                else
+                else if(direction == 'S')
                     direction = 'W';
             }
         }
@@ -37,6 +37,6 @@ class Solution {
             return true;
         if(direction == 'N')
             return false;
-        return true;
+        return true;        
     }
 }
