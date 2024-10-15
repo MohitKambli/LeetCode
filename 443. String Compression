@@ -3,8 +3,8 @@ class Solution {
         int n = chars.length;
         StringBuilder sb = new StringBuilder();
         for(int i=0;i<n;i++) {
-            char ch = chars[i];
             int frequency = 1;
+            char ch = chars[i];
             while(i+1 < n && chars[i+1] == ch) {
                 i++;
                 frequency++;
