@@ -6,8 +6,8 @@ class Solution {
         if((numerator < 0 && denominator > 0) || (numerator > 0 && denominator < 0))
             sb.append("-");
         long numeratorN = Math.abs((long)numerator), denominatorD = Math.abs((long)denominator);
-        long remainder = numeratorN % denominatorD;
         sb.append(String.valueOf(numeratorN / denominatorD));
+        long remainder = numeratorN % denominatorD;
         if(remainder == 0)
             return sb.toString();
         sb.append(".");
