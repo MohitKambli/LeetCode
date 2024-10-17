@@ -10,8 +10,8 @@ class Solution {
                 map.put(temp, new ArrayList<>());
             map.get(temp).add(s);
         }
-        for(List<String> value : map.values())
-            ans.add(value);
+        for(List<String> s : map.values())
+            ans.add(s);
         return ans;
     }
 }
