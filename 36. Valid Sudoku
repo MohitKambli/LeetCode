@@ -3,12 +3,11 @@ class Solution {
         Set<String> set = new HashSet<>();
         for(int i=0;i<9;i++) {
             for(int j=0;j<9;j++) {
-                char temp = board[i][j];
-                if(temp != '.') {
-                    String row = temp + " in row " + i;
-                    String col = temp + " in column " + j;
-                    String box = temp + " in block " + i/3 + "-" + j/3;
-
+                char ch = board[i][j];
+                if(ch != '.') {
+                    String row = ch + " present in row " + i;
+                    String col = ch + " present in col " + j;
+                    String box = ch + " present in box " + (i/3) + " - " + (j/3);
                     if(!set.add(row) || !set.add(col) || !set.add(box))
                         return false;
                 }
