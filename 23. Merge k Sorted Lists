@@ -11,28 +11,28 @@
 class Solution {
     public ListNode merge(ListNode p, ListNode q) {
         ListNode dummy = new ListNode(-1);
-        ListNode curr = dummy;
+        ListNode current = dummy;
         while(p != null && q != null) {
             if(p.val < q.val) {
-                curr.next = p;
+                current.next = p;
                 p = p.next;
             } else {
-                curr.next = q;
+                current.next = q;
                 q = q.next;
             }
-            curr = curr.next;
+            current = current.next;
         }
         if(p != null)
-            curr.next = p;
+            current.next = p;
         if(q != null)
-            curr.next = q;
+            current.next = q;
         return dummy.next;
     }
     public ListNode partition(int left, int right, ListNode[] lists) {
-        if(left == right)
-            return lists[left];
         if(left > right)
             return null;
+        if(left == right)
+            return lists[left];
         
         int mid = left + (right - left) / 2;
         ListNode p = partition(left, mid, lists);
