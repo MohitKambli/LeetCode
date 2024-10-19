@@ -24,8 +24,8 @@ class Solution {
                 for(int x : map.get(node)) {
                     indegree[x]--;
                     if(indegree[x] == 0) {
-                        count++;
                         queue.add(x);
+                        count++;
                     }
                 }
             }
