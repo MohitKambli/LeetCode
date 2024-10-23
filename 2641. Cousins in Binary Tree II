@@ -1,0 +1,58 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode replaceValueInTree(TreeNode root) {
+        List<TreeNode> queue = new ArrayList<>();
+        queue.add(root);
+        List<Integer> arr = new ArrayList<>();
+        while(!queue.isEmpty()) {
+            int size = queue.size(), sum = 0;
+            while(size-- > 0) {
+                TreeNode node = queue.remove(0);
+                if(node.left != null)
+                    queue.add(node.left);
+                if(node.right != null)
+                    queue.add(node.right);
+                sum += node.val;
+            }
+            arr.add(sum);
+        }
+        queue.add(root);
+        root.val = 0;
+        int level = 0;
+        while(!queue.isEmpty()) {
+            int size = queue.size();
+            while(size-- > 0) {
+                TreeNode node = queue.remove(0);
+                int childSum = 0;
+                if(node.left != null)
+                    childSum += node.left.val;
+                if(node.right != null)
+                    childSum += node.right.val;
+                if(node.left != null) {
+                    node.left.val = arr.get(level+1) - childSum;
+                    queue.add(node.left);
+                }
+                if(node.right != null) {
+                    node.right.val = arr.get(level+1) - childSum;
+                    queue.add(node.right);
+                }
+            }
+            level++;
+        }
+        return root;
+    }
+}
