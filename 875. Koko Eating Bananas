@@ -1,5 +1,5 @@
 class Solution {
-    public boolean helper(int mid, int h, int[] piles) {
+    public boolean helper(int mid, int[] piles, int h) {
         int count = 0;
         for(int pile : piles) {
             count += pile / mid;
@@ -15,7 +15,7 @@ class Solution {
         int left = 1, right = max;
         while(left < right) {
             int mid = left + (right - left) / 2;
-            if(helper(mid, h, piles))
+            if(helper(mid, piles, h))
                 right = mid;
             else
                 left = mid + 1;
