@@ -1,0 +1,32 @@
+class Solution {
+    public void nextPermutation(int[] nums) {
+        int n = nums.length;
+        int trueIndex = -1;
+        for(int i=n-1;i>0;i--) {
+            if(nums[i-1] < nums[i]) {
+                trueIndex = i-1;
+                break;
+            }
+        }
+        if(trueIndex >= 0) {
+            int swapIndex = -1;
+            for(int i=n-1;i>trueIndex;i--) {
+                if(nums[trueIndex] < nums[i]) {
+                    swapIndex = i;
+                    break;
+                }
+            }
+            int temp = nums[trueIndex];
+            nums[trueIndex] = nums[swapIndex];
+            nums[swapIndex] = temp;
+        }
+        int left = trueIndex + 1, right = n-1;
+        while(left < right) {
+            int temp = nums[left];
+            nums[left] = nums[right];
+            nums[right] = temp;
+            left++;
+            right--;
+        }
+    }
+}

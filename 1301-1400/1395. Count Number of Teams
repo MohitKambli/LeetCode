@@ -1,0 +1,43 @@
+class Solution {
+    public int helper_1(int index, int prev, int count, int n, int[] rating, int[][][] dp) {
+        if(count == 3)
+            return 1;
+        if(index == n)
+            return 0;
+        if(dp[index][prev+1][count] != -1)
+            return dp[index][prev+1][count];
+
+        int notTake = helper_1(index+1, prev, count, n, rating, dp);
+        int take = 0;
+        if(prev == -1 || rating[index] > rating[prev])
+            take += helper_1(index+1, index, count+1, n, rating, dp);
+        return dp[index][prev+1][count] = take + notTake;
+    }
+    public int helper_2(int index, int prev, int count, int n, int[] rating, int[][][] dp) {
+        if(count == 3)
+            return 1;
+        if(index == n)
+            return 0;
+        if(dp[index][prev+1][count] != -1)
+            return dp[index][prev+1][count];
+
+        int notTake = helper_2(index+1, prev, count, n, rating, dp);
+        int take = 0;
+        if(prev == -1 || rating[index] < rating[prev])
+            take += helper_2(index+1, index, count+1, n, rating, dp);
+        return dp[index][prev+1][count] = take + notTake;
+    }
+    public int numTeams(int[] rating) {
+        int n = rating.length;
+        int[][][] dp = new int[n][n+1][4];
+        for(int[][] arr1 : dp)
+            for(int[] arr2 : arr1)
+                Arrays.fill(arr2, -1);
+        int incrementCount = helper_1(0, -1, 0, n, rating, dp);
+        for(int[][] arr1 : dp)
+            for(int[] arr2 : arr1)
+                Arrays.fill(arr2, -1);
+        int decrementCount = helper_2(0, -1, 0, n, rating, dp);
+        return incrementCount + decrementCount;
+    }
+}

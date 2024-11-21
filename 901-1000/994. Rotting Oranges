@@ -1,0 +1,34 @@
+class Solution {
+    public int orangesRotting(int[][] grid) {
+        int m = grid.length, n = grid[0].length, fresh = 0;
+        List<int[]> queue = new ArrayList<>();
+        for(int i=0;i<m;i++)  {
+            for(int j=0;j<n;j++) {
+                if(grid[i][j] == 1)
+                    fresh++;
+                else if(grid[i][j] == 2)
+                    queue.add(new int[]{i, j});
+            }
+        }
+        int[][] directions = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+        int level = 0;
+        while(!queue.isEmpty() && fresh > 0) {
+            int size = queue.size();
+            while(size-- > 0) {
+                int[] cell = queue.remove(0);
+                int x = cell[0], y = cell[1];
+                for(int[] direction : directions) {
+                    int dx = direction[0], dy = direction[1];
+                    int newX = x + dx, newY = y + dy;
+                    if(newX < 0 || newX == m || newY < 0 || newY == n || grid[newX][newY] != 1)
+                        continue;
+                    queue.add(new int[]{newX, newY});
+                    grid[newX][newY] = 2;
+                    fresh--;
+                }
+            }
+            level++;
+        }
+        return fresh > 0 ? -1 : level;
+    }
+}

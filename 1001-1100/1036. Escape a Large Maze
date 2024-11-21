@@ -1,0 +1,33 @@
+class Solution {
+    public boolean bfs(Set<String> blockedSet, int[] source, int[] target, int maxRegion) {
+        List<int[]> queue = new ArrayList<>();
+        Set<String> visited = new HashSet<>();
+        queue.add(source);
+        visited.add(source[0] + ", " + source[1]);
+        int[][] directions = new int[][]{{0, 1},{0, -1},{1, 0},{-1, 0}};
+        int count = 0;
+        while(!queue.isEmpty()) {
+            int[] pair = queue.remove(0);
+            int x = pair[0], y = pair[1];
+            count++;
+            if((x == target[0] && y == target[1]) || count > maxRegion)
+                return true;
+            for(int[] direction : directions) {
+                int newX = x + direction[0], newY = y + direction[1];
+                String temp = newX + ", " + newY;
+                if(newX < 0 || newX >= 1000000 || newY < 0 || newY >= 1000000 || blockedSet.contains(temp) || visited.contains(temp))
+                    continue;
+                queue.add(new int[]{newX, newY});
+                visited.add(temp);
+            }
+        }
+        return false;
+    }
+    public boolean isEscapePossible(int[][] blocked, int[] source, int[] target) {
+        Set<String> blockedSet = new HashSet<>();
+        for(int[] arr : blocked)
+            blockedSet.add(arr[0] + ", " + arr[1]);
+        int maxRegion = blocked.length * blocked.length;
+        return bfs(blockedSet, source, target, maxRegion) && bfs(blockedSet, target, source, maxRegion);
+    }
+}

@@ -1,0 +1,21 @@
+class Solution {
+    public boolean helper(long x, int[] time, int totalTrips) {
+        long count = 0;
+        for(int t : time)
+            count += (x / t);
+        return count >= totalTrips;
+    }
+    public long minimumTime(int[] time, int totalTrips) {
+        long left = 0, right = (long)Math.pow(10,7)*totalTrips, ans = -1;
+        while(left <= right) {
+            long mid = left + (right - left) / 2;
+            if(helper(mid, time, totalTrips)) {
+                ans = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return ans;
+    }
+}

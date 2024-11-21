@@ -1,0 +1,28 @@
+class Solution {
+    public void helper(int i, int j, int m, int n, int[][] grid) {
+        if(i < 0 || i == m || j < 0 || j == n || grid[i][j] == 0)
+            return;
+        
+        grid[i][j] = 0;
+        helper(i-1, j, m, n, grid);
+        helper(i+1, j, m, n, grid);
+        helper(i, j-1, m, n, grid);
+        helper(i, j+1, m, n, grid);
+    }
+    public int numEnclaves(int[][] grid) {
+        int m = grid.length, n = grid[0].length, ans = 0;
+        for(int i=0;i<n;i++) {
+            helper(0, i, m, n, grid);
+            helper(m-1, i, m, n, grid);
+        }
+        for(int i=0;i<m;i++) {
+            helper(i, 0, m, n, grid);
+            helper(i, n-1, m, n, grid);
+        }
+        for(int i=0;i<m;i++)
+            for(int j=0;j<n;j++)
+                if(grid[i][j] == 1)
+                    ans++;
+        return ans;
+    }
+}

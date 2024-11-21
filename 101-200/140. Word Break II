@@ -1,0 +1,25 @@
+class Solution {
+    public void helper(int index, int n, String s, Set<String> set, String current, List<String> ans) {
+        if(index == n) {
+            ans.add(current.substring(0, current.length()-1));
+            return;
+        }
+
+        for(int i=index;i<n;i++) {
+            String str = s.substring(index, i+1);
+            if(set.contains(str)) {
+                String temp = current;
+                current += str + " ";
+                helper(i+1, n, s, set, current, ans);
+                current = temp;
+            }
+        }
+    }
+    public List<String> wordBreak(String s, List<String> wordDict) {
+        int n = s.length();
+        Set<String> set = new HashSet<>(wordDict);
+        List<String> ans = new ArrayList<>();
+        helper(0, n, s, set, "", ans);
+        return ans;
+    }
+}

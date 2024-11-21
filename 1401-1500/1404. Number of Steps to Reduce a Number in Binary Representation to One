@@ -1,0 +1,15 @@
+class Solution {
+    public int numSteps(String s) {
+        int n = s.length(), carry = 0, ans = 0;
+        for(int i=n-1;i>=1;i--) {
+            int num = ((s.charAt(i) - '0') + carry) % 2;
+            if(num == 0)
+                ans++;
+            else if(num == 1) {
+                carry = 1;
+                ans += 2;
+            }
+        }
+        return ans + carry;
+    }
+}

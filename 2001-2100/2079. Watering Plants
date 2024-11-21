@@ -1,0 +1,16 @@
+class Solution {
+    public int wateringPlants(int[] plants, int capacity) {
+        int n = plants.length, steps = 0, maxCapacity = capacity;
+        for(int i=0;i<n;i++) {
+            if(capacity >= plants[i]) {
+                capacity -= plants[i];
+                steps++;
+            } else {
+                capacity = maxCapacity;
+                capacity -= plants[i];
+                steps += ((2 * i) + 1);
+            }
+        }
+        return steps;
+    }
+}

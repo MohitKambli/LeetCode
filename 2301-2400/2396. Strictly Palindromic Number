@@ -1,0 +1,21 @@
+class Solution {
+    public boolean isStrictlyPalindromic(int n) {
+        boolean ans = false;
+        for(int i=2;i<n-2;i++) {
+            int temp = n;
+            int rev = 0;
+            while(temp > 0) {
+                int x = temp % i;
+                rev = rev * 10 + x;
+                temp /= i;
+            }
+            if(rev == n)
+                ans = true;
+            else {
+                ans = false;
+                break;
+            }
+        }
+        return ans;
+    }
+}

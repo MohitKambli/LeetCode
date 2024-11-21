@@ -1,0 +1,26 @@
+public class Logger {
+    /**
+     * @param timestamp: Timestamp
+     * @param message: Message
+     * @return: Whether the log can be printed
+     */
+    Map<String, Integer> map;
+    public Logger() {
+        map = new HashMap<>();
+    }
+    public boolean couldPrintMessage(int timestamp, String message) {
+        // --- write your code here ---
+        if(!map.containsKey(message)) {
+            map.put(message, timestamp);
+            return true;
+        } else {
+            int previousTimestamp = map.get(message);
+            if(timestamp - previousTimestamp >= 10) {
+                map.put(message, timestamp);
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+}

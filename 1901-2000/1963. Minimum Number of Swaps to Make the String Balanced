@@ -1,0 +1,30 @@
+class Solution {
+    public int minSwaps(String s) {
+        /*int n = s.length(), mismatch = 0;
+        List<Character> stack = new ArrayList<>();
+        for(int i=0;i<n;i++) {
+            char ch = s.charAt(i);
+            if(ch == '[')
+                stack.add(ch);
+            else {
+                if(!stack.isEmpty())
+                    stack.remove(stack.size()-1);
+                else
+                    mismatch++;
+            }
+        }
+        return (mismatch + 1) / 2;*/
+
+        int n = s.length(), stackSize = 0;
+        for(int i=0;i<n;i++) {
+            char ch = s.charAt(i);
+            if(ch == '[')
+                stackSize++;
+            else {
+                if(stackSize > 0)
+                    stackSize--;
+            }
+        }
+        return (stackSize + 1) / 2;
+    }
+}

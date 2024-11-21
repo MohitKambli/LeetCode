@@ -1,0 +1,18 @@
+class Solution {
+    public String convert(String s, int numRows) {
+        if(numRows == 1)
+            return s;
+        int n = s.length();
+        String res = "";
+        for(int i=0;i<numRows;i++) {
+            int increment = 2 * (numRows - 1);
+            for(int j=i;j<n;j+=increment) {
+                res += s.charAt(j);
+                int specialIncrement = (j + increment) - (2 * i);
+                if(i > 0 && i < numRows-1 && specialIncrement < n)
+                    res += s.charAt(specialIncrement);
+            }
+        }
+        return res;
+    }
+}

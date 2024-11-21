@@ -1,0 +1,24 @@
+class Solution {
+    public boolean parseBoolExpr(String s) {
+        int n = s.length();
+        Stack<Character> stack = new Stack<>();
+        for(int i=0;i<n;i++) {
+            char ch = s.charAt(i);
+            if(ch == ')') {
+                Set<Character> set = new HashSet<>();
+                while(stack.peek() != '(')
+                    set.add(stack.pop());
+                stack.pop();
+                char op = stack.pop();
+                if(op == '!')
+                    stack.push(set.contains('t') ? 'f' : 't');
+                else if(op == '&')
+                    stack.push(set.contains('f') ? 'f' : 't');
+                else
+                    stack.push(set.contains('t') ? 't' : 'f');
+            } else if(ch != ',')
+                stack.push(ch);
+        }
+        return stack.peek() == 't' ? true : false;
+    }
+}

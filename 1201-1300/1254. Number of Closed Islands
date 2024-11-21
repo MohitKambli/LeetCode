@@ -1,0 +1,24 @@
+class Solution {
+    public boolean helper(int i, int j, int m, int n, int[][] grid) {
+        if(i < 0 || i == m || j < 0 || j == n)
+            return false;
+        if(grid[i][j] == 1)
+            return true;
+        
+        grid[i][j] = 1;
+        boolean left = helper(i, j-1, m, n, grid);
+        boolean right = helper(i, j+1, m, n, grid);
+        boolean up = helper(i-1, j, m, n, grid);
+        boolean down = helper(i+1, j, m, n, grid);
+        return left && right && up && down;
+    }
+    public int closedIsland(int[][] grid) {
+        int m = grid.length, n = grid[0].length, ans = 0;
+        for(int i=0;i<m;i++)
+            for(int j=0;j<n;j++)
+                if(grid[i][j] == 0)
+                    if(helper(i, j, m, n, grid))
+                        ans++;
+        return ans;
+    }
+}

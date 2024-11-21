@@ -1,0 +1,18 @@
+class Solution {
+    public int[] countPoints(int[][] points, int[][] queries) {
+        int[] result = new int[queries.length];
+        for(int i=0;i<queries.length;i++) {
+            int circle_x = queries[i][0];
+            int circle_y = queries[i][1];
+            int circle_r = queries[i][2];
+            for(int j=0;j<points.length;j++) {
+                int point_x = points[j][0];
+                int point_y = points[j][1];
+                if( Math.pow((circle_x - point_x),2) + Math.pow((circle_y - point_y),2) <= (circle_r * circle_r) ) {
+                    result[i]++;
+                }
+            }
+        }
+        return result;
+    }
+}

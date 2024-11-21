@@ -1,0 +1,31 @@
+class Solution {
+    public String minWindow(String s, String t) {
+        int m = s.length(), n = t.length();
+        if(m < n)
+            return "";
+        Map<Character, Integer> map = new HashMap<>();
+        for(char ch : t.toCharArray())
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        int requiredCount = n, i = 0, j = 0, index = -1, minWindowSize = Integer.MAX_VALUE;
+        while(j < m) {
+            char chJ = s.charAt(j);
+            if(map.getOrDefault(chJ, 0) > 0)
+                requiredCount--;
+            map.put(chJ, map.getOrDefault(chJ, 0) - 1);
+            while(requiredCount == 0) {
+                int currentWindowSize = j - i + 1;
+                if(currentWindowSize < minWindowSize) {
+                    minWindowSize = currentWindowSize;
+                    index = i;
+                }
+                char chI = s.charAt(i);
+                map.put(chI, map.getOrDefault(chI, 0) + 1);
+                if(map.getOrDefault(chI, 0) > 0)
+                    requiredCount++;
+                i++;
+            }
+            j++;
+        }
+        return minWindowSize == Integer.MAX_VALUE ? "" : s.substring(index, index + minWindowSize);
+    }
+}

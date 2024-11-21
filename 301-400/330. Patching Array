@@ -1,0 +1,16 @@
+class Solution {
+    public int minPatches(int[] nums, int n) {
+        int len = nums.length, index = 0, patches = 0;
+        long maxReach = 0;
+        while(maxReach < n) {
+            if(index < len && nums[index] <= maxReach + 1) {
+                maxReach += nums[index];
+                index++;
+            } else {
+                maxReach += (maxReach + 1);
+                patches++;
+            }
+        }
+        return patches;
+    }
+}

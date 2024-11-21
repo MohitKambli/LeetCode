@@ -1,0 +1,12 @@
+class Solution {
+    public boolean isUnivalTreeHelper(TreeNode node, int val) {
+        if(node == null)
+            return true;
+        return (node.val == val) && (isUnivalTreeHelper(node.left, val)) && (isUnivalTreeHelper(node.right, val));
+    }
+    public boolean isUnivalTree(TreeNode root) {
+        if(root == null)
+            return true;
+        return isUnivalTreeHelper(root, root.val);
+    }
+}

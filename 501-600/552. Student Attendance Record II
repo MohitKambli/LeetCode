@@ -1,0 +1,23 @@
+class Solution {
+    int mod = 1000000007;
+    public int helper(int n, int absent, int late, int[][][] dp) {
+        if(absent > 1 || late > 2)
+            return 0;
+        if(n == 0)
+            return 1;
+        if(dp[n][absent][late] != -1)
+            return dp[n][absent][late];
+
+        int a = helper(n-1, absent+1, 0, dp);
+        int l = helper(n-1, absent, late+1, dp);
+        int p = helper(n-1, absent, 0, dp);
+        return dp[n][absent][late] = (a + (l + (p % mod)) % mod) % mod;
+    }
+    public int checkRecord(int n) {
+        int[][][] dp = new int[n+1][2][3];
+        for(int[][] arr : dp)
+            for(int[] ar : arr)
+                Arrays.fill(ar, -1);
+        return helper(n, 0, 0, dp);
+    }
+}

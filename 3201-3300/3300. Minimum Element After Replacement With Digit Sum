@@ -1,0 +1,22 @@
+class Solution {
+    public int helper(int x) {
+        int ans = 0;
+        while(x > 0) {
+            int d = x % 10;
+            ans += d;
+            x /= 10;
+        }
+        return ans;
+    }
+    public int minElement(int[] nums) {
+        int n = nums.length;
+        for(int i=0;i<n;i++) {
+            int newNum = helper(nums[i]);
+            nums[i] = newNum;
+        }
+        int min = nums[0];
+        for(int i=1;i<n;i++)
+            min = Math.min(min, nums[i]);
+        return min;
+    }
+}

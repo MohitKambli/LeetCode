@@ -1,0 +1,23 @@
+class Solution {
+    public int totalMoney(int n) {
+        int initialAmount = 1;
+        int amount = 1;
+        int total = 0;
+        int count = 1;
+        while(true) {
+            if(count == 8) {
+                count = 1;
+                initialAmount++;
+                amount = initialAmount;
+            } else {
+                total += amount;
+                amount++;
+                count++;
+                n--;
+            }
+            if(n == 0)
+                break;
+        }
+        return total;
+    }
+}

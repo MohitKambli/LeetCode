@@ -1,0 +1,28 @@
+class Solution {
+    public int helper(int index, int isBuyable, int n, int k, int[] prices, int[][][] dp) {
+        if(index == n || k == 0)
+            return 0;
+        if(dp[index][isBuyable][k] != -1)
+            return dp[index][isBuyable][k];
+
+        if(isBuyable == 1) {
+            return dp[index][isBuyable][k] = Math.max(
+                -prices[index] + helper(index+1, 0, n, k, prices, dp),
+                0 + helper(index+1, 1, n, k, prices, dp)
+            );
+        } else {
+            return dp[index][isBuyable][k] = Math.max(
+                prices[index] + helper(index+1, 1, n, k-1, prices, dp),
+                0 + helper(index+1, 0, n, k, prices, dp)
+            );
+        }
+    }
+    public int maxProfit(int[] prices) {
+        int n = prices.length, k = 2;
+        int[][][] dp = new int[n][2][k+1];
+        for(int[][] arr1 : dp)
+            for(int[] arr2 : arr1)
+                Arrays.fill(arr2, -1);
+        return helper(0, 1, n, k, prices, dp);
+    }
+}

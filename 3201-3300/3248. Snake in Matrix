@@ -1,0 +1,17 @@
+class Solution {
+    public int finalPositionOfSnake(int n, List<String> commands) {
+        Map<String, int[]> map = new HashMap<>();
+        map.put("UP", new int[]{-1, 0});
+        map.put("RIGHT", new int[]{0, 1});
+        map.put("DOWN", new int[]{1, 0});
+        map.put("LEFT", new int[]{0, -1});
+        int i = 0, j = 0, pos = 0;
+        for(String command : commands) {
+            int[] move = map.get(command);
+            i += move[0];
+            j += move[1];
+            pos = (i * n) + j;
+        }
+        return pos;
+    }
+}

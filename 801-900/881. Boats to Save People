@@ -1,0 +1,14 @@
+class Solution {
+    public int numRescueBoats(int[] people, int limit) {
+        Arrays.sort(people);
+        int left = 0, right = people.length-1, boats = 0;
+        while(left <= right) {
+            int diff = limit - people[right];
+            boats++;
+            right--;
+            if(left <= right && diff >= people[left])
+                left++;
+        }
+        return boats;
+    }
+}

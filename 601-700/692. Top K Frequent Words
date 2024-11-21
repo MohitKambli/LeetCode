@@ -1,0 +1,16 @@
+class Solution {
+    public List<String> topKFrequent(String[] words, int k) {
+        Map<String, Integer> map = new HashMap<>();
+        for(String word : words)
+            map.put(word, map.getOrDefault(word, 0) + 1);
+        List<String> ans = new ArrayList<>();
+        PriorityQueue<String> heap = new PriorityQueue<>((a, b) -> {
+            return map.get(a) == map.get(b) ? a.compareTo(b) : map.get(b) - map.get(a);
+        });
+        for(String key : map.keySet())
+            heap.add(key);
+        while(k-- > 0)
+            ans.add(heap.poll());
+        return ans;
+    }
+}

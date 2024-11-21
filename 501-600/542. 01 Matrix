@@ -1,0 +1,29 @@
+class Solution {
+    public int[][] updateMatrix(int[][] mat) {
+        int m = mat.length, n = mat[0].length;
+        int[][] ans = new int[m][n];
+        List<int[]> queue = new ArrayList<>();
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(mat[i][j] == 0)
+                    queue.add(new int[]{i, j});
+                else
+                    ans[i][j] = -1;
+            }
+        }
+        int[][] directions = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+        while(!queue.isEmpty()) {
+            int[] cell = queue.remove(0);
+            int x = cell[0], y = cell[1];
+            for(int[] direction : directions) {
+                int dx = direction[0], dy = direction[1];
+                int newX = x + dx, newY = y + dy;
+                if(newX < 0 || newX == m || newY < 0 || newY == n || ans[newX][newY] != -1)
+                    continue;
+                ans[newX][newY] = ans[x][y] + 1;
+                queue.add(new int[]{newX, newY});
+            }
+        }
+        return ans;
+    }
+}

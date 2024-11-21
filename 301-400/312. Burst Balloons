@@ -1,0 +1,27 @@
+class Solution {
+    public int helper(int i, int j, int[] nums, int[][] dp) {
+        if(i > j)
+            return 0;
+        if(dp[i][j] != -1)
+            return dp[i][j];
+        
+        int max = Integer.MIN_VALUE;
+        for(int index=i;index<=j;index++) {
+            int cost = (nums[i-1] * nums[index] * nums[j+1]) + helper(i, index-1, nums, dp) + helper(index+1, j, nums, dp);
+            max = Math.max(max, cost);
+        }
+        return dp[i][j] = max;
+    }
+    public int maxCoins(int[] nums) {
+        int n = nums.length;
+        int[] arr = new int[n+2];
+        arr[0] = 1;
+        arr[n+1] = 1;
+        int[][] dp = new int[n+1][n+1];
+        for(int[] x : dp)
+            Arrays.fill(x, -1);
+        for(int i=1;i<n+1;i++)
+            arr[i] = nums[i-1];
+        return helper(1, n, arr, dp);
+    }
+}

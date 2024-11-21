@@ -1,0 +1,16 @@
+class Solution {
+    public long helper(int n, int[] nums, int sum) {
+        long ans = 0;
+        for(int i=0,j=n-1;i<j;i++) {
+            while(i < j && nums[i] + nums[j] > sum)
+                j--;
+            ans += (j-i);
+        }
+        return ans;
+    }
+    public long countFairPairs(int[] nums, int lower, int upper) {
+        int n = nums.length;
+        Arrays.sort(nums);
+        return helper(n, nums, upper) - helper(n, nums, lower-1);
+    }
+}

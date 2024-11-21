@@ -1,0 +1,33 @@
+class Solution {
+    public int longestSquareStreak(int[] nums) {
+        /*Arrays.sort(nums);
+        int ans = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int num : nums) {
+            int squareRoot = (int) Math.sqrt(num);
+            if(squareRoot * squareRoot == num && map.containsKey(squareRoot))
+                map.put(num, map.get(squareRoot) + 1);
+            else
+                map.put(num, 1);
+            ans = Math.max(ans, map.get(num));
+        }
+        return ans == 1 ? -1 : ans;*/
+
+        Set<Integer> set = new HashSet<>();
+        for(int num : nums)
+            set.add(num);
+        int ans = 0;
+        for(int num : nums) {
+            long temp = num;
+            int count = 0;
+            while(set.contains((int)temp)) {
+                count++;
+                if(temp * temp > 1e5)
+                    break;
+                temp *= temp;
+            }
+            ans = Math.max(ans, count);
+        }
+        return ans < 2 ? -1 : ans;
+    }
+}

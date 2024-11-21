@@ -1,0 +1,10 @@
+class Solution {
+    public int thirdMax(int[] nums) {
+        Arrays.sort(nums);
+        List<Integer> arr = new ArrayList<>();
+        for(int x : nums)
+            if(!arr.contains(x))
+                arr.add(x);
+        return arr.size() >= 3 ? arr.get(arr.size()-3) : arr.get(arr.size()-1);
+    }
+}

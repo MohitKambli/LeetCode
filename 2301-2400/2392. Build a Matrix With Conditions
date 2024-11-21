@@ -1,0 +1,69 @@
+class Solution {
+    public List<Integer> topo(int[][] edges, int k) {
+        Map<Integer, List<Integer>> map = new LinkedHashMap<>();
+        int[] indegree = new int[k];
+        for(int[] edge : edges) {
+            int u = edge[0]-1;
+            int v = edge[1]-1;
+            if(!map.containsKey(u)) {
+                List<Integer> arr = new ArrayList<>();
+                arr.add(v);
+                map.put(u, arr);
+            } else {
+                map.get(u).add(v);
+            }
+            indegree[v]++;
+        }
+        List<Integer> order = new ArrayList<>();
+        List<Integer> queue = new ArrayList<>();
+        for(int i=0;i<k;i++)
+            if(indegree[i] == 0)
+                queue.add(i);
+        while(!queue.isEmpty()) {
+            int node = queue.remove(0);
+            order.add(node);
+            if(map.get(node) != null) {
+                for(int x : map.get(node)) {
+                    indegree[x]--;
+                    if(indegree[x] == 0)
+                        queue.add(x);
+                }
+            }
+        }
+        return order.size() == k ? order : new ArrayList<>();
+    }
+    public int[][] buildMatrix(int k, int[][] rowConditions, int[][] colConditions) {
+        List<Integer> rowOrder = topo(rowConditions, k);
+        List<Integer> colOrder = topo(colConditions, k);
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        if(rowOrder.isEmpty() || colOrder.isEmpty())
+            return new int[][]{};
+        int n = rowOrder.size();
+        for(int i=0;i<n;i++) {
+            int value = rowOrder.get(i);
+            if(!map.containsKey(value)) {
+                List<Integer> arr = new ArrayList<>();
+                arr.add(i);
+                map.put(value, arr);
+            } else {
+                map.get(value).add(i);
+            }
+        }
+        for(int i=0;i<n;i++) {
+            int value = colOrder.get(i);
+            if(!map.containsKey(value)) {
+                List<Integer> arr = new ArrayList<>();
+                arr.add(i);
+                map.put(value, arr);
+            } else {
+                map.get(value).add(i);
+            }
+        }
+        int[][] ans = new int[k][k];
+        for(Map.Entry<Integer, List<Integer>> entry : map.entrySet()) {
+            List<Integer> arr = entry.getValue();
+            ans[arr.get(0)][arr.get(1)] = entry.getKey() + 1;
+        }
+        return ans;
+    }
+}

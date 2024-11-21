@@ -1,0 +1,4 @@
+class Solution(object):
+    def sortTheStudents(self, score, k):
+        score.sort(key = lambda score: -score[k])
+        return score

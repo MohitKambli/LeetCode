@@ -1,0 +1,47 @@
+class Solution {
+    public boolean helper(int source, int destination, boolean[] visited, Map<Integer, List<Integer>> map) {
+        if(visited[source])
+            return false;
+        if(source == destination)
+            return true;
+        
+        visited[source] = true;
+        if(map.containsKey(source))
+            for(int node : map.get(source))
+                if(helper(node, destination, visited, map))
+                    return true;
+        return false;
+    }
+    public boolean validPath(int n, int[][] edges, int source, int destination) {
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for(int[] edge : edges) {
+            int u = edge[0], v = edge[1];
+            if(!map.containsKey(u))
+                map.put(u, new ArrayList<>());
+            map.get(u).add(v);
+            if(!map.containsKey(v))
+                map.put(v, new ArrayList<>());
+            map.get(v).add(u);
+        }
+        boolean[] visited = new boolean[n];
+        //return helper(source, destination, visited, map);
+
+        List<Integer> queue = new ArrayList<>();
+        queue.add(source);
+        visited[source] = true;
+        while(!queue.isEmpty()) {
+            int node = queue.remove(0);
+            if(node == destination)
+                return true;
+            if(map.containsKey(node)) {
+                for(int adjNode : map.get(node)) {
+                    if(visited[adjNode])
+                        continue;
+                    queue.add(adjNode);
+                    visited[adjNode] = true;
+                }
+            }
+        }
+        return false;
+    }
+}

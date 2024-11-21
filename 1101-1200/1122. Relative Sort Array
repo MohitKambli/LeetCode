@@ -1,0 +1,29 @@
+class Solution {
+    public int[] relativeSortArray(int[] arr1, int[] arr2) {
+        int n = arr1.length;
+        int[] ans = new int[n];
+        int j = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int num : arr1)
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        for(int num : arr2) {
+            if(map.containsKey(num)) {
+                int times = map.get(num);
+                for(int i=0;i<times;i++)
+                    ans[j++] = num;
+                map.remove(num);
+            }
+        }
+        int[] temp = new int[n-j];
+        int k = 0;
+        for(Map.Entry<Integer, Integer> e : map.entrySet()) {
+            int times = e.getValue();
+            for(int i=0;i<times;i++)
+                temp[k++] = e.getKey();
+        }
+        Arrays.sort(temp);
+        for(int num : temp)
+            ans[j++] = num;
+        return ans;
+    }
+}

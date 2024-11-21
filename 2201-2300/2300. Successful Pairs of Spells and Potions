@@ -1,0 +1,32 @@
+class Solution {
+    public int helper(int left, int right, double minPotion, int[] potions) {
+        int index = -1;
+        while(left <= right) {
+            int mid = left + (right - left) / 2;
+            if(potions[mid] >= minPotion) {
+                index = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return index;
+    }
+    public int[] successfulPairs(int[] spells, int[] potions, long success) {
+        int m = spells.length, n = potions.length;
+        int[] ans = new int[m];
+        Arrays.sort(potions);
+        int maxPotion = potions[n-1];
+        for(int i=0;i<m;i++) {
+            int spell = spells[i];
+            double minPotion = Math.ceil((1.0 * success) / spell);
+            if(minPotion > maxPotion) {
+                ans[i] = 0;
+                continue;
+            }
+            int index = helper(0, n-1, minPotion, potions);
+            ans[i] = n - index;
+        }
+        return ans;
+    }
+}

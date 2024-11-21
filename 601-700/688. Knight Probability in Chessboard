@@ -1,0 +1,28 @@
+class Solution {
+    public double helper(int i, int j, int k, int n, double[][][] dp) {
+        if(i < 0 || i >= n || j < 0 || j >= n) 
+            return 0;
+        if(k == 0)
+            return 1;
+        if(dp[i][j][k] != -1)
+            return dp[i][j][k];
+        
+        double ans = 
+            helper(i-2, j-1, k-1, n, dp) +
+            helper(i-2, j+1, k-1, n, dp) +
+            helper(i-1, j-2, k-1, n, dp) +
+            helper(i-1, j+2, k-1, n, dp) +
+            helper(i+1, j-2, k-1, n, dp) +
+            helper(i+1, j+2, k-1, n, dp) +
+            helper(i+2, j-1, k-1, n, dp) +
+            helper(i+2, j+1, k-1, n, dp);
+        return dp[i][j][k] = (1.0 * ans) / 8;
+    }
+    public double knightProbability(int n, int k, int row, int column) {
+        double[][][] dp = new double[n][n][k+1];
+        for(double[][] arr1 : dp)
+            for(double[] arr2 : arr1)
+                Arrays.fill(arr2, -1);
+        return helper(row, column, k, n, dp);
+    }
+}

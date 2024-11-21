@@ -1,0 +1,26 @@
+class Solution {
+    int count = 0;
+    public void helper(int start, int end, String s) {
+        if(start == s.length() && end == s.length()) {
+            return;
+        } else {
+            if(end == s.length()+1) {
+                helper(start+1, start+1, s);
+            } else {
+                if(start != end && end - start == 3) {
+                    Set<Character> set = new HashSet<>();
+                    String temp = s.substring(start, end);
+                    for(char ch : temp.toCharArray())
+                        set.add(ch);
+                    if(set.size() == 3)
+                        count++;
+                }
+                helper(start, end+1, s);
+            }
+        }
+    }
+    public int countGoodSubstrings(String s) {
+        helper(0, 1, s);
+        return count;
+    }
+}

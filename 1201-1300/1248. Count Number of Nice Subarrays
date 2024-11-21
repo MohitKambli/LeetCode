@@ -1,0 +1,31 @@
+class Solution {
+    public int numberOfSubarrays(int[] nums, int k) {
+        // Map<Integer, Integer> map = new HashMap<>();
+        // map.put(0, 1);
+        // int ans = 0, oddCount = 0;
+        // for(int num : nums) {
+        //     oddCount += (num % 2);
+        //     ans += map.getOrDefault(oddCount - k, 0);
+        //     map.put(oddCount, map.getOrDefault(oddCount, 0) + 1);
+        // }
+        // return ans;
+
+        int n = nums.length, oddCount = 0, ans = 0, left = 0, mid = 0;
+        for(int right=0;right<n;right++) {
+            if(nums[right] % 2 == 1)
+                oddCount++;
+            while(oddCount > k) {
+                if(nums[left] % 2 == 1)
+                    oddCount--;
+                left++;
+                mid = left;
+            }
+            if(oddCount == k) {
+                while(nums[mid] % 2 != 1)
+                    mid++;
+                ans += (mid - left + 1);
+            }
+        }
+        return ans;
+    }
+}

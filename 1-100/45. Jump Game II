@@ -1,0 +1,21 @@
+class Solution {
+    public int helper(int index, int n, int[] nums, int[] dp) {
+        if(index == n-1)
+            return 0;
+        if(index >= n)
+            return 50000;
+        if(dp[index] != -1)
+            return dp[index];
+        
+        int ans = 50000;
+        for(int i=1;i<=nums[index];i++)
+            ans = Math.min(ans, 1 + helper(index+i, n, nums, dp));
+        return ans;
+    }
+    public int jump(int[] nums) {
+        int n = nums.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp, -1);
+        return helper(0, n, nums, dp);
+    }
+}

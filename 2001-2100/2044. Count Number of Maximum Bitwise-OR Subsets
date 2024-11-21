@@ -1,0 +1,15 @@
+class Solution {
+    public int helper(int index, int currOr, int maxOr, int n, int[] nums) {
+        if(index == n)
+            return currOr == maxOr ? 1 : 0;
+        
+        return helper(index+1, currOr, maxOr, n, nums) + helper(index+1, currOr | nums[index], maxOr, n, nums);
+    }
+    public int countMaxOrSubsets(int[] nums) {
+        int maxOr = 0;
+        for(int num : nums)
+            maxOr |= num;
+        int n = nums.length;
+        return helper(0, 0, maxOr, n, nums);
+    }
+}

@@ -1,0 +1,11 @@
+class Solution {
+    public int minIncrementForUnique(int[] nums) {
+        Arrays.sort(nums);
+        int res = 0, n = nums.length, prev = nums[0];
+        for(int i=1;i<n;i++) {
+            prev = Math.max(prev + 1, nums[i]);
+            res += (prev - nums[i]);
+        }
+        return res;
+    }
+}

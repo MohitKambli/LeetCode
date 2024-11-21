@@ -1,0 +1,29 @@
+class MapSum {
+    Map<String, Integer> map;
+    public MapSum() {
+        map = new HashMap<String, Integer>();
+    }
+    
+    public void insert(String key, int val) {
+        map.put(key, val);
+    }
+    
+    public int sum(String prefix) {
+        int sum = 0, n = prefix.length();
+        for(Map.Entry<String, Integer> e : map.entrySet()) {
+            if(e.getKey().length() < n)
+                continue;
+            String temp = e.getKey().substring(0, n);
+            if(temp.equals(prefix))
+                sum += e.getValue();
+        }
+        return sum;
+    }
+}
+
+/**
+ * Your MapSum object will be instantiated and called as such:
+ * MapSum obj = new MapSum();
+ * obj.insert(key,val);
+ * int param_2 = obj.sum(prefix);
+ */

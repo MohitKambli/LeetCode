@@ -1,0 +1,24 @@
+class Solution {
+    public int[][] modifiedMatrix(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int[][] answer = new int[m][n];
+        List<Integer> maxValues = new ArrayList<>();
+        for(int i=0;i<n;i++) {
+            int max = Integer.MIN_VALUE;
+            for(int j=0;j<m;j++) {
+                answer[j][i] = matrix[j][i];
+                if(max < matrix[j][i])
+                    max = matrix[j][i];
+            }
+            maxValues.add(max);
+        }
+        for(int i=0;i<n;i++) {
+            for(int j=0;j<m;j++) {
+                if(matrix[j][i] == -1)
+                    answer[j][i] = maxValues.get(i);
+            }
+        }
+        return answer;
+    }
+}

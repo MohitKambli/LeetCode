@@ -1,0 +1,41 @@
+class Solution {
+    public void merge(int left, int mid, int right, Pair<Integer, Integer>[] pairs, List<Integer> ans) {
+        int i = left, j = mid+1, k = 0;
+        Pair<Integer, Integer>[] temp = new Pair[right - left + 1];
+        while (i <= mid && j <= right) {
+            if (pairs[i].getKey() <= pairs[j].getKey()) {
+                temp[k++] = pairs[j++];
+            } else {
+                ans.set(pairs[i].getValue(), ans.get(pairs[i].getValue()) + right - j + 1);
+                temp[k++] = pairs[i++];
+            }
+        }
+        while(i <= mid)
+            temp[k++] = pairs[i++];
+        while(j <= right)
+            temp[k++] = pairs[j++];
+        int p = 0;
+        for(int q=left;q<=right;q++)
+            pairs[q] = temp[p++];
+    }
+    public void mergeSort(int left, int right, Pair<Integer, Integer>[] pairs, List<Integer> ans) {
+        if(left >= right)
+            return;
+        
+        int mid = (left + right) / 2;
+        mergeSort(left, mid, pairs, ans);
+        mergeSort(mid+1, right, pairs, ans);
+        merge(left, mid, right, pairs, ans);
+    }
+    public List<Integer> countSmaller(int[] nums) {
+        int n = nums.length;
+        List<Integer> ans = new ArrayList<>();
+        for(int i=0;i<n;i++)
+            ans.add(0);
+        Pair<Integer, Integer>[] pairs = new Pair[n];
+        for(int i=0;i<n;i++)
+            pairs[i] = new Pair<>(nums[i], i);
+        mergeSort(0, n-1, pairs, ans);
+        return ans;
+    }
+}

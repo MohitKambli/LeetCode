@@ -1,0 +1,42 @@
+class Solution {
+    public boolean isEvenOddTree(TreeNode root) {
+        List<List<Integer>> bfsResult = new ArrayList<>();
+        List<TreeNode> queue = new ArrayList<>();
+        queue.add(root);
+        while(queue.size() != 0) {
+            int queueSize = queue.size();
+            List<Integer> level = new ArrayList<>();
+            for(int i=0;i<queueSize;i++) {
+                TreeNode node = queue.remove(0);
+                if(node != null) {
+                    level.add(node.val);
+                    queue.add(node.left);
+                    queue.add(node.right);
+                }
+            }
+            if(level.size() != 0)
+                bfsResult.add(level);
+        }
+        if(bfsResult.get(0).get(0) % 2 == 0)
+            return false;
+        for(int i=1;i<bfsResult.size();i++) {
+            List<Integer> level = bfsResult.get(i);
+            if(i % 2 == 0) {
+                for(int j=0;j<level.size();j++)
+                    if(level.get(j) % 2 == 0)
+                        return false;
+                for(int j=0;j<level.size()-1;j++)
+                    if(level.get(j) >= level.get(j+1))
+                        return false;
+            } else {
+                for(int j=0;j<level.size();j++)
+                    if(level.get(j) % 2 != 0)
+                        return false;
+                for(int j=0;j<level.size()-1;j++)
+                    if(level.get(j) <= level.get(j+1))
+                        return false;
+            }
+        }
+        return true;
+    }
+}

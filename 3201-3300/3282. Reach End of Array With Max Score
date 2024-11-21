@@ -1,0 +1,10 @@
+class Solution {
+    public long findMaximumScore(List<Integer> nums) {
+        long n = nums.size(), current = nums.get(0), ans = 0;
+        for(int i=1;i<n;i++) {
+            ans += current;
+            current = Math.max(current, nums.get(i));
+        }
+        return ans;
+    }
+}

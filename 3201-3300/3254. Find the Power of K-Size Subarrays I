@@ -1,0 +1,27 @@
+class Solution {
+    public int[] resultsArray(int[] nums, int k) {
+        if(k == 1)
+            return nums;
+        List<Integer> arr = new ArrayList<>();
+        int n = nums.length, left = 0, right = 1;
+        while(right < n) {
+            boolean isNotConsecutive = nums[right] - nums[right-1] != 1;
+            if(isNotConsecutive) {
+                while(left < right && left + k - 1 < n) {
+                    arr.add(-1);
+                    left++;
+                }
+                left = right;
+            } else if(right - left == k - 1) {
+                arr.add(nums[right]);
+                left++;
+            }
+            right++;
+        }
+        int p = 0;
+        int[] ans = new int[n - k + 1];
+        for(int x : arr)
+            ans[p++] = x;
+        return ans;
+    }
+}

@@ -1,0 +1,32 @@
+class Solution {
+    public long helper(int index, int n, int[][] questions, long[] dp) {
+        if(index >= n)
+            return 0;
+        if(dp[index] != -1)
+            return dp[index];
+
+        long notTake = helper(index+1, n, questions, dp);
+        long take = questions[index][0] + helper(index + questions[index][1] + 1, n, questions, dp);
+        return dp[index] = Math.max(take, notTake);
+    }
+    public long mostPoints(int[][] questions) {
+        int n = questions.length;
+
+        // Recursion + Memoization
+        /*long[] dp = new long[n];
+        Arrays.fill(dp, -1);
+        return helper(0, n, questions, dp);*/
+
+        // Tabulation
+        long[] dp = new long[n+1];
+        Arrays.fill(dp, -1);
+        for(int index=n-1;index>=0;index--) {
+            long notTake = dp[index+1];
+            long take = questions[index][0];
+            if(index + questions[index][1] + 1 < n)
+                take += dp[index + questions[index][1] + 1];
+            dp[index] = Math.max(take, notTake);
+        }
+        return dp[0];
+    }
+}

@@ -1,0 +1,26 @@
+class Solution {
+    public int maximalNetworkRank(int n, int[][] roads) {
+        Map<Integer, Set<Integer>> map = new HashMap<>();
+        for(int[] road : roads) {
+            int u = road[0], v = road[1];
+            if(!map.containsKey(u))
+                map.put(u, new HashSet<>());
+            map.get(u).add(v);
+            if(!map.containsKey(v))
+                map.put(v, new HashSet<>());
+            map.get(v).add(u);
+        }
+        int max = Integer.MIN_VALUE;
+        for(int i=0;i<n;i++) {
+            for(int j=i+1;j<n;j++) {
+                int iRank = map.containsKey(i) ? map.get(i).size() : 0;
+                int jRank = map.containsKey(j) ? map.get(j).size() : 0;
+                int totalRank = iRank + jRank;
+                if(map.containsKey(i) && map.get(i).contains(j))
+                    totalRank--;
+                max = Math.max(max, totalRank);
+            }
+        }
+        return max;
+    }
+}

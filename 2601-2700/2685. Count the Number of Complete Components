@@ -1,0 +1,47 @@
+class Solution {
+    public void helper(int node, Map<Integer, List<Integer>> adj, boolean[] visited, int[] nodeCount, int[] edgeCount) {
+        visited[node] = true;
+        nodeCount[0]++;
+        if(adj.containsKey(node)) {
+            edgeCount[0] += adj.get(node).size();
+            for(int x : adj.get(node)) {
+                if(!visited[x]) {
+                    helper(x, adj, visited, nodeCount, edgeCount);
+                }
+            }
+        }
+    }
+    public int countCompleteComponents(int n, int[][] edges) {
+        Map<Integer, List<Integer>> adj = new HashMap<>();
+        for(int[] edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+            if(!adj.containsKey(u)) {
+                List<Integer> arr = new ArrayList<>();
+                arr.add(v);
+                adj.put(u, arr);
+            } else {
+                adj.get(u).add(v);
+            }
+            if(!adj.containsKey(v)) {
+                List<Integer> arr = new ArrayList<>();
+                arr.add(u);
+                adj.put(v, arr);
+            } else {
+                adj.get(v).add(u);
+            }
+        }
+        boolean[] visited = new boolean[n];
+        int count = 0;
+        for(int i=0;i<n;i++) {
+            if(!visited[i]) {
+                int[] nodeCount = new int[]{0};
+                int[] edgeCount = new int[]{0};
+                helper(i, adj, visited, nodeCount, edgeCount);
+                if((nodeCount[0] * (nodeCount[0]-1)) == edgeCount[0])
+                    count++;
+            }
+        }
+        return count;
+    }
+}

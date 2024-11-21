@@ -1,0 +1,58 @@
+class Solution {
+    class TrieNode {
+        String word;
+        boolean isEndOfWord;
+        TrieNode[] children;
+        TrieNode() {
+            word = "";
+            isEndOfWord = false;
+            children = new TrieNode[26];
+        }
+    }
+    void insert(TrieNode root, String word) {
+        TrieNode crawler = root;
+        int n = word.length();
+        for(int i=0;i<n;i++) {
+            char ch = word.charAt(i);
+            int index = ch - 'a';
+            if(crawler.children[index] == null)
+                crawler.children[index] = new TrieNode();
+            crawler = crawler.children[index];
+        }
+        crawler.isEndOfWord = true;
+        crawler.word = word;
+    }
+    public void helper(int i, int j, int m, int n, int index, char[][] board, TrieNode root, boolean[][] visited, List<String> ans) {
+        if(i < 0 || i == m || j < 0 || j == n || visited[i][j] || root.children[board[i][j] - 'a'] == null)
+            return;
+        
+        root = root.children[board[i][j] - 'a'];
+        if(root.isEndOfWord) {
+            ans.add(root.word);
+            root.isEndOfWord = false;
+        }
+        visited[i][j] = true;
+        helper(i-1, j, m, n, index, board, root, visited, ans);
+        helper(i+1, j, m, n, index, board, root, visited, ans);
+        helper(i, j-1, m, n, index, board, root, visited, ans);
+        helper(i, j+1, m, n, index, board, root, visited, ans);
+        visited[i][j] = false;
+    }
+    public List<String> findWords(char[][] board, String[] words) {
+        List<String> ans = new ArrayList<>();
+        TrieNode root = new TrieNode();
+        for(String word : words)
+            insert(root, word);
+        int m = board.length, n = board[0].length;
+        boolean[][] visited = new boolean[m][n];
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                char ch = board[i][j];
+                int index = ch - 'a';
+                if(root.children[index] != null)
+                    helper(i, j, m, n, index, board, root, visited, ans);
+            }
+        }
+        return ans;
+    }
+}

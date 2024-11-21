@@ -1,0 +1,29 @@
+class Solution {
+    public String reorderSpaces(String text) {
+        int n = text.length(), spaces = 0, words = 0;
+        for(int i=0;i<n;i++) {
+            if(text.charAt(i) == ' ')
+                spaces++;
+            if(text.charAt(i) != ' ' && (i+1 == n || text.charAt(i+1) == ' '))
+                words++;
+        }
+        int requiredSpaces = words < 2 ? spaces : spaces / (words-1);
+        String ans = "";
+        int i = 0, spacesCount = 0;
+        while(i < n) {
+            while(i < n && text.charAt(i) == ' ')
+                i++;
+            while(i < n && text.charAt(i) != ' ')
+                ans += text.charAt(i++);
+            while(ans.length() < n && spacesCount < requiredSpaces) {
+                ans += " ";
+                spacesCount++;
+            }
+            i++;
+            spacesCount = 0;
+        }
+        while(ans.length() < n)
+            ans += " ";
+        return ans;
+    }
+}

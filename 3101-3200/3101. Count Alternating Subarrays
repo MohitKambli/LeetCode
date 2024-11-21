@@ -1,0 +1,11 @@
+class Solution {
+    public long countAlternatingSubarrays(int[] nums) {
+        int n = nums.length;
+        long ans = 1, size = 1;
+        for(int i=1;i<n;i++) {
+            size = (nums[i] == nums[i-1]) ? 1 : size + 1;
+            ans += size;
+        }
+        return ans;
+    }
+}

@@ -1,0 +1,48 @@
+class Solution {
+    public int shortestPathAllKeys(String[] grid) {
+        int m = grid.length, n = grid[0].length(), keys = 0;
+        List<int[]> queue = new ArrayList<>();
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(grid[i].charAt(j) == '@')
+                    queue.add(new int[]{i, j, 0, 0});
+                else if(grid[i].charAt(j) >= 'a' && grid[i].charAt(j) <= 'f')
+                    keys++;
+            }
+        }
+        int finalKeyStatus = (int)Math.pow(2, keys) - 1;
+        int[][] directions = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+        boolean[][][] visited = new boolean[m][n][finalKeyStatus+1];
+        while(!queue.isEmpty()) {
+            int[] pair = queue.remove(0);
+            int x = pair[0], y = pair[1], level = pair[2], currentKeyStatus = pair[3];
+            if(currentKeyStatus == finalKeyStatus)
+                return level;
+            for(int[] direction : directions) {
+                int dx = direction[0], dy = direction[1];
+                int newX = x + dx, newY = y + dy;
+                if(newX < 0 || newX == m || newY < 0 || newY == n || grid[newX].charAt(newY) == '#')
+                    continue;
+                char ch = grid[newX].charAt(newY);
+                if(ch >= 'A' && ch <= 'F') {
+                    if(!visited[newX][newY][currentKeyStatus] && ((currentKeyStatus >> (ch - 'A')) & 1) == 1) {
+                        visited[newX][newY][currentKeyStatus] = true;
+                        queue.add(new int[]{newX, newY, level+1, currentKeyStatus});
+                    }
+                } else if(ch >= 'a' && ch <= 'f') {
+                    int newKeyStatus = currentKeyStatus | (1 << (ch - 'a'));
+                    if(!visited[newX][newY][currentKeyStatus]) {
+                        visited[newX][newY][currentKeyStatus] = true;
+                        queue.add(new int[]{newX, newY, level+1, newKeyStatus});
+                    }
+                } else {
+                    if(!visited[newX][newY][currentKeyStatus]) {
+                        visited[newX][newY][currentKeyStatus] = true;
+                        queue.add(new int[]{newX, newY, level+1, currentKeyStatus});
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+}

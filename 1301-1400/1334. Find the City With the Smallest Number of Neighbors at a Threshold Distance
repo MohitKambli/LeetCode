@@ -1,0 +1,66 @@
+class Solution {
+    public int findTheCity(int n, int[][] edges, int distanceThreshold) {
+        Map<Integer, List<Pair<Integer, Integer>>> map = new HashMap<>();
+        int[][] distances = new int[n][n];
+        for(int i=0;i<n;i++) {
+            Arrays.fill(distances[i], Integer.MAX_VALUE);
+            distances[i][i] = 0;
+        }
+        for(int[] edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+            int cost = edge[2];
+            if(!map.containsKey(u)) {
+                List<Pair<Integer, Integer>> arr = new ArrayList<>();
+                arr.add(new Pair<>(v, cost));
+                map.put(u, arr);
+            } else {
+                map.get(u).add(new Pair<>(v, cost));
+            }
+            if(!map.containsKey(v)) {
+                List<Pair<Integer, Integer>> arr = new ArrayList<>();
+                arr.add(new Pair<>(u, cost));
+                map.put(v, arr);
+            } else {
+                map.get(v).add(new Pair<>(u, cost));
+            }
+        }
+        for(int i=0;i<n;i++) {
+            int[] distance = distances[i];
+            PriorityQueue<Pair<Integer, Integer>> heap = new PriorityQueue<>((a, b) -> a.getValue() - b.getValue());
+            heap.add(new Pair<>(i, 0));
+            while(!heap.isEmpty()) {
+                Pair<Integer, Integer> p = heap.poll();
+                int node = p.getKey();
+                int cost = p.getValue();
+                if(cost > distance[node])
+                    continue;
+                if(map.get(node) != null) {
+                    for(Pair<Integer, Integer> pair : map.get(node)) {
+                        int adjNode = pair.getKey();
+                        int adjCost = pair.getValue();
+                        if(distance[adjNode] > cost + adjCost) {
+                            distance[adjNode] = cost + adjCost;
+                            heap.add(new Pair<>(adjNode, distance[adjNode]));
+                        }
+                    }
+                }
+            }
+        }
+        int minCity = -1, minCount = n;
+        for(int i=0;i<n;i++) {
+            int count = 0;
+            for(int j=0;j<n;j++) {
+                if(i == j)
+                    continue;
+                if(distances[i][j] <= distanceThreshold)
+                    count++;
+            }
+            if(count <= minCount) {
+                minCity = i;
+                minCount = count;
+            }
+        }
+        return minCity;
+    }
+}

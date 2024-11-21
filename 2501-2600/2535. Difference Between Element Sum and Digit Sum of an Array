@@ -1,0 +1,20 @@
+class Solution {
+    public int breakDigits(int num) {
+        int sum = 0;
+        while(num > 0) {
+            int x = num % 10;
+            sum += x;
+            num /= 10;
+        }
+        return sum;
+    }
+    public int differenceOfSum(int[] nums) {
+        int elementSum = 0, digitSum = 0;
+        for(int num : nums) {
+           elementSum += num;
+           digitSum += breakDigits(num);
+        }
+        int difference = elementSum - digitSum;
+        return difference < 0 ? (difference * -1) : (difference);
+    }
+}

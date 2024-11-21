@@ -1,0 +1,24 @@
+class Solution {
+    public int minimumBoxes(int[] apple, int[] capacity) {
+        Arrays.sort(capacity);
+        int n = apple.length;
+        int m = capacity.length;
+        int left = n-1, right = m-1, count = 1;
+        while(left >= 0 && right >= 0) {
+            if(apple[left] < capacity[right]) {
+                capacity[right] -= apple[left];
+                apple[left] = 0;
+                left--;
+            } else if(apple[left] >= capacity[right]) {
+                apple[left] -= capacity[right];
+                if(apple[left] == 0)
+                    left--;
+                capacity[right] = 0;
+                right--;
+                if(left >= 0)
+                    count++;
+            }
+        }
+        return count;
+    }
+}

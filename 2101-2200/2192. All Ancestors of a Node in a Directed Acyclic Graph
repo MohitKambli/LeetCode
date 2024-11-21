@@ -1,0 +1,46 @@
+class Solution {
+    public List<List<Integer>> helper(int n, Map<Integer, List<Integer>> map, int[] indegree) {
+        List<Set<Integer>> sets = new ArrayList<>();
+        List<Integer> queue = new ArrayList<>();
+        for(int i=0;i<n;i++) {
+            sets.add(new HashSet<>());
+            if(indegree[i] == 0) {
+                queue.add(i);
+            }
+        }
+        while(!queue.isEmpty()) {
+            int node = queue.remove(0);
+            if(map.get(node) != null) {
+                for(int x : map.get(node)) {
+                    sets.get(x).addAll(sets.get(node));
+                    sets.get(x).add(node);
+                    indegree[x]--;
+                    if(indegree[x] == 0) {
+                        queue.add(x);
+                    }
+                }
+            }
+        }
+        List<List<Integer>> ans = new ArrayList<>();
+        for(Set<Integer> set : sets)
+            ans.add(new ArrayList<>(new TreeSet<>(set)));
+        return ans;
+    }
+    public List<List<Integer>> getAncestors(int n, int[][] edges) {
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        int[] indegree = new int[n];
+        for(int[] edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+            if(map.containsKey(u))
+                map.get(u).add(v);
+            else {
+                List<Integer> arr = new ArrayList<>();
+                arr.add(v);
+                map.put(u, arr);
+            }
+            indegree[v]++;
+        }
+        return helper(n, map, indegree);
+    }
+}

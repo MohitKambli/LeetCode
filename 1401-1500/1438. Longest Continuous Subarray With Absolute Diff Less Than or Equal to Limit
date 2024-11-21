@@ -1,0 +1,22 @@
+class Solution {
+    public int longestSubarray(int[] nums, int limit) {
+        int n = nums.length;
+        PriorityQueue<Pair<Integer, Integer>> minHeap = new PriorityQueue<>((a,b) -> a.getKey() - b.getKey());
+        PriorityQueue<Pair<Integer, Integer>> maxHeap = new PriorityQueue<>((a,b) -> b.getKey() - a.getKey());
+
+        int i = 0, ans = 0;
+        for(int j=0;j<n;j++) {
+            minHeap.add(new Pair<>(nums[j], j));
+            maxHeap.add(new Pair<>(nums[j], j));
+            while(maxHeap.peek().getKey() - minHeap.peek().getKey() > limit) {
+                i = Math.min(maxHeap.peek().getValue(), minHeap.peek().getValue()) + 1;
+                while(maxHeap.peek().getValue() < i)
+                    maxHeap.poll();
+                while(minHeap.peek().getValue() < i)
+                    minHeap.poll();
+            }
+            ans = Math.max(ans, j - i + 1);
+        }
+        return ans;
+    }
+}

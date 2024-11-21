@@ -1,0 +1,13 @@
+class Solution(object):
+    def maximumUnits(self, boxTypes, truckSize):
+        result = 0
+        capacity = 0
+        boxTypes.sort(key = lambda x: x[1], reverse = True)
+        for boxType in boxTypes:
+            if capacity + boxType[0] <= truckSize:
+                capacity += boxType[0]
+                result += (boxType[0] * boxType[1])
+            else:
+                result += (truckSize - capacity) * (boxType[1])
+                break
+        return result

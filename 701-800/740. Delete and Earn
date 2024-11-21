@@ -1,0 +1,24 @@
+class Solution {
+    public int helper(int index, int n, int[] nums, int[] dp) {
+        if(index == n)
+            return 0;
+        if(dp[index] != -1)
+            return dp[index];
+        
+        int sum = 0, i = index, element = nums[i];
+        while(i < n && element == nums[i])
+            sum += nums[i++];
+        while(i < n && nums[i] == element+1)
+            i++;
+        int take = sum + helper(i, n , nums, dp);
+        int notTake = helper(index+1, n, nums, dp);
+        return dp[index] = Math.max(take, notTake);
+    }
+    public int deleteAndEarn(int[] nums) {
+        int n = nums.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp, -1);
+        Arrays.sort(nums);
+        return helper(0, n, nums, dp);
+    }
+}

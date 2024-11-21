@@ -1,0 +1,25 @@
+class Solution {
+    int sum = 0;
+    public void helper(int start, int end, int[] arr) {
+        if(start == arr.length && end == arr.length) {
+            return;
+        } else {
+            if(end == arr.length+1) {
+                helper(start+1, start+1, arr);
+            } else {
+                if(start != end) {
+                    if(end-start == 1 || (end-start) % 2 != 0) {
+                        for(int i=start;i<end;i++)
+                            sum += arr[i];
+                    }
+                }
+                helper(start, end+1, arr);
+            }
+        }
+    }
+    public int sumOddLengthSubarrays(int[] arr) {
+        List<Integer> temp = new ArrayList<>();
+        helper(0, 1, arr);
+        return sum;
+    }
+}

@@ -1,0 +1,52 @@
+class Solution {
+    public void helper(String source, String destination, double product, double[] ans, Map<String, List<Pair<String, Double>>> adj, Set<String> visited) {
+        if(visited.contains(source))
+            return;
+        
+        visited.add(source);
+        if(source.equals(destination)) {
+            ans[0] = product;
+            return;
+        }
+        for(Pair<String, Double> pair : adj.get(source)) {
+            String node = pair.getKey();
+            double value = pair.getValue();
+            helper(node, destination, product * value, ans, adj, visited);
+        }
+    }
+    public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
+        int nEquations = equations.size();
+        int nQueries = queries.size();
+        double[] result = new double[nQueries];
+        Map<String, List<Pair<String, Double>>> adj = new HashMap<>();
+        for(int i=0;i<nEquations;i++) {
+            String u = equations.get(i).get(0);
+            String v = equations.get(i).get(1);
+            if(!adj.containsKey(u)) {
+                List<Pair<String, Double>> arr = new ArrayList<>();
+                arr.add(new Pair<>(v, values[i]));
+                adj.put(u, arr);
+            } else {
+                adj.get(u).add(new Pair<>(v, values[i]));
+            }
+            if(!adj.containsKey(v)) {
+                List<Pair<String, Double>> arr = new ArrayList<>();
+                arr.add(new Pair<>(u, 1.0 / values[i]));
+                adj.put(v, arr);
+            } else {
+                adj.get(v).add(new Pair<>(u, 1.0 / values[i]));
+            }
+        }
+        for(int i=0;i<nQueries;i++) {
+            double[] ans = {-1.0};
+            double product = 1.0;
+            Set<String> visited = new HashSet<>();
+            String source = queries.get(i).get(0);
+            String destination = queries.get(i).get(1);
+            if(adj.containsKey(source))
+                helper(source, destination, product, ans, adj, visited);
+            result[i] = ans[0];
+        }
+        return result;
+    }
+}

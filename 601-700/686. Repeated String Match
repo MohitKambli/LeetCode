@@ -1,0 +1,16 @@
+class Solution {
+    public int repeatedStringMatch(String a, String b) {
+        int n = b.length(), count = 0;
+        String temp = "";
+        while(temp.length() < n) {
+            temp += a;
+            count++;
+        }
+        if(temp.contains(b))
+            return count;
+        temp += a;
+        if(temp.contains(b))
+            return count+1;
+        return -1;
+    }
+}

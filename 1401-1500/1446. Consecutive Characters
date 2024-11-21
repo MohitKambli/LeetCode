@@ -1,0 +1,14 @@
+class Solution {
+    public int maxPower(String s) {
+        int n = s.length(), ans = 1, count = 1;
+        for(int i=1;i<n;i++) {
+            if(s.charAt(i) == s.charAt(i-1)) {
+                count++;
+                ans = Math.max(ans, count);
+            } else {
+                count = 1;
+            }
+        }
+        return ans;
+    }
+}

@@ -1,0 +1,26 @@
+class Solution {
+    public String evaluate(String s, List<List<String>> knowledge) {
+        Map<String, String> map = new HashMap<>();
+        for(List<String> arr : knowledge)
+            map.put(arr.get(0), arr.get(1));
+        int n = s.length(), i = 0;
+        String ans = "";
+        while(i < n) {
+            char ch = s.charAt(i);
+            if(ch == '(') {
+                i++;
+                String word = "";
+                while(s.charAt(i) != ')')
+                    word += s.charAt(i++);
+                if(!map.containsKey(word))
+                    ans += "?";
+                else
+                    ans += map.get(word);
+            } else {
+                ans += ch;
+            }
+            i++;
+        }
+        return ans;
+    }
+}

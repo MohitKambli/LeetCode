@@ -1,0 +1,23 @@
+class Solution {
+    public int helper(int index, int n, String s, Set<String> words, int[] dp) {
+        if(index == n)
+            return 0;
+        if(dp[index] != -1)
+            return dp[index];
+        
+        int ans = 1 + helper(index+1, n, s, words, dp);
+        for(int i=index;i<n;i++)
+            if(words.contains(s.substring(index, i+1)))
+                ans = Math.min(ans, helper(i+1, n, s, words, dp));
+        return dp[index] = ans;
+    }
+    public int minExtraChar(String s, String[] dictionary) {
+        int n = s.length();
+        Set<String> words = new HashSet<>();
+        for(String word : dictionary)
+            words.add(word);
+        int[] dp = new int[n];
+        Arrays.fill(dp, -1);
+        return helper(0, n, s, words, dp);
+    }
+}

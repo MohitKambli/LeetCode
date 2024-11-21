@@ -1,0 +1,35 @@
+class Solution {
+    public int[][] highestPeak(int[][] arr) {
+        int m = arr.length, n = arr[0].length, level = 1;
+        int[][] ans = new int[m][n];
+        boolean[][] visited = new boolean[m][n];
+        List<int[]> queue = new ArrayList<>();
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(arr[i][j] == 1) {
+                    queue.add(new int[]{i, j});
+                    visited[i][j] = true;
+                }
+            }
+        }
+        int[][] directions = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+        while(!queue.isEmpty()) {
+            int size = queue.size();
+            while(size-- > 0) {
+                int[] pair = queue.remove(0);
+                int x = pair[0], y = pair[1];
+                for(int[] direction : directions) {
+                    int dx = direction[0], dy = direction[1];
+                    int newX = x + dx, newY = y + dy;
+                    if(newX < 0 || newX == m || newY < 0 || newY == n || visited[newX][newY])
+                        continue;
+                    queue.add(new int[]{newX, newY});
+                    visited[newX][newY] = true;
+                    ans[newX][newY] = level;
+                }
+            }
+            level++;
+        }
+        return ans;
+    }
+}

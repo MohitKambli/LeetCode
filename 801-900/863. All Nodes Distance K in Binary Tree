@@ -1,0 +1,57 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public void helper(TreeNode node, Map<TreeNode, TreeNode> map) {
+        if(node == null)
+            return;
+        
+        if(node.left != null) {
+            map.put(node.left, node);
+            helper(node.left, map);
+        }
+        if(node.right != null) {
+            map.put(node.right, node);
+            helper(node.right, map);
+        }
+    }
+    public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
+        Map<TreeNode, TreeNode> map = new HashMap<>();
+        helper(root, map);
+        List<TreeNode> queue = new ArrayList<>();
+        queue.add(target);
+        Set<TreeNode> visited = new HashSet<>();
+        visited.add(target);
+        while(!queue.isEmpty()) {
+            int size = queue.size();
+            if(k == 0)
+                break;
+            while(size-- > 0) {
+                TreeNode node = queue.remove(0);
+                if(node.left != null && !visited.contains(node.left)) {
+                    queue.add(node.left);
+                    visited.add(node.left);
+                }
+                if(node.right != null && !visited.contains(node.right)) {
+                    queue.add(node.right);
+                    visited.add(node.right);
+                }
+                if(map.containsKey(node) && !visited.contains(map.get(node))) {
+                    queue.add(map.get(node));
+                    visited.add(map.get(node));
+                }
+            }
+            k--;
+        }
+        List<Integer> ans = new ArrayList<>();
+        while(!queue.isEmpty())
+            ans.add(queue.remove(0).val);
+        return ans;
+    }
+}

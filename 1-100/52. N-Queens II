@@ -1,0 +1,40 @@
+class Solution {
+    public boolean isValid(int row, int col, int n, List<StringBuilder> board) {
+        for(int i=row-1;i>=0;i--)
+            if(board.get(i).charAt(col) == 'Q')
+                return false;
+        for(int i=row-1,j=col-1;i>=0 && j>=0;i--,j--)
+            if(board.get(i).charAt(j) == 'Q')
+                return false;
+        for(int i=row-1,j=col+1;i>=0 && j<n;i--,j++)
+            if(board.get(i).charAt(j) == 'Q')
+                return false;
+        return true;
+    }
+    public void helper(int row, int n, List<StringBuilder> board, int[] ans) {
+        if(row == n) {
+            ans[0]++;
+            return;
+        }
+
+        for(int i=0;i<n;i++) {
+            if(isValid(row, i, n, board)) {
+                board.get(row).setCharAt(i, 'Q');
+                helper(row+1, n, board, ans);
+                board.get(row).setCharAt(i, '.');
+            }
+        }
+    }
+    public int totalNQueens(int n) {
+        List<StringBuilder> board = new ArrayList<>();
+        for(int i=0;i<n;i++) {
+            StringBuilder sb = new StringBuilder("");
+            for(int j=0;j<n;j++)
+                sb.append(".");
+            board.add(sb);
+        }
+        int[] ans = new int[]{0};
+        helper(0, n, board, ans);
+        return ans[0];
+    }
+}

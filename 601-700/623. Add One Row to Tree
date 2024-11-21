@@ -1,0 +1,42 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode helper(TreeNode node, int val, int depth, int currentDepth) {
+        if(node == null)
+            return null;
+        
+        if(currentDepth == depth - 1) {
+            TreeNode leftTemp = node.left;
+            TreeNode rightTemp = node.right;
+            node.left = new TreeNode(val);
+            node.right = new TreeNode(val);
+            node.left.left = leftTemp;
+            node.right.right = rightTemp;
+            return node;
+        }
+        node.left = helper(node.left, val, depth, currentDepth+1);
+        node.right = helper(node.right, val, depth, currentDepth+1);
+        return node;
+    }
+    public TreeNode addOneRow(TreeNode root, int val, int depth) {
+        if(depth == 1) {
+            TreeNode node = new TreeNode(val);
+            node.left = root;
+            return node;
+        }
+        return helper(root, val, depth, 1);
+    }
+}

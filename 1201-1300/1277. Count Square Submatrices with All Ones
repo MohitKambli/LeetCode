@@ -1,0 +1,24 @@
+class Solution {
+    public int helper(int i, int j, int m, int n, int[][] matrix, int[][] dp) {
+        if(i < 0 || i == m || j < 0 || j == n || matrix[i][j] == 0)
+            return 0;
+        if(dp[i][j] != -1)
+            return dp[i][j];
+        
+        int right = helper(i, j+1, m, n, matrix, dp);
+        int down = helper(i+1, j, m, n, matrix, dp);
+        int rightDown = helper(i+1, j+1, m, n, matrix, dp);
+        return dp[i][j] = 1 + Math.min(right, Math.min(down, rightDown));
+    }
+    public int countSquares(int[][] matrix) {
+        int m = matrix.length, n = matrix[0].length, count = 0;
+        int[][] dp = new int[m][n];
+        for(int[] arr : dp)
+            Arrays.fill(arr, -1);
+        for(int i=0;i<m;i++)
+            for(int j=0;j<n;j++)
+                if(matrix[i][j] == 1)
+                    count += helper(i, j, m, n, matrix, dp);
+        return count;
+    }
+}

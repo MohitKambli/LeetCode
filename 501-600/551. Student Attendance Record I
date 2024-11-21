@@ -1,0 +1,11 @@
+class Solution {
+    public boolean checkRecord(String s) {
+        int n = s.length(), absentCount = 0;
+        for(int i=0;i<n;i++) {
+            char ch = s.charAt(i);
+            if(ch == 'A')
+                absentCount++;
+        }
+        return (absentCount < 2 && !s.contains("LLL") ? true : false);
+    }
+}

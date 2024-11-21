@@ -1,0 +1,17 @@
+class Solution {
+    public int maxDistToClosest(int[] seats) {
+        int n = seats.length, prev = -1, ans = -1;
+        for(int i=0;i<n;i++) {
+            if(seats[i] == 1) {
+                if(prev == -1)
+                    ans = i - prev - 1;
+                else
+                    ans = Math.max(ans, (i - prev) / 2);
+                prev = i;
+            }
+        }
+        if(seats[n-1] == 0)
+            ans = Math.max(ans, n - 1 - prev);
+        return ans;
+    }
+}

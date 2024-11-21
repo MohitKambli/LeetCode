@@ -1,0 +1,25 @@
+class Solution {
+    public String destCity(List<List<String>> paths) {
+        /*Set<String> set = new HashSet<>();
+        for(List<String> path : paths)
+            set.add(path.get(1));
+        for(List<String> path : paths)
+            set.remove(path.get(0));
+        return set.iterator().next();*/
+
+        Map<String, int[]> map = new HashMap<>();
+        for(List<String> path : paths) {
+            String u = path.get(0), v = path.get(1);
+            if(!map.containsKey(u))
+                map.put(u, new int[2]);
+            map.get(u)[1]++;
+            if(!map.containsKey(v))
+                map.put(v, new int[2]);
+            map.get(v)[0]++;
+        }
+        for(Map.Entry<String, int[]> entry : map.entrySet())
+            if(entry.getValue()[1] == 0)
+                return entry.getKey();
+        return "";
+    }
+}

@@ -1,0 +1,44 @@
+class Solution {
+    public int helper(int index, int[] dp) {
+        if(index < 0)
+            return 0;
+        if(index == 0)
+            return 1;
+        if(dp[index] != -1)
+            return dp[index];
+
+        int oneStep = helper(index-1, dp);
+        int twoSteps = helper(index-2, dp);
+        return dp[index] = oneStep + twoSteps;
+    }
+    public int climbStairs(int n) {
+        int[] dp = new int[n+1];
+        // Recursion + Memoization
+        /*Arrays.fill(dp, -1);
+        return helper(n, dp);*/
+
+        // Tabulation
+        /*dp[0] = 1;
+        for(int index=1;index<=n;index++) {
+            int oneStep = dp[index-1];
+            int twoSteps = 0;
+            if(index-2 >= 0)
+                twoSteps += dp[index-2];
+            dp[index] = oneStep + twoSteps;
+        }
+        return dp[n];*/
+
+        // Space Optimization
+        int prev2 = 0, prev1 = 1;
+        for(int index=1;index<=n;index++) {
+            int oneStep = prev1;
+            int twoSteps = 0;
+            if(index-2 >= 0)
+                twoSteps += prev2;
+            int curr = oneStep + twoSteps;
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        return prev1;
+    }
+}

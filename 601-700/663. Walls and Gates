@@ -1,0 +1,38 @@
+public class Solution {
+    /**
+     * @param rooms: m x n 2D grid
+     * @return: nothing
+     */
+    public void wallsAndGates(int[][] rooms) {
+        int m = rooms.length, n = rooms[0].length;
+        boolean[][] visited = new boolean[m][n];
+        List<int[]> queue = new ArrayList<>();
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                if(rooms[i][j] == 0) {
+                    queue.add(new int[]{i, j});
+                    visited[i][j] = true;
+                }
+            }
+        }
+        int level = 0;
+        int[][] directions = new int[][]{{-1,0},{1,0},{0,-1},{0,1}};
+        while(!queue.isEmpty()) {
+            int size = queue.size();
+            level++;
+            while(size-- > 0) {
+                int[] cell = queue.remove(0);
+                int x = cell[0], y = cell[1];
+                for(int[] dir : directions) {
+                    int dx = dir[0], dy = dir[1];
+                    int newX = x + dx, newY = y + dy;
+                    if(newX < 0 || newX == m || newY < 0 || newY == n || visited[newX][newY] || rooms[newX][newY] == -1)
+                        continue;
+                    visited[newX][newY] = true;
+                    rooms[newX][newY] = level;
+                    queue.add(new int[]{newX, newY});
+                }
+            }
+        }
+    }
+}

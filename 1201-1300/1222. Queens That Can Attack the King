@@ -1,0 +1,20 @@
+class Solution {
+    public List<List<Integer>> queensAttacktheKing(int[][] queens, int[] king) {
+        List<List<Integer>> ans = new ArrayList<>();
+        int[][] directions = new int[][]{{-1,-1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};
+        Set<String> set = new HashSet<>();
+        for(int[] queen : queens)
+            set.add(queen[0] + ", " + queen[1]);
+        for(int[] direction : directions) {
+            for(int i=0;i<8;i++) {
+                int newX = king[0] + (i * direction[0]);
+                int newY = king[1] + (i * direction[1]);
+                if(set.contains(newX + ", " + newY)) {
+                    ans.add(new ArrayList<>(Arrays.asList(newX, newY)));
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+}

@@ -1,0 +1,19 @@
+class Solution {
+    public String replaceDigits(String s) {
+        int n = s.length();
+        String ans = "";
+        for(int i=0;i<n;i++) {
+            char ch = s.charAt(i);
+            if(Character.isDigit(ch)) {
+                String num = Character.toString(ch);
+                if(i+1 < n && Character.isDigit(s.charAt(i+1)))
+                    num += s.charAt(i+1);
+                int numValue = Integer.parseInt(num);
+                ans += (char)((int)s.charAt(i-1) + numValue);
+            } else {
+                ans += ch;
+            }
+        }
+        return ans;
+    }
+}

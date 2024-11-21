@@ -1,0 +1,64 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+public class Codec {
+
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        if(root == null)
+            return "";
+        String ans = "";
+        List<TreeNode> queue = new ArrayList<>();
+        queue.add(root);
+        while(!queue.isEmpty()) {
+            TreeNode node = queue.remove(0);
+            if(node == null) {
+                ans += "# ";
+                continue;
+            }
+            queue.add(node.left);
+            queue.add(node.right);
+            ans += node.val + " ";
+        }
+        return ans;
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        if(data.equals(""))
+            return null;
+        String[] words = data.split(" ");
+        int n = words.length;
+        TreeNode root = new TreeNode(Integer.parseInt(words[0]));
+        List<TreeNode> queue = new ArrayList<>();
+        queue.add(root);
+        for(int i=1;i<n;i++) {
+            TreeNode parent = queue.remove(0);
+            if(!words[i].equals("#")) {
+                TreeNode leftNode = new TreeNode(Integer.parseInt(words[i]));
+                parent.left = leftNode;
+                queue.add(leftNode);
+            }
+            i++;
+            if(!words[i].equals("#")) {
+                TreeNode rightNode = new TreeNode(Integer.parseInt(words[i]));
+                parent.right = rightNode;
+                queue.add(rightNode);
+            }
+        }
+        return root;
+    }
+}

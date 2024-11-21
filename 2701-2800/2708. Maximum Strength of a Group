@@ -1,0 +1,17 @@
+class Solution {
+    long ans = Long.MIN_VALUE;
+    public void helper(int index, int[] nums, long product, int flag) {
+        if(index < 0) {
+            if(flag != 0)
+                ans = Math.max(ans, product);
+            return;
+        }
+        helper(index-1, nums, product * nums[index], flag+1);
+        helper(index-1, nums, product, flag);
+    }
+    public long maxStrength(int[] nums) {
+        int n = nums.length;
+        helper(n-1, nums, 1, 0);
+        return ans;
+    }
+}

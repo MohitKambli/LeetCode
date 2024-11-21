@@ -1,0 +1,16 @@
+class Solution {
+    public int minimumDeletions(String s) {
+        int rightACount = 0, leftBCount = 0, n = s.length(), ans = Integer.MAX_VALUE;
+        for(int i=0;i<n;i++)
+            if(s.charAt(i) == 'a')
+                rightACount++;
+        for(int i=0;i<n;i++) {
+            if(s.charAt(i) == 'a')
+                rightACount--;
+            ans = Math.min(ans, rightACount + leftBCount);
+            if(s.charAt(i) == 'b')
+                leftBCount++;
+        }
+        return ans;
+    }
+}

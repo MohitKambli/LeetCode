@@ -1,0 +1,18 @@
+class Solution {
+    public int minimumLength(String s) {
+        int n = s.length(), count = 0, left = 0, right = s.length()-1;
+        while(left < right && s.charAt(left) == s.charAt(right)) {
+            char chL = s.charAt(left);
+            while(left <= right && s.charAt(left) == chL) {
+                left++;
+                count++;
+            }
+            char chR = s.charAt(right);
+            while(left <= right && s.charAt(right) == chR) {
+                right--;
+                count++;
+            }
+        }
+        return n - count;
+    }
+}

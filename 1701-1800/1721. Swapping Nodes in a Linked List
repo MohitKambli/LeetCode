@@ -1,0 +1,25 @@
+class Solution {
+    public ListNode swapNodes(ListNode head, int k) {
+        ListNode left = head;
+        ListNode right = head;
+        ListNode current = head;
+        int count1 = 1, count2 = 1;
+
+        while(current != null) {
+            if(count1 == k)
+                left = current;
+            count1++;
+            current = current.next;
+        }
+        while(true) {
+            if(count2 == count1 - k) {
+                int temp = left.val;
+                left.val = right.val;
+                right.val = temp;
+                return head;
+            }
+            count2++;
+            right = right.next;
+        }
+    }
+}

@@ -1,0 +1,12 @@
+class Solution {
+    public int minimumSum(int num) {
+        int[] individualNumbers = new int[4];
+        int itr = 0;
+        while(num > 0) {
+            individualNumbers[itr++] = num % 10;
+            num /= 10;
+        }
+        Arrays.sort(individualNumbers);
+        return ((individualNumbers[0] * 10) + individualNumbers[3]) + ((individualNumbers[1] * 10) + individualNumbers[2]);
+    }
+}

@@ -1,0 +1,32 @@
+class Solution {
+    public int helper(int left, int right, String s, int[][] dp) {
+        if(left == right)
+            return 1;
+        if(left > right)
+            return 0;
+        int i = left + 1;
+        while(i <= right && s.charAt(i) == s.charAt(left))
+            i++;
+        if(i == right + 1)
+            return 1;
+        if(dp[left][right] != -1)
+            return dp[left][right];
+
+        int basic = 1 + helper(i, right, s, dp);
+        int greed = Integer.MAX_VALUE;
+        for(int j=i;j<=right;j++) {
+            if(s.charAt(j) == s.charAt(left)) {
+                int ans = helper(i, j-1, s, dp) + helper(j, right, s, dp);
+                greed = Math.min(greed, ans);
+            }
+        }
+        return dp[left][right] = Math.min(basic, greed);
+    }
+    public int strangePrinter(String s) {
+        int n = s.length();
+        int[][] dp = new int[n][n];
+        for(int[] arr : dp)
+            Arrays.fill(arr, -1);
+        return helper(0, n-1, s, dp);
+    }
+}

@@ -1,0 +1,15 @@
+class Solution {
+    public String[] sortPeople(String[] names, int[] heights) {
+        List<Pair<String, Integer>> arr = new ArrayList<>();
+        int n = heights.length, j = 0;
+        for(int i=0;i<n;i++) {
+            Pair<String, Integer> pair = new Pair<>(names[i], heights[i]);
+            arr.add(pair);
+        }
+        Collections.sort(arr, (a, b) -> b.getValue() - a.getValue());
+        String[] ans = new String[n];
+        for(Pair<String, Integer> pair : arr)
+            ans[j++] = pair.getKey();
+        return ans;
+    }
+}

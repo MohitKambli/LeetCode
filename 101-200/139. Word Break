@@ -1,0 +1,21 @@
+class Solution {
+    public boolean helper(int index, int n, String s, Set<String> set, Boolean[] dp) {
+        if(index == n)
+            return true;
+        if(dp[index] != null)
+            return dp[index];
+
+        for(int i=index+1;i<=n;i++)
+            if(set.contains(s.substring(index, i)) && helper(i, n, s, set, dp))
+                return dp[index] = true;
+        return dp[index] = false;
+    }
+    public boolean wordBreak(String s, List<String> wordDict) {
+        int n = s.length();
+        Set<String> set = new HashSet<>();
+        for(String word : wordDict)
+            set.add(word);
+        Boolean[] dp = new Boolean[n];
+        return helper(0, n, s, set, dp);
+    }
+}

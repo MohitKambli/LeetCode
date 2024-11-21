@@ -1,0 +1,16 @@
+class Solution {
+    public int findClosestNumber(int[] nums) {
+        int ans = Integer.MAX_VALUE, value = Integer.MAX_VALUE;
+        for(int x : nums) {
+            if(Math.abs(x) < ans) {
+                ans = Math.abs(x);
+                value = x;
+            }
+            if(x == Math.abs(value) && x > value) {
+                ans = Math.abs(x);
+                value = x;
+            }
+        }
+        return value;
+    }
+}

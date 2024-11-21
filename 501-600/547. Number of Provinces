@@ -1,0 +1,19 @@
+class Solution {
+    public void helper(int node, int n, boolean[] visited, int[][] isConnected) {
+        visited[node] = true;
+        for(int i=0;i<n;i++)
+            if(isConnected[node][i] == 1 && !visited[i])
+                helper(i, n, visited, isConnected);
+    }
+    public int findCircleNum(int[][] isConnected) {
+        int n = isConnected.length, count = 0;
+        boolean[] visited = new boolean[n];
+        for(int i=0;i<n;i++) {
+            if(!visited[i]) {
+                count++;
+                helper(i, n, visited, isConnected);
+            }
+        }
+        return count;
+    }
+}

@@ -1,0 +1,10 @@
+class Solution {
+    public int maximumGap(int[] nums) {
+        int n = nums.length;
+        Arrays.sort(nums);
+        int difference = 0;
+        for(int i=1;i<n;i++)
+            difference = Math.max(difference, nums[i] - nums[i-1]);
+        return difference;
+    }
+}

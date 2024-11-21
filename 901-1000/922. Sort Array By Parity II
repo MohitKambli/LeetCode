@@ -1,0 +1,21 @@
+class Solution {
+    public int[] sortArrayByParityII(int[] nums) {
+        int n = nums.length, i = 0, j = 0, k = 0;
+        int[] odd = new int[n/2];
+        int[] even = new int[n/2];
+        for(int num : nums) {
+            if(num % 2 == 0)
+                even[i++] = num;
+            else
+                odd[j++] = num;
+        }
+        int[] ans = new int[n];
+        i = 0;
+        j = 0;
+        while(i < (n/2) && j < (n/2)) {
+            ans[k++] = even[i++];
+            ans[k++] = odd[j++];
+        }
+        return ans;
+    }
+}

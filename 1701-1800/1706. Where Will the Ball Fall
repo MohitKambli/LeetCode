@@ -1,0 +1,31 @@
+class Solution {
+    public int[] findBall(int[][] grid) {
+        int m = grid.length, n = grid[0].length, j = 0;
+        int[] ans = new int[n];
+        for(int ball=0;ball<n;ball++) {
+            int row = 0, col = ball;
+            boolean stuck = false;
+            while(row < m && col < n) {
+                if(grid[row][col] == 1) {
+                    if(col == n-1 || grid[row][col+1] == -1) {
+                        stuck = true;
+                        break;
+                    }
+                    col++;
+                } else {
+                    if(col == 0 || grid[row][col-1] == 1) {
+                        stuck = true;
+                        break;
+                    }
+                    col--;
+                }
+                row++;
+            }
+            if(stuck)
+                ans[j++] = -1;
+            else
+                ans[j++] = col;
+        }
+        return ans;
+    }
+}

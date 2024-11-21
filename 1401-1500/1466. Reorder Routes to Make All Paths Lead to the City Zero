@@ -1,0 +1,72 @@
+class Solution {
+    public void helper(int node, Map<Integer, List<int[]>> map, boolean[] visited, int[] ans) {
+        if(visited[node])
+            return;
+        
+        visited[node] = true;
+        for(int[] pair : map.get(node)) {
+            int adjNode = pair[0], direction = pair[1];
+            if(!visited[adjNode]) {
+                if(direction == 1)
+                    ans[0]++;
+                helper(adjNode, map, visited, ans);
+            }
+        }
+    }
+    public int minReorder(int n, int[][] connections) {
+        // DFS
+        Map<Integer, List<int[]>> map = new HashMap<>();
+        for(int[] connection : connections) {
+            int u = connection[0], v = connection[1];
+            if(!map.containsKey(u))
+                map.put(u, new ArrayList<>());
+            map.get(u).add(new int[]{v, 1});
+            if(!map.containsKey(v))
+                map.put(v, new ArrayList<>());
+            map.get(v).add(new int[]{u, -1});
+        }
+        boolean[] visited = new boolean[n];
+        int[] ans = new int[]{0};
+        for(int i=0;i<n;i++)
+            if(!visited[i])
+                helper(i, map, visited, ans);
+        return ans[0];
+
+        // BFS
+        /*Map<Integer, List<Integer>> adj = new HashMap<>();
+        for(int[] connection : connections) {
+            int u = connection[0];
+            int v = connection[1];
+            if(!adj.containsKey(u)) {
+                List<Integer> arr = new ArrayList<>();
+                arr.add(v);
+                adj.put(u, arr);
+            } else {
+                adj.get(u).add(v);
+            }
+            if(!adj.containsKey(v)) {
+                List<Integer> arr = new ArrayList<>();
+                arr.add(-u);
+                adj.put(v, arr);
+            } else {
+                adj.get(v).add(-u);
+            }
+        }
+        List<Integer> queue = new ArrayList<>();
+        int count = 0;
+        boolean[] visited = new boolean[n];
+        queue.add(0);
+        while(!queue.isEmpty()) {
+            int node = queue.remove(0);
+            for(int neighbour : adj.get(Math.abs(node))) {
+                if(!visited[Math.abs(neighbour)]) {
+                    visited[Math.abs(neighbour)] = true;
+                    queue.add(neighbour);
+                    if(neighbour > 0)
+                        count++;
+                }
+            }
+        }
+        return count;*/
+    }
+}

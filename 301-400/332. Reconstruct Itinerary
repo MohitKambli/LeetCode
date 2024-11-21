@@ -1,0 +1,21 @@
+class Solution {
+    public void helper(String node, Map<String, PriorityQueue<String>> map, List<String> ans) {
+        PriorityQueue<String> heap = map.get(node);
+        while(heap != null && !heap.isEmpty())
+            helper(heap.poll(), map, ans);
+        ans.add(0, node);
+    }
+    public List<String> findItinerary(List<List<String>> tickets) {
+        Map<String, PriorityQueue<String>> map = new HashMap<>();
+        for(List<String> ticket : tickets) {
+            String u = ticket.get(0);
+            String v = ticket.get(1);
+            if(!map.containsKey(u))
+                map.put(u, new PriorityQueue<>());
+            map.get(u).add(v);
+        }
+        List<String> ans = new ArrayList<>();
+        helper("JFK", map, ans);
+        return ans;
+    }
+}

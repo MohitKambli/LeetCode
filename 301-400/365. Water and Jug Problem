@@ -1,0 +1,20 @@
+class Solution {
+    public boolean helper(int x, int y, int target, int total, Set<Integer> visited) {
+        if(total == target)
+            return true;
+        if(visited.contains(total) || total < 0 || total > x + y)
+            return false;
+        
+        visited.add(total);
+        return (
+            helper(x, y, target, total + x, visited) ||
+            helper(x, y, target, total - x, visited) ||
+            helper(x, y, target, total + y, visited) ||
+            helper(x, y, target, total - y, visited)
+        );
+    }
+    public boolean canMeasureWater(int x, int y, int target) {
+        Set<Integer> visited = new HashSet<>();
+        return helper(x, y, target, 0, visited);
+    }
+}

@@ -1,0 +1,15 @@
+class Solution {
+    public String sortSentence(String s) {
+        Map<Integer, String> map = new TreeMap<>();
+        String[] words = s.split(" ");
+        for(String word : words) {
+            int key = Character.getNumericValue(word.charAt(word.length()-1));
+            String value = word.substring(0, word.length()-1);
+            map.put(key, value);
+        }
+        String ans = "";
+        for(Map.Entry<Integer, String> entry : map.entrySet())
+            ans += entry.getValue() + " ";
+        return ans.substring(0, ans.length()-1);
+    }
+}

@@ -1,0 +1,29 @@
+class Solution {
+    public List<Integer> helper(String s) {
+        int n = s.length();
+        List<Integer> ans = new ArrayList<>();
+        for(int i=0;i<n;i++) {
+            char ch = s.charAt(i);
+            if(ch == '+' || ch == '-' || ch == '*') {
+                List<Integer> left = helper(s.substring(0, i));
+                List<Integer> right = helper(s.substring(i+1, n));
+                for(int x : left) {
+                    for(int y : right) {
+                        if(ch == '+')
+                            ans.add(x + y);
+                        else if(ch == '-')
+                            ans.add(x - y);
+                        else if(ch == '*')
+                            ans.add(x * y);
+                    }
+                }
+            }
+        }
+        if(ans.isEmpty())
+            ans.add(Integer.parseInt(s));
+        return ans;
+    }
+    public List<Integer> diffWaysToCompute(String expression) {
+        return helper(expression);
+    }
+}

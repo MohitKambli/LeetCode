@@ -1,0 +1,26 @@
+class Solution {
+    public boolean isPrime(int num) {
+        if(num == 1)
+            return false;
+        for(int i=2;i*i<=num;i++)
+            if(num % i == 0)
+                return false;
+        return true;
+    }
+    public int[] closestPrimes(int left, int right) {
+        int[] ans = new int[]{-1, -1};
+        List<Integer> arr = new ArrayList<>();
+        int diff = Integer.MAX_VALUE;
+        for(int i=left;i<=right;i++)
+            if(isPrime(i))
+                arr.add(i);
+        for(int i=1;i<arr.size();i++) {
+            if(arr.get(i)-arr.get(i-1) < diff) {
+                diff = arr.get(i)-arr.get(i-1);
+                ans[0] = arr.get(i-1);
+                ans[1] = arr.get(i);
+            }
+        }
+        return ans;
+    }
+}

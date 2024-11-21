@@ -1,0 +1,19 @@
+class Solution {
+    public int[] nextGreaterElements(int[] nums) {
+        int n = nums.length;
+        int[] ans = new int[n];
+        List<Integer> stack = new ArrayList<>();
+        for(int i=2*n-1;i>=0;i--) {
+            while(!stack.isEmpty() && nums[i%n] >= stack.get(stack.size()-1))
+                stack.remove(stack.size()-1);
+            if(i < n) {
+                if(!stack.isEmpty())
+                    ans[i] = stack.get(stack.size()-1);
+                else
+                    ans[i] = -1;
+            }
+            stack.add(nums[i%n]);
+        }
+        return ans;
+    }
+}

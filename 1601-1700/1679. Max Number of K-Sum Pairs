@@ -1,0 +1,19 @@
+class Solution {
+    public int maxOperations(int[] nums, int k) {
+        int left = 0, right = nums.length-1, ans = 0;
+        Arrays.sort(nums);
+        while(left < right) {
+            int temp = nums[left] + nums[right];
+            if(temp == k) {
+                ans++;
+                left++;
+                right--;
+            }
+            else if(temp < k)
+                left++;
+            else
+                right--;
+        }
+        return ans;
+    }
+}

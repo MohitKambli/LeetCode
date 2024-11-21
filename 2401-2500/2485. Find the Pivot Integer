@@ -1,0 +1,18 @@
+class Solution {
+    public int pivotInteger(int n) {
+        int left = 1, right = n;
+        int lSum = 1, rSum = n;
+        while(left < right) {
+            if (lSum > rSum) {
+                right--;
+                rSum += right;
+            } else {
+                left++;
+                lSum += left;
+            }
+        }
+        if(lSum == rSum)
+            return left;
+        return -1;
+    }
+}

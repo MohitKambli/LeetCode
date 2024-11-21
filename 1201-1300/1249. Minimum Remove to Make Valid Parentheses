@@ -1,0 +1,29 @@
+class Solution {
+    public String minRemoveToMakeValid(String s) {
+        int n = s.length();
+        List<Integer> stack = new ArrayList<>();
+        Set<Integer> set = new HashSet<>();
+        for(int i=0;i<n;i++) {
+            char ch = s.charAt(i);
+            if(ch == '(')
+                stack.add(i);
+            else if(ch == ')') {
+                if(stack.isEmpty())
+                    set.add(i);
+                else
+                    stack.remove(stack.size()-1);
+            }
+        }
+        while(!stack.isEmpty()) {
+            set.add(stack.get(stack.size()-1));
+            stack.remove(stack.size()-1);
+        }
+        String ans = "";
+        for(int i=0;i<n;i++) {
+            if(set.contains(i))
+                continue;
+            ans += s.charAt(i);
+        }
+        return ans;
+    }
+}

@@ -1,0 +1,43 @@
+class Solution {
+    public boolean isPossible(int row, int col, int n, List<StringBuilder> board) {
+        for(int i=row-1;i>=0;i--)
+            if(board.get(i).charAt(col) == 'Q')
+                return false;
+        for(int i=row-1,j=col-1;i>=0 && j>=0;i--,j--)
+            if(board.get(i).charAt(j) == 'Q')
+                return false;
+        for(int i=row-1,j=col+1;i>=0 && j<n;i--,j++)
+            if(board.get(i).charAt(j) == 'Q')
+                return false;
+        return true;
+    }
+    public void helper(int row, int n, List<StringBuilder> board, List<List<String>> ans) {
+        if(row == n) {
+            List<String> temp = new ArrayList<>();
+            for(StringBuilder sb : board)
+                temp.add(sb.toString());
+            ans.add(temp);
+            return;
+        }
+
+        for(int col=0;col<n;col++) {
+            if(isPossible(row, col, n, board)) {
+                board.get(row).setCharAt(col, 'Q');
+                helper(row+1, n, board, ans);
+                board.get(row).setCharAt(col, '.');
+            }
+        }
+    }
+    public List<List<String>> solveNQueens(int n) {
+        List<StringBuilder> board = new ArrayList<>();
+        for(int i=0;i<n;i++) {
+            StringBuilder sb = new StringBuilder("");
+            for(int j=0;j<n;j++)
+                sb.append(".");
+            board.add(sb);
+        }
+        List<List<String>> ans = new ArrayList<>();
+        helper(0, n, board, ans);
+        return ans;
+    }
+}

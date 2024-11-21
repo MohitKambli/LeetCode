@@ -1,0 +1,47 @@
+class Solution {
+    public String removeAB(String s, int x, int[] sum) {
+        List<Character> stack = new ArrayList<>();
+        int n = s.length();
+        for(int i=0;i<n;i++) {
+            char ch = s.charAt(i);
+            if(!stack.isEmpty() && stack.get(stack.size()-1) == 'a' && ch == 'b') {
+                stack.remove(stack.size()-1);
+                sum[0] += x;
+            } else {
+                stack.add(ch);
+            }
+        }
+        StringBuilder str = new StringBuilder("");
+        for(char ch : stack)
+            str.append(ch);
+        return str.toString();
+    }
+    public String removeBA(String s, int y, int[] sum) {
+        List<Character> stack = new ArrayList<>();
+        int n = s.length();
+        for(int i=0;i<n;i++) {
+            char ch = s.charAt(i);
+            if(!stack.isEmpty() && stack.get(stack.size()-1) == 'b' && ch == 'a') {
+                stack.remove(stack.size()-1);
+                sum[0] += y;
+            } else {
+                stack.add(ch);
+            }
+        }
+        StringBuilder str = new StringBuilder("");
+        for(char ch : stack)
+            str.append(ch);
+        return str.toString();
+    }
+    public int maximumGain(String s, int x, int y) {
+        int[] sum = new int[]{0};
+        if(x > y) {
+            s = removeAB(s, x, sum);
+            s = removeBA(s, y, sum);
+        } else {
+            s = removeBA(s, y, sum);
+            s = removeAB(s, x, sum);
+        }
+        return sum[0];
+    }
+}

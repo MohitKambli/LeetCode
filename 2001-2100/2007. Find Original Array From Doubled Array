@@ -1,0 +1,27 @@
+class Solution {
+    public int[] findOriginalArray(int[] changed) {
+        int n = changed.length;
+        if(n % 2 != 0)
+            return new int[]{};
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int num : changed)
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        Arrays.sort(changed);
+        List<Integer> res = new ArrayList<>();
+        for(int num : changed) {
+            if(map.get(num) == 0)
+                continue;
+            int twice = num * 2;
+            if(!map.containsKey(twice) || map.get(twice) == 0)
+                return new int[]{};
+            map.put(num, map.get(num) - 1);
+            map.put(twice, map.get(twice) - 1);
+            res.add(num);
+        }
+        int len = res.size(), k = 0;
+        int[] ans = new int[len];
+        for(int x : res)
+            ans[k++] = x;
+        return ans;
+    }
+}

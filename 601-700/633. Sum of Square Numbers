@@ -1,0 +1,15 @@
+class Solution {
+    public boolean judgeSquareSum(int c) {
+        long left = 0, right = (long) Math.sqrt(c);
+        while(left <= right) {
+            long mid = (left * left) + (right * right);
+            if(mid < c)
+                left++;
+            else if(mid > c)
+                right--;
+            else
+                return true;
+        }
+        return false;
+    }
+}

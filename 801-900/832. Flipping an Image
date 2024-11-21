@@ -1,0 +1,25 @@
+class Solution {
+    public void flip(int n, int[][] image) {
+        for(int[] row : image) {
+            int left = 0, right = n-1;
+            while(left < right) {
+                int temp = row[left];
+                row[left] = row[right];
+                row[right] = temp;
+                left++;
+                right--;
+            }
+        }
+    }
+    public void invert(int n, int[][] image) {
+        for(int i=0;i<n;i++)
+            for(int j=0;j<n;j++)
+                image[i][j] = image[i][j] == 0 ? 1 : 0;
+    }
+    public int[][] flipAndInvertImage(int[][] image) {
+        int n = image.length;
+        flip(n, image);
+        invert(n, image);
+        return image;
+    }
+}

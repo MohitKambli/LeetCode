@@ -1,0 +1,23 @@
+class Solution {
+    public boolean helper(List<Integer> arr, int k) {
+        for(int x : arr)
+            if(x < k)
+                return true;
+        return false;
+    }
+    public int minOperations(int[] nums, int k) {
+        int operations = 0;
+        List<Integer> arr = new ArrayList<>();
+        for(int x : nums)
+            arr.add(x);
+        while(helper(arr, k)) {
+            int minValue = Integer.MAX_VALUE;
+            for(int x : arr)
+                if(x < minValue)
+                    minValue = x;
+            arr.remove(Integer.valueOf(minValue));
+            operations++;
+        }
+        return operations;
+    }
+}

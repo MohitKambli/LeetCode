@@ -1,0 +1,22 @@
+class Solution {
+    public int numDifferentIntegers(String word) {
+        int n = word.length(), i = 0, count = 0;
+        Set<String> set = new HashSet<>();
+        while(i < n) {
+            char ch = word.charAt(i);
+            if(Character.isDigit(ch)) {
+                while(i < n && word.charAt(i) == '0')
+                    i++;
+                String num = "";
+                while(i < n && word.charAt(i) >= '0' && word.charAt(i) <= '9') {
+                    num += word.charAt(i);
+                    i++;
+                }
+                if(!set.contains(num))
+                    set.add(num);
+            }
+            i++;
+        }
+        return set.size();
+    }
+}

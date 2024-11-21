@@ -1,0 +1,13 @@
+class Solution {
+    public int[] smallerNumbersThanCurrent(int[] nums) {
+        int n = nums.length;
+        int[] copy = Arrays.copyOf(nums, n);
+        Arrays.sort(copy);
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i=0;i<n;i++)
+            map.putIfAbsent(copy[i], i);
+        for(int i=0;i<n;i++)
+            copy[i] = map.get(nums[i]);
+        return copy;
+    }
+}

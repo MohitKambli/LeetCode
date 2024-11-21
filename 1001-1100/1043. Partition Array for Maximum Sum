@@ -1,0 +1,24 @@
+class Solution {
+    public int helper(int index, int[] arr, int k, int[] dp) {
+        if(index == arr.length)
+            return 0;
+        if(dp[index] != -1)
+            return dp[index];
+        
+        int maxValue = Integer.MIN_VALUE;
+        int maxCost = Integer.MIN_VALUE;
+        int length = 0;
+        for(int i=index;i<Math.min(arr.length, index+k);i++) {
+            maxValue = Math.max(maxValue, arr[i]);
+            length++;
+            int cost = (length * maxValue) + helper(i+1, arr, k, dp);
+            maxCost = Math.max(cost, maxCost);
+        }
+        return dp[index] = maxCost;
+    }
+    public int maxSumAfterPartitioning(int[] arr, int k) {
+        int[] dp = new int[arr.length];
+        Arrays.fill(dp, -1);
+        return helper(0, arr, k, dp);
+    }
+}

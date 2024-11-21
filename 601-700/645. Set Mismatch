@@ -1,0 +1,19 @@
+class Solution {
+    public int[] findErrorNums(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int num : nums)
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        int[] ans = new int[2];
+        int n = nums.length;
+        for(Map.Entry<Integer, Integer> entry : map.entrySet())
+            if(entry.getValue() == 2)
+                ans[0] = entry.getKey();
+        for(int i=1;i<=n;i++) {
+            if(!map.containsKey(i)) {
+                ans[1] = i;
+                return ans;
+            }
+        }
+        return new int[2];
+    }
+}

@@ -1,0 +1,9 @@
+class Solution {
+    public String convertDateToBinary(String date) {
+        String[] ymd = date.split("-");
+        String ans = "";
+        for(String x : ymd)
+            ans += Integer.toBinaryString(Integer.parseInt(x)) + "-";
+        return ans.substring(0, ans.length()-1);
+    }
+}

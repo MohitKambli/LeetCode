@@ -1,0 +1,16 @@
+class Solution {
+    public String compressedString(String word) {
+        int n = word.length(), i = 0, j = 0;
+        String ans = "";
+        while(j < n) {
+            int count = 0;
+            while(j < n && word.charAt(i) == word.charAt(j) && count < 9) {
+                count++;
+                j++;
+            }
+            ans += String.valueOf(count) + word.charAt(i);
+            i = j;
+        }
+        return ans;
+    }
+}

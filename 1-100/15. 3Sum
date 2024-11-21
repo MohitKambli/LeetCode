@@ -1,0 +1,31 @@
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> ans = new ArrayList<>();
+        int n = nums.length;
+        for(int i=0;i<n;i++) {
+            if(i > 0 && nums[i] == nums[i-1])
+                continue;
+            int left = i+1, right = n-1, value = nums[i], target = -value;
+            while(left < right) {
+                int sum = nums[left] + nums[right];
+                if(sum > target)
+                    right--;
+                else if(sum < target)
+                    left++;
+                else {
+                    while(left < right && nums[left] == nums[left+1])
+                        left++;
+                    while(left < right && nums[right] == nums[right-1])
+                        right--;
+                    List<Integer> arr = new ArrayList<>();
+                    arr.add(value);
+                    arr.add(nums[left++]);
+                    arr.add(nums[right--]);
+                    ans.add(arr);
+                }
+            }
+        }
+        return ans;
+    }
+}

@@ -1,0 +1,24 @@
+class Solution {
+    public void helper(int index, int n, int[] nums, int k, int[] count, Map<Integer, Integer> map) {
+        if(index == n) {
+            count[0]++;
+            return;
+        }
+
+        if(!map.containsKey(nums[index] - k) && !map.containsKey(nums[index] + k)) {
+            map.put(nums[index], map.getOrDefault(nums[index], 0) + 1);
+            helper(index+1, n, nums, k, count, map);
+            map.put(nums[index], map.get(nums[index]) - 1);
+            if(map.get(nums[index]) == 0)
+                map.remove(nums[index]);
+        }
+        helper(index+1, n, nums, k, count, map);
+    }
+    public int beautifulSubsets(int[] nums, int k) {
+        int n = nums.length;
+        int[] count = new int[]{0};
+        Map<Integer, Integer> map = new HashMap<>();
+        helper(0, n, nums, k, count, map);
+        return count[0] - 1;
+    }
+}

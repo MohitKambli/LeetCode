@@ -1,0 +1,18 @@
+class Solution {
+    public boolean helper(String word1, String word2) {
+        int m = word1.length();
+        int n = word2.length();
+        return m <= n && word1.equals(word2.substring(0, m)) && word1.equals(word2.substring(n-m, n));
+    }
+    public int countPrefixSuffixPairs(String[] words) {
+        int n = words.length;
+        int count = 0;
+        for(int i=0;i<n-1;i++) {
+            for(int j=i+1;j<n;j++) {
+                if(helper(words[i], words[j]))
+                    count++;
+            }
+        }
+        return count;
+    }
+}

@@ -1,0 +1,48 @@
+class SnapshotArray {
+    Map<Integer, List<int[]>> map;
+    int snapID;
+    public SnapshotArray(int length) {
+        map = new HashMap<>();
+        snapID = 0;
+    }
+    
+    public void set(int index, int val) {
+        if(map.containsKey(index))
+            map.get(index).add(new int[]{snapID, val});
+        else {
+            int[] pair = new int[]{snapID, val};
+            List<int[]> arr = new ArrayList<>();
+            arr.add(pair);
+            map.put(index, arr);
+        }
+    }
+    
+    public int snap() {
+        return snapID++;
+    }
+    
+    public int get(int index, int snap_id) {
+        if(!map.containsKey(index))
+            return 0;
+        List<int[]> arr = map.get(index);
+        int left = 0, right = arr.size()-1, res = 0;
+        while(left <= right) {
+            int mid = (left + right) / 2;
+            if(arr.get(mid)[0] <= snap_id) {
+                res = arr.get(mid)[1];
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return res;
+    }
+}
+
+/**
+ * Your SnapshotArray object will be instantiated and called as such:
+ * SnapshotArray obj = new SnapshotArray(length);
+ * obj.set(index,val);
+ * int param_2 = obj.snap();
+ * int param_3 = obj.get(index,snap_id);
+ */

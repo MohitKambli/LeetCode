@@ -1,0 +1,33 @@
+class Solution {
+    public boolean helper(int[][] board, int player) {
+        return (
+            (board[0][0] == player && board[0][1] == player && board[0][2] == player) ||
+            (board[0][0] == player && board[1][1] == player && board[2][2] == player) ||
+            (board[0][0] == player && board[1][0] == player && board[2][0] == player) ||
+            (board[1][0] == player && board[1][1] == player && board[1][2] == player) ||
+            (board[2][0] == player && board[2][1] == player && board[2][2] == player) ||
+            (board[0][2] == player && board[1][1] == player && board[2][0] == player) ||
+            (board[0][1] == player && board[1][1] == player && board[2][1] == player) ||
+            (board[0][2] == player && board[1][2] == player && board[2][2] == player)
+        );
+    }
+    public String tictactoe(int[][] moves) {
+        int[][] board = new int[3][3];
+        int player = 1;
+        for(int[] row : board)
+            Arrays.fill(row, -1);
+        for(int[] move : moves) {
+            board[move[0]][move[1]] = player;
+            player = player == 1 ? 2 : 1;
+        }
+        if(helper(board, 1))
+            return new String("A");
+        if(helper(board, 2))
+            return new String("B");
+        for(int i=0;i<3;i++)
+            for(int j=0;j<3;j++)
+                if(board[i][j] == -1)
+                    return new String("Pending");
+        return new String("Draw");
+    }
+}

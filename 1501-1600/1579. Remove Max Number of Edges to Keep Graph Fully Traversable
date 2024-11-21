@@ -1,0 +1,71 @@
+class DSU {
+    int[] parents;
+    int[] ranks;
+    int components;
+
+    public DSU(int n) {
+        parents = new int[n+1];
+        for(int i=1;i<=n;i++)
+            parents[i] = i;
+        ranks = new int[n+1];
+        components = n;
+    }
+    public int find(int node) {
+        if(node == parents[node])
+            return node;
+        return parents[node] = find(parents[node]);
+    }
+    public void union(int x, int y) {
+        int xParent = find(x);
+        int yParent = find(y);
+        if(xParent == yParent)
+            return;
+        if(ranks[xParent] > ranks[yParent])
+            parents[yParent] = xParent;
+        else if(ranks[xParent] < ranks[yParent])
+            parents[xParent] = yParent;
+        else {
+            parents[xParent] = yParent;
+            ranks[yParent]++;
+        }
+        components--;
+    }
+}
+class Solution {
+    public int maxNumEdgesToRemove(int n, int[][] edges) {
+        DSU alice = new DSU(n);
+        DSU bob = new DSU(n);
+        int nEdges = edges.length;
+        Arrays.sort(edges, (a, b) -> b[0] - a[0]);
+        int edgeCount = 0;
+        for(int[] edge : edges) {
+            int type = edge[0], u = edge[1], v = edge[2];
+            if(type == 3) {
+                boolean isEdgeAdded = false;
+                if(alice.find(u) != alice.find(v)) {
+                    alice.union(u, v);
+                    isEdgeAdded = true;
+                }
+                if(bob.find(u) != bob.find(v)) {
+                    bob.union(u, v);
+                    isEdgeAdded = true;
+                }
+                if(isEdgeAdded)
+                    edgeCount++;
+            } else if(type == 2) {
+                if(bob.find(u) != bob.find(v)) {
+                    bob.union(u, v);
+                    edgeCount++;
+                }
+            } else {
+                if(alice.find(u) != alice.find(v)) {
+                    alice.union(u, v);
+                    edgeCount++;
+                }
+            }
+        }
+        if(alice.components == 1 && bob.components == 1)
+            return nEdges - edgeCount;
+        return -1;
+    }
+}

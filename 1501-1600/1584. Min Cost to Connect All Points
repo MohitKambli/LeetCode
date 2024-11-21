@@ -1,0 +1,58 @@
+class Solution {
+    public int helper(Map<Integer, List<Pair<Integer, Integer>>> adj, int n) {
+        boolean[] visited = new boolean[n];
+        PriorityQueue<Pair<Integer, Integer>> heap = new PriorityQueue<>((a, b) -> a.getValue() - b.getValue());
+        heap.add(new Pair<>(0, 0));
+        int sum = 0;
+        while(!heap.isEmpty()) {
+            Pair<Integer, Integer> pair = heap.poll();
+            int node = pair.getKey();
+            int distance = pair.getValue();
+            if(visited[node])
+                continue;
+            visited[node] = true;
+            sum += distance;
+            if(adj.get(node) != null) {
+                for(Pair<Integer, Integer> p : adj.get(node)) {
+                    int neighbourNode = p.getKey();
+                    int neighbourDistance = p.getValue();
+                    if(!visited[neighbourNode])
+                        heap.offer(new Pair<>(neighbourNode, neighbourDistance));
+                }
+            }
+        }
+        return sum;
+    }
+    public int minCostConnectPoints(int[][] points) {
+        int n = points.length;
+        Map<Integer, List<Pair<Integer,Integer>>> adj = new HashMap<>();
+        boolean[] visited = new boolean[n];
+        visited[0] = true;
+        for(int i=0;i<n;i++) {
+            int x1 = points[i][0];
+            int y1 = points[i][1];
+            for(int j=i+1;j<n;j++) {
+                int x2 = points[j][0];
+                int y2 = points[j][1];
+                int distance = Math.abs(x1-x2) + Math.abs(y1-y2);
+                Pair<Integer, Integer> pair1 = new Pair<>(j, distance);
+                if(!adj.containsKey(i)) {
+                    List<Pair<Integer, Integer>> arr1 = new ArrayList<>();
+                    arr1.add(pair1);
+                    adj.put(i, arr1);
+                } else {
+                    adj.get(i).add(pair1);
+                }
+                Pair<Integer, Integer> pair2 = new Pair<>(i, distance);
+                if(!adj.containsKey(j)) {
+                    List<Pair<Integer, Integer>> arr2 = new ArrayList<>();
+                    arr2.add(pair2);
+                    adj.put(j, arr2);
+                } else {
+                    adj.get(j).add(pair2);
+                }
+            }
+        }
+        return helper(adj, n);
+    }
+}

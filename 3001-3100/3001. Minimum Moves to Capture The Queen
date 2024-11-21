@@ -1,0 +1,27 @@
+class Solution {
+    public int minMovesToCaptureTheQueen(int a, int b, int c, int d, int e, int f) {
+        int[][] rookDirection = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+        for(int[] direction : rookDirection) {
+            for(int i=0;i<8;i++) {
+                int newE = e + (i * direction[0]);
+                int newF = f + (i * direction[1]);
+                if(newE == c && newF == d)
+                    break;
+                if(newE == a && newF == b)
+                    return 1;
+            }
+        }
+        int[][] bishopDirection = new int[][]{{-1,-1},{-1,1},{1,-1},{1,1}};
+        for(int[] direction : bishopDirection) {
+            for(int i=0;i<8;i++) {
+                int newE = e + (i * direction[0]);
+                int newF = f + (i * direction[1]);
+                if(newE == a && newF == b)
+                    break;
+                if(newE == c && newF == d)
+                    return 1;
+            }
+        }
+        return 2;
+    }
+}

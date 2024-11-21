@@ -1,0 +1,13 @@
+class Solution {
+    public char repeatedCharacter(String s) {
+        int n = s.length();
+        int[] frequency = new int[26];
+        for(int i=0;i<n;i++) {
+            char ch = s.charAt(i);
+            frequency[ch - 'a']++;            
+            if(frequency[ch - 'a'] == 2)
+                return ch;
+        }
+        return '0';
+    }
+}

@@ -1,0 +1,11 @@
+class Solution {
+    public boolean isFascinating(int n) {
+        long twoN = 2 * n;
+        long threeN = 3 * n;
+        String s = String.valueOf(n) + String.valueOf(twoN) + String.valueOf(threeN);
+        Set<Character> alphabets = new HashSet<>();
+        for(int i=0;i<s.length();i++)
+            alphabets.add(s.charAt(i));
+        return !s.contains("0") && s.length() == 9 && alphabets.size() == 9;    
+    }
+}

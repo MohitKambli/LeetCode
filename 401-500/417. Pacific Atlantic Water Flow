@@ -1,0 +1,41 @@
+class Solution {
+    public void helper(int i, int j, int m, int n, Set<List<Integer>> ocean, int[][] heights, int previous) {
+        if(
+            i < 0 ||
+            i == m ||
+            j < 0 ||
+            j == n ||
+            ocean.contains(new ArrayList<>(Arrays.asList(i, j))) ||
+            previous > heights[i][j]
+        )
+            return;
+        
+        ocean.add(new ArrayList<>(Arrays.asList(i, j)));
+        helper(i-1, j, m, n, ocean, heights, heights[i][j]);
+        helper(i+1, j, m, n, ocean, heights, heights[i][j]);
+        helper(i, j-1, m, n, ocean, heights, heights[i][j]);
+        helper(i, j+1, m, n, ocean, heights, heights[i][j]);
+    }
+    public List<List<Integer>> pacificAtlantic(int[][] heights) {
+        int m = heights.length, n = heights[0].length;
+        List<List<Integer>> ans = new ArrayList<>();
+        Set<List<Integer>> pacific = new HashSet<>();
+        Set<List<Integer>> atlantic = new HashSet<>();
+        for(int i=0;i<n;i++) {
+            helper(0, i, m, n, pacific, heights, heights[0][i]);
+            helper(m-1, i, m, n, atlantic, heights, heights[m-1][i]);
+        }
+        for(int i=0;i<m;i++) {
+            helper(i, 0, m, n, pacific, heights, heights[i][0]);
+            helper(i, n-1, m, n, atlantic, heights, heights[i][n-1]);
+        }
+        for(int i=0;i<m;i++) {
+            for(int j=0;j<n;j++) {
+                List<Integer> arr = new ArrayList<>(Arrays.asList(i, j));
+                if(pacific.contains(arr) && atlantic.contains(arr))
+                    ans.add(arr);
+            }
+        }
+        return ans;
+    }
+}

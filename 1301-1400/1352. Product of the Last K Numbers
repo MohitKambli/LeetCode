@@ -1,0 +1,35 @@
+class ProductOfNumbers {
+    List<Integer> arr;
+    int product;
+    public ProductOfNumbers() {
+        arr = new ArrayList<>();
+        product = 1;
+    }
+    
+    public void add(int num) {
+        if(num != 0) {
+            product *= num;
+            arr.add(product);
+        } else {
+            product = 1;
+            arr.clear();
+        }
+    }
+    
+    public int getProduct(int k) {
+        int size = arr.size();
+        if(size < k)
+            return 0;
+        else if(size == k)
+            return arr.get(size-1);
+        else
+            return arr.get(size-1) / arr.get(size-k-1);
+    }
+}
+
+/**
+ * Your ProductOfNumbers object will be instantiated and called as such:
+ * ProductOfNumbers obj = new ProductOfNumbers();
+ * obj.add(num);
+ * int param_2 = obj.getProduct(k);
+ */

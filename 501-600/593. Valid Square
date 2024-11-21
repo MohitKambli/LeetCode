@@ -1,0 +1,15 @@
+class Solution {
+    public int calculateDistance(int[] x, int[] y) {
+        return ((x[0] - y[0]) * (x[0] - y[0])) + ((x[1] - y[1]) * (x[1] - y[1]));
+    }
+    public boolean validSquare(int[] p1, int[] p2, int[] p3, int[] p4) {
+        Set<Integer> set = new HashSet<>();
+        set.add(calculateDistance(p1, p2));
+        set.add(calculateDistance(p2, p3));
+        set.add(calculateDistance(p3, p4));
+        set.add(calculateDistance(p4, p1));
+        set.add(calculateDistance(p1, p3));
+        set.add(calculateDistance(p2, p4));
+        return !set.contains(0) && set.size() == 2;
+    }
+}

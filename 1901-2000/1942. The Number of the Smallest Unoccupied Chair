@@ -1,0 +1,18 @@
+class Solution {
+    public int smallestChair(int[][] times, int targetFriend) {
+        int n = times.length, targetStart = times[targetFriend][0];
+        PriorityQueue<Integer> available = new PriorityQueue<>();
+        for(int i=0;i<n;i++)
+            available.add(i);
+        Arrays.sort(times, (a, b) -> a[0] - b[0]);
+        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+        for(int i=0;i<n;i++) {
+            while(!heap.isEmpty() && heap.peek()[0] <= times[i][0])
+                available.add(heap.poll()[1]);
+            if(times[i][0] == targetStart)
+                break;
+            heap.add(new int[]{times[i][1], available.poll()});
+        }
+        return available.peek();
+    }
+}

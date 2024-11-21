@@ -1,0 +1,25 @@
+class Solution {
+    public List<String> printVertically(String s) {
+        String[] words = s.split(" ");
+        List<String> ans = new ArrayList<>();
+        int maxLength = -1;
+        for(String word : words)
+            if(word.length() > maxLength)
+                maxLength = word.length();
+        int i = 0;
+        while(maxLength != 0) {            
+            String temp = "";
+            for(String word : words) {
+                if(i < word.length()) {
+                    temp += word.charAt(i);
+                } else {
+                    temp += " ";
+                }
+            }
+            i++;
+            maxLength--;
+            ans.add(temp.replaceAll("\\s+$", ""));
+        }
+        return ans;
+    }
+}

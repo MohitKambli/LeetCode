@@ -1,0 +1,26 @@
+class Solution {
+    public int minGroups(int[][] intervals) {
+        int n = intervals.length, k = 0;
+        int[] start = new int[n];
+        int[] end = new int[n];
+        for(int[] interval : intervals) {
+            start[k] = interval[0];
+            end[k] = interval[1];
+            k++;
+        }
+        Arrays.sort(start);
+        Arrays.sort(end);
+        int s = 0, e = 0, ans = 0, groups = 0;
+        while(s < n) {
+            if(start[s] <= end[e]) {
+                groups++;
+                s++;
+            } else {
+                groups--;
+                e++;
+            }
+            ans = Math.max(ans, groups);
+        }
+        return ans;
+    }
+}

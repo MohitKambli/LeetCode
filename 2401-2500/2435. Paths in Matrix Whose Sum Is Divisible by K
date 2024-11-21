@@ -1,0 +1,29 @@
+class Solution {
+    int mod = 1000000007;
+    public int helper(int i, int j, int[][] grid, int k, int sum, int[][][] dp) {
+        if(i < 0 || i >= grid.length || j < 0 || j >= grid[0].length)
+            return 0;
+        if(i == 0 && j == 0) {
+            sum += grid[0][0];
+            if(sum % k == 0)
+                return 1;
+            else
+                return 0;
+        }
+        if(dp[i][j][sum] != -1)
+            return dp[i][j][sum];
+        
+        int up = helper(i-1, j, grid, k, (sum + grid[i][j]) % k, dp);
+        int upperLeft = helper(i, j-1, grid, k, (sum + grid[i][j]) % k, dp);
+        return dp[i][j][sum] = (up + upperLeft) % mod;
+    }
+    public int numberOfPaths(int[][] grid, int k) {
+        int n = grid.length;
+        int m = grid[0].length;
+        int[][][] dp = new int[n][m][k+1];
+        for(int[][] rows : dp)
+            for(int[] row : rows)
+                Arrays.fill(row, -1);
+        return helper(n-1, m-1, grid, k, 0, dp);
+    }
+}

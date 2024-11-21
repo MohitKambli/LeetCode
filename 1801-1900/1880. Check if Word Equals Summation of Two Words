@@ -1,0 +1,18 @@
+class Solution {
+    public boolean isSumEqual(String firstWord, String secondWord, String targetWord) {
+        String firstWordSum = "", secondWordSum = "", targetWordSum = "";
+
+        for(int i=0;i<firstWord.length();i++) 
+            firstWordSum += String.valueOf((int)firstWord.charAt(i) - 97);
+        for(int i=0;i<secondWord.length();i++) 
+            secondWordSum += String.valueOf((int)secondWord.charAt(i) - 97);
+        for(int i=0;i<targetWord.length();i++) 
+            targetWordSum += String.valueOf((int)targetWord.charAt(i) - 97);
+
+        int firstWordSum_1 = Integer.parseInt(firstWordSum);
+        int secondWordSum_1 = Integer.parseInt(secondWordSum);
+        int targetWordSum_1 = Integer.parseInt(targetWordSum);
+        
+        return (firstWordSum_1 + secondWordSum_1 == targetWordSum_1);
+    }
+}

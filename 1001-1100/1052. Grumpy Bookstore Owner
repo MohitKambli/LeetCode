@@ -1,0 +1,18 @@
+class Solution {
+    public int maxSatisfied(int[] customers, int[] grumpy, int minutes) {
+        int n = customers.length, satisfied = 0, window = 0, maxWindow = 0, j = 0;
+        for(int i=0;i<n;i++) {
+            if(grumpy[i] == 1)
+                window += customers[i];
+            else
+                satisfied += customers[i];
+            if(i - j + 1 > minutes) {
+                if(grumpy[j] == 1)
+                    window -= customers[j];
+                j++;
+            }
+            maxWindow = Math.max(window, maxWindow);
+        }
+        return satisfied + maxWindow;
+    }
+}

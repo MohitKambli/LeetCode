@@ -1,0 +1,17 @@
+class Solution {
+    public int sumIndicesWithKSetBits(List<Integer> nums, int k) {
+        int ans = 0;
+        int m = nums.size();
+        for(int p=0;p<m;p++) {
+            String binaryString = Integer.toBinaryString(p);
+            int n = binaryString.length();
+            int count = 0;
+            for(int i=0;i<n;i++)
+                if(binaryString.charAt(i) == '1')
+                    count++;
+            if(count == k)
+                ans += nums.get(p);
+        }
+        return ans;
+    }
+}

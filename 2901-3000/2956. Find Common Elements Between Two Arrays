@@ -1,0 +1,21 @@
+class Solution {
+    public int[] findIntersectionValues(int[] nums1, int[] nums2) {
+        List<Integer> arr1 = new ArrayList<>();
+        List<Integer> arr2 = new ArrayList<>();
+        for(int num : nums1)
+            arr1.add(num);
+        for(int num : nums2)
+            arr2.add(num);
+        int[] ans = new int[2];
+        int count1 = 0, count2 = 0;
+        for(int num : arr1)
+            if(arr2.contains(num))
+                count1++;
+        for(int num : arr2)
+            if(arr1.contains(num))
+                count2++;
+        ans[0] = count1;
+        ans[1] = count2;
+        return ans;
+    }
+}

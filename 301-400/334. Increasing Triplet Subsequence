@@ -1,0 +1,14 @@
+class Solution {
+    public boolean increasingTriplet(int[] nums) {
+        int small = Integer.MAX_VALUE, medium = Integer.MAX_VALUE;
+        for(int big : nums) {
+            if(big <= small)
+                small = big;
+            else if(big <= medium)
+                medium = big;
+            else
+                return true;
+        }
+        return false;
+    }
+}

@@ -1,0 +1,27 @@
+class Solution {
+    public boolean isValid(String s) {
+        int n = s.length();
+        List<Character> stack = new ArrayList<>();
+        for(int i=0;i<n;i++) {
+            char ch = s.charAt(i);
+            if(ch == '(' || ch == '[' || ch == '{') {
+                stack.add(ch);
+            } else {
+                if(stack.isEmpty())
+                    return false;
+                char ele = stack.remove(stack.size()-1);
+                if(ch == ')') {
+                    if(ele == '[' || ele == '{')
+                        return false;
+                } else if(ch == ']') {
+                    if(ele == '(' || ele == '{')
+                        return false;
+                } else if(ch == '}') {
+                    if(ele == '(' || ele == '[')
+                        return false;
+                }
+            }
+        }
+        return stack.isEmpty();
+    }
+}

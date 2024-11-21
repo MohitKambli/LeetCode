@@ -1,0 +1,47 @@
+class Solution {
+    public void fillNeighbours(List<String> queue, Set<String> visited, String curr) {
+        for(int i=0;i<4;i++) {
+            char ch = curr.charAt(i);
+            int val = Integer.parseInt(String.valueOf(ch));
+            
+            int value1 = (val + 1) % 10;
+            curr = curr.substring(0, i) + String.valueOf(value1) + curr.substring(i+1, 4);
+            if(!visited.contains(curr)) {
+                queue.add(curr);
+                visited.add(curr);
+            }
+
+            int value2 = (val - 1 + 10) % 10;
+            curr = curr.substring(0, i) + String.valueOf(value2) + curr.substring(i+1, 4);
+            if(!visited.contains(curr)) {
+                queue.add(curr);
+                visited.add(curr);
+            }
+
+            curr = curr.substring(0, i) + String.valueOf(ch) + curr.substring(i+1, 4);
+        }
+    }
+    public int openLock(String[] deadends, String target) {
+        Set<String> visited = new HashSet<>();
+        for(String deadend : deadends) {
+            if(deadend.equals("0000"))
+                return -1;
+            visited.add(deadend);
+        }
+        List<String> queue = new ArrayList<>();
+        queue.add("0000");
+        int level = 0;
+        while(!queue.isEmpty()) {
+            int queueSize = queue.size();
+            while(queueSize > 0) {
+                String curr = queue.remove(0);
+                if(curr.equals(target))
+                    return level;
+                fillNeighbours(queue, visited, curr);
+                queueSize--;
+            }
+            level++;
+        }
+        return -1;
+    }
+}

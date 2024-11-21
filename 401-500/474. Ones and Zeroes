@@ -1,0 +1,29 @@
+class Solution {
+    public int helper(int index, int len, String[] strs, int m, int n, int[][][] dp) {
+        if(index == len)
+            return 0;
+        if(dp[index][m][n] != -1)
+            return dp[index][m][n];
+        
+        int notTake = helper(index+1, len, strs, m, n, dp);
+        int mCount = 0, nCount = 0, size = strs[index].length();
+        for(int i=0;i<size;i++) {
+            if(strs[index].charAt(i) == '0')
+                mCount++;
+            else if(strs[index].charAt(i) == '1')
+                nCount++;
+        }
+        int take = 0;
+        if(mCount <= m && nCount <= n)
+            take = 1 + helper(index+1, len, strs, m-mCount, n-nCount, dp);
+        return dp[index][m][n] = Math.max(take, notTake);
+    }
+    public int findMaxForm(String[] strs, int m, int n) {
+        int len = strs.length;
+        int[][][] dp = new int[len][m+1][n+1];
+        for(int[][] arr : dp)
+            for(int[] ar : arr)
+                Arrays.fill(ar, -1);
+        return helper(0, len, strs, m, n, dp);
+    }
+}

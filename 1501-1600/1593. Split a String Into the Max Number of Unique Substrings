@@ -1,0 +1,21 @@
+class Solution {
+    public int helper(int index, int n, String s, Set<String> set) {
+        if(index == n)
+            return 0;
+        
+        int ans = 0;
+        for(int i=index+1;i<=n;i++) {
+            String substring = s.substring(index, i);
+            if(!set.contains(substring)) {
+                set.add(substring);
+                ans = Math.max(ans, 1 + helper(i, n, s, set));
+                set.remove(substring);
+            }
+        }
+        return ans;
+    }
+    public int maxUniqueSplit(String s) {
+        int n = s.length();
+        return helper(0, n, s, new HashSet<>());
+    }
+}

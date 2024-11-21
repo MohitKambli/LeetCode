@@ -1,0 +1,33 @@
+class Solution {
+    public int helper(int index, int n, int[] days, int[] costs, int[] dp) {
+        if(index >= n)
+            return 0;
+        if(dp[index] != -1)
+            return dp[index];
+
+        // 1-Day Pass
+        int oneDayPass = costs[0] + helper(index + 1, n, days, costs, dp);
+
+        // 7-Day Pass
+        int j = index;
+        int maxDaySeven = days[index] + 7;
+        while(j < n && days[j] < maxDaySeven)
+            j++;
+        int sevenDayPass = costs[1] + helper(j, n, days, costs, dp);
+
+        // 30-Day Pass
+        int k = index;
+        int maxDayThirty = days[index] + 30;
+        while(k < n && days[k] < maxDayThirty)
+            k++;
+        int thirtyDayPass = costs[2] + helper(k, n, days, costs, dp);
+
+        return dp[index] = Math.min(oneDayPass, Math.min(sevenDayPass, thirtyDayPass));
+    }
+    public int mincostTickets(int[] days, int[] costs) {
+        int n = days.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp, -1);
+        return helper(0, n, days, costs, dp);
+    }
+}

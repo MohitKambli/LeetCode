@@ -1,0 +1,42 @@
+class TrieNode {
+    TrieNode[] children = new TrieNode[26];
+    int count = 0;
+}
+class Solution {
+    public void insert(TrieNode node, String word) {
+        int n = word.length();
+        for(int i=0;i<n;i++) {
+            if(node.children[word.charAt(i) - 'a'] != null) {
+                node = node.children[word.charAt(i) - 'a'];
+                node.count = node.count + 1;
+            } else {
+                TrieNode newNode = new TrieNode();
+                node.children[word.charAt(i) - 'a'] = newNode;
+                node = node.children[word.charAt(i) - 'a'];
+                node.count = node.count + 1;
+            }
+        }
+    }
+    public int helper(TrieNode node, String word) {
+        int count = 0, n = word.length();
+        for(int i=0;i<n;i++) {
+            node = node.children[word.charAt(i) - 'a'];
+            count += node.count;
+        }
+        return count;
+    }
+    public int[] sumPrefixScores(String[] words) {
+        TrieNode node = new TrieNode();
+        TrieNode root = node;
+        for(String word : words)
+            insert(root, word);
+        List<Integer> ans = new ArrayList<>();
+        for(String word : words)
+            ans.add(helper(root, word));
+        int j = 0;
+        int[] res = new int[ans.size()];
+        for(int value : ans)
+            res[j++] = value;
+        return res;
+    }
+}

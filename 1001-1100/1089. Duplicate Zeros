@@ -1,0 +1,23 @@
+class Solution {
+    public void duplicateZeros(int[] arr) {
+        int n = arr.length, zeroes = 0;
+        for(int num : arr)
+            if(num == 0)
+                zeroes++;
+        int left = n-1, right = n + zeroes - 1;
+        while(left >= 0 && right >= 0) {
+            if(arr[left] != 0) {
+                if(right < n)
+                    arr[right] = arr[left];
+            } else {
+                if(right < n)
+                    arr[right] = arr[left];
+                right--;
+                if(right < n)
+                    arr[right] = arr[left];
+            }
+            left--;
+            right--;
+        }
+    }
+}

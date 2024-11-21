@@ -1,0 +1,34 @@
+class Solution {
+    public double maxProbability(int n, int[][] edges, double[] succProb, int start_node, int end_node) {
+        Map<Integer, List<Pair<Integer, Double>>> map = new HashMap<>();
+        int nEdges = edges.length;
+        for(int i=0;i<nEdges;i++) {
+            int u = edges[i][0], v = edges[i][1];
+            if(!map.containsKey(u))
+                map.put(u, new ArrayList<>());
+            map.get(u).add(new Pair<>(v, succProb[i]));
+            if(!map.containsKey(v))
+                map.put(v, new ArrayList<>());
+            map.get(v).add(new Pair<>(u, succProb[i]));
+        }
+        PriorityQueue<Pair<Integer, Double>> heap = new PriorityQueue<>((a, b) -> Double.compare(b.getValue(), a.getValue()));
+        heap.add(new Pair<>(start_node, 1.0));
+        double[] probability = new double[n];
+        while(!heap.isEmpty()) {
+            Pair<Integer, Double> pair = heap.poll();
+            int node = pair.getKey();
+            double prob = pair.getValue();
+            if(map.containsKey(node)) {
+                for(Pair<Integer, Double> adjPair : map.get(node)) {
+                    int adjNode = adjPair.getKey();
+                    double adjProb = adjPair.getValue();
+                    if(probability[adjNode] < prob * adjProb) {
+                        probability[adjNode] = prob * adjProb;
+                        heap.add(new Pair<>(adjNode, probability[adjNode]));
+                    }
+                }
+            }
+        }
+        return probability[end_node];
+    }
+}

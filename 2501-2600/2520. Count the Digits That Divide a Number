@@ -1,0 +1,16 @@
+class Solution {
+    public int countDigits(int num) {
+        int temp = num;
+        List<Integer> numbers = new ArrayList<>();
+        while(temp > 0) {
+            int x = temp % 10;
+            numbers.add(x);
+            temp /= 10;
+        }
+        int count = 0;
+        for(int x : numbers)
+            if(num % x == 0)
+                count++;
+        return count;
+    }
+}
