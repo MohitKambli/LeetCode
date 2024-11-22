@@ -1,0 +1,32 @@
+class Solution {
+    public int helper(int node, int n, boolean[] visited, Map<Integer, List<Integer>> map) {
+        if(visited[node])
+            return 0;
+        
+        visited[node] = true;
+        if(map.containsKey(node))
+            for(int adjNode : map.get(node))
+                helper(adjNode, n, visited, map);
+        return 1;
+    }
+    public int makeConnected(int n, int[][] connections) {
+        int len = connections.length;
+        if(len < n-1)
+            return -1;
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        for(int[] connection : connections) {
+            int u = connection[0], v = connection[1];
+            if(!map.containsKey(u))
+                map.put(u, new ArrayList<>());
+            map.get(u).add(v);
+            if(!map.containsKey(v))
+                map.put(v, new ArrayList<>());
+            map.get(v).add(u);
+        }
+        boolean[] visited = new boolean[n];
+        int components = 0;
+        for(int i=0;i<n;i++)
+            components += helper(i, n, visited, map);
+        return components - 1;
+    }
+}
