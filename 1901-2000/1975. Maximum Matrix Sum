@@ -1,0 +1,16 @@
+class Solution {
+    public long maxMatrixSum(int[][] matrix) {
+        int n = matrix.length, count = 0, min = Integer.MAX_VALUE;
+        long ans = 0;
+        for(int i=0;i<n;i++) {
+            for(int j=0;j<n;j++) {
+                int value = matrix[i][j];
+                if(value < 0)
+                    count++;
+                ans += Math.abs(value);
+                min = Math.min(min, Math.abs(value));
+            }
+        }
+        return count % 2 == 0 ? ans : ans - 2 * min;
+    }
+}
