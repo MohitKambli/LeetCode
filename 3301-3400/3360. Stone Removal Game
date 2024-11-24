@@ -1,0 +1,14 @@
+class Solution {
+    public boolean helper(int n, int count, int player, Boolean[][][] dp) {
+        if(n < count)
+            return player == 0;
+        if(dp[n][count][player] != null)
+            return dp[n][count][player];
+
+        return dp[n][count][player] = helper(n-count, count-1, player == 0 ? 1 : 0, dp);
+    }
+    public boolean canAliceWin(int n) {
+        Boolean[][][] dp = new Boolean[n+1][11][2];
+        return helper(n, 10, 1, dp);
+    }
+}
