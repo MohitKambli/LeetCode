@@ -1,0 +1,40 @@
+class Solution {
+    public int helper(Map<Integer, List<int[]>> map, int n) {
+        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+        heap.add(new int[]{0, 0});
+        int[] dist = new int[n];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[0] = 0;
+        while(!heap.isEmpty()) {
+            int[] pair = heap.poll();
+            int node = pair[0], cost = pair[1];
+            if(map.containsKey(node)) {
+                for(int[] adjPair : map.get(node)) {
+                    int adjNode = adjPair[0], adjCost = adjPair[1];
+                    if(dist[node] + adjCost < dist[adjNode]) {
+                        dist[adjNode] = dist[node] + adjCost;
+                        heap.add(new int[]{adjNode, dist[adjNode]});
+                    }
+                }
+            }
+        }
+        return dist[n-1];
+    }
+    public int[] shortestDistanceAfterQueries(int n, int[][] queries) {
+        Map<Integer, List<int[]>> map = new HashMap<>();
+        int len = queries.length, j = 0;
+        int[] ans = new int[len];
+        for(int i=0;i<n-1;i++) {
+            map.put(i, new ArrayList<>());
+            map.get(i).add(new int[]{i+1,1});
+        }
+        for(int[] query : queries) {
+            int u = query[0], v = query[1];
+            if(!map.containsKey(u))
+                map.put(u, new ArrayList<>());
+            map.get(u).add(new int[]{v, 1});
+            ans[j++] = helper(map, n);
+        }
+        return ans;
+    }
+}
