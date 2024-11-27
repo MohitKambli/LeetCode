@@ -6,7 +6,7 @@ class Solution {
         int ans = 0;
         for(int num : nums) {
             if(!set.contains(num-1)) {
-                int len = 0;
+                int len = 1;
                 while(set.contains(num + len))
                     len++;
                 ans = Math.max(ans, len);
