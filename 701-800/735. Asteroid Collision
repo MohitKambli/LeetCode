@@ -16,10 +16,10 @@ class Solution {
             if(asteroid != 0)
                 stack.add(asteroid);
         }
-        int n = stack.size(), i = 0;
-        int[] ans = new int[n];
+        int[] ans = new int[stack.size()];
+        int j = 0;
         for(int x : stack)
-            ans[i++] = x;
+            ans[j++] = x;
         return ans;
     }
 }
