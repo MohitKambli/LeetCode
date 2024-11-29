@@ -1,0 +1,31 @@
+class Solution {
+    public int minimumTime(int[][] grid) {
+        int m = grid.length, n = grid[0].length;
+        if(grid[0][1] > 1 && grid[1][0] > 1)
+            return -1;
+        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> a[2] - b[2]);
+        heap.add(new int[]{0, 0, 0});
+        boolean[][] visited = new boolean[m][n];
+        visited[0][0] = true;
+        int[][] directions = new int[][]{{1,0},{-1,0},{0,1},{0,-1}};
+        while(!heap.isEmpty()) {
+            int[] cell = heap.poll();
+            int x = cell[0], y = cell[1], cost = cell[2];
+            for(int[] direction: directions) {
+                int newX = x + direction[0], newY = y + direction[1];
+                if(newX < 0 || newX == m || newY < 0 || newY == n || visited[newX][newY])
+                    continue;
+                int newCost = cost + 1;
+                if(grid[newX][newY] > newCost) {
+                    int wait = ((grid[newX][newY] - newCost + 1) / 2) * 2;
+                    newCost += wait;
+                }
+                if(newX == m-1 && newY == n-1)
+                    return newCost;
+                visited[newX][newY] = true;
+                heap.add(new int[]{newX, newY, newCost});
+            }
+        }
+        return -1;
+    }
+}
