@@ -1,0 +1,39 @@
+class Solution {
+    List<List<Integer>> ans = new ArrayList<>();
+    Map<Integer, List<Integer>> map = new HashMap<>();
+    public void helper(int node) {
+        while(map.get(node) != null && map.get(node).size() > 0) {
+            List<Integer> nodes = map.get(node);
+            int nextNode = nodes.get(nodes.size()-1);
+            map.get(node).remove(nodes.size()-1);
+            helper(nextNode);
+            ans.add(Arrays.asList(node, nextNode));
+        }
+    }
+    public int[][] validArrangement(int[][] pairs) {
+        int m = pairs.length, n = pairs[0].length;
+        Map<Integer, Integer> indegree = new HashMap<>();
+        for(int[] pair : pairs) {
+            int u = pair[0], v = pair[1];
+            if(!map.containsKey(u))
+                map.put(u, new ArrayList<>());
+            map.get(u).add(v);
+            indegree.put(u, indegree.getOrDefault(u, 0) + 1);
+            indegree.put(v, indegree.getOrDefault(v, 0) - 1);
+        }
+        int start = -1;
+        for(int key : indegree.keySet())
+            if(indegree.get(key) > 0)
+                start = key;
+        if(start == -1)
+            start = pairs[0][0];
+        helper(start);
+        int[][] res = new int[m][n];
+        int len = ans.size();
+        for(int i=0;i<len;i++) {
+            res[i][0] = ans.get(ans.size()-i-1).get(0);
+            res[i][1] = ans.get(ans.size()-i-1).get(1);
+        }
+        return res;
+    }
+}
