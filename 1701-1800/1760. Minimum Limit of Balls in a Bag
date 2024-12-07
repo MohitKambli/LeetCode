@@ -1,0 +1,27 @@
+class Solution {
+    public boolean helper(int[] nums, int maxBalls, int maxOperations) {
+        int ops = 0;
+        for(int num : nums) {
+            ops += (num + maxBalls - 1) / maxBalls - 1;
+            if(ops > maxOperations) 
+                return false;
+        }
+        return true;
+    }
+    public int minimumSize(int[] nums, int maxOperations) {
+        int max = Integer.MIN_VALUE;
+        for(int num : nums)
+            max = Math.max(max, num);
+        int left = 1, right = max, ans = right;
+        while(left < right) {
+            int mid = left + (right - left) / 2;
+            if(helper(nums, mid, maxOperations)) {
+                right = mid;
+                ans = right;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return ans;
+    }
+}
