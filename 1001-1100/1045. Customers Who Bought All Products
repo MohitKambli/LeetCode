@@ -6,3 +6,15 @@ having count(distinct c.product_key)  = (
     select count(distinct p.product_key)
     from product p
 );
+
+# Write your MySQL query statement below
+select distinct customer_id
+from (
+    select customer_id, count(product_key)
+    from customer
+    group by customer_id
+    having count(distinct product_key) = (
+        select count(distinct product_key)
+        from product
+    )
+) as temp;
