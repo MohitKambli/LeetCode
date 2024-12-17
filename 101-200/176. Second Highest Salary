@@ -5,3 +5,14 @@ where salary < (
     select max(salary)
     from employee
 );
+
+/*with cte as (
+    select
+        id,
+        salary,
+        dense_rank() over(order by salary desc) as d_rnk
+    from employee
+)
+select max(salary) as SecondHighestSalary
+from cte
+where d_rnk = 2;*/
