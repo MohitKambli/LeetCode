@@ -1,10 +1,11 @@
 class Solution {
     public int[] finalPrices(int[] prices) {
-        for(int i=0;i<prices.length-1;i++) {
-            for(int j=i+1;j<prices.length;j++) {
+        int n = prices.length;
+        for(int i=0;i<n;i++) {
+            for(int j=i+1;j<n;j++) {
                 if(prices[j] <= prices[i]) {
                     prices[i] -= prices[j];
-                    break; 
+                    break;
                 }
             }
         }
