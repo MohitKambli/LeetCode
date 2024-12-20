@@ -1,0 +1,15 @@
+class Solution {
+    public int buttonWithLongestTime(int[][] events) {
+        int max = events[0][1], index = events[0][0], n = events.length;
+        for(int i=1;i<n;i++) {
+            int currentIndex = events[i][0];
+            int currentTime = events[i][1];
+            int pressTime = currentTime - events[i-1][1];
+            if(pressTime > max || (pressTime == max && currentIndex < index)) {
+                max = pressTime;
+                index = currentIndex;
+            }
+        }
+        return index;
+    }
+}
