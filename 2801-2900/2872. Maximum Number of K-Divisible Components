@@ -1,0 +1,33 @@
+class Solution {
+    private Map<Integer, List<Integer>> map;
+    private int ans;
+    private int helper(int node, int parent, int[] values, int k) {
+        int res = values[node];
+        if(map.containsKey(node)) {
+            for(int adjNode : map.get(node))
+                if(parent != adjNode)
+                    res += helper(adjNode, node, values, k);
+        }
+        if(res % k == 0) {
+            ans++;
+            return 0;
+        }
+        return res % k;
+    }
+    public int maxKDivisibleComponents(int n, int[][] edges, int[] values, int k) {
+        map = new HashMap<>();
+        ans = 0;
+        int src = 0;
+        for(int[] edge : edges) {
+            int u = edge[0], v = edge[1];
+            if(!map.containsKey(u))
+                map.put(u, new ArrayList<>());
+            map.get(u).add(v);
+            if(!map.containsKey(v))
+                map.put(v, new ArrayList<>());
+            map.get(v).add(u);
+        }
+        helper(src, -1, values, k);
+        return ans;
+    }
+}
