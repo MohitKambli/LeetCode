@@ -1,8 +1,14 @@
 # Write your MySQL query statement below
-select name
+/*select name
 from customer
 where coalesce(referee_id, 0) != 2;
 
-/*select name
+select
+    name
 from customer
-where referee_id is null or referee_id != 2;*/
+where referee_id != 2 or referee_id is null;*/
+
+select
+    name
+from customer
+where ifnull(referee_id, 0) != 2;
