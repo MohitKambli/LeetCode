@@ -1,0 +1,57 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public int helper(List<Integer> level) {
+        int n = level.size(), swaps = 0;
+        int[] arr = new int[n];
+        for(int i=0;i<n;i++)
+            arr[i] = level.get(i);
+        Arrays.sort(arr);
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i=0;i<n;i++)
+            map.put(level.get(i), i);
+        for(int i=0;i<n;i++) {
+            if(level.get(i) != arr[i]) {
+                swaps++;
+                map.put(level.get(i), map.get(arr[i]));
+                level.set(map.get(arr[i]), level.get(i));
+            }
+        }
+        return swaps;
+    }
+    public int minimumOperations(TreeNode root) {
+        int ans = 0;
+        List<TreeNode> queue = new ArrayList<>();
+        queue.add(root);
+        while(!queue.isEmpty()) {
+            int size = queue.size();
+            List<Integer> level = new ArrayList<>();
+            while(size-- > 0) {
+                TreeNode node = queue.remove(0);
+                if(node != null) {
+                    if(node.left != null)
+                        queue.add(node.left);
+                    if(node.right != null)
+                        queue.add(node.right);
+                    level.add(node.val);
+                }
+            }
+            if(!level.isEmpty())
+                ans += helper(level);
+        }
+        return ans;
+    }
+}
