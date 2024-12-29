@@ -1,0 +1,5 @@
+class Solution {
+    public int smallestNumber(int n) {
+        return -1 >>> Integer.numberOfLeadingZeros(n);
+    }
+}
