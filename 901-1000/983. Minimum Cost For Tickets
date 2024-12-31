@@ -4,21 +4,19 @@ class Solution {
             return 0;
         if(dp[index] != -1)
             return dp[index];
-
+        
         // 1-Day Pass
-        int oneDayPass = costs[0] + helper(index + 1, n, days, costs, dp);
+        int oneDayPass = costs[0] + helper(index+1, n, days, costs, dp);
 
         // 7-Day Pass
-        int j = index;
-        int maxDaySeven = days[index] + 7;
-        while(j < n && days[j] < maxDaySeven)
+        int j = index, maxSevenDays = days[index] + 7;
+        while(j < n && days[j] < maxSevenDays)
             j++;
         int sevenDayPass = costs[1] + helper(j, n, days, costs, dp);
 
         // 30-Day Pass
-        int k = index;
-        int maxDayThirty = days[index] + 30;
-        while(k < n && days[k] < maxDayThirty)
+        int k = index, maxThirtyDays = days[index] + 30;
+        while(k < n && days[k] < maxThirtyDays)
             k++;
         int thirtyDayPass = costs[2] + helper(k, n, days, costs, dp);
 
