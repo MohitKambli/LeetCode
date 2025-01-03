@@ -1,0 +1,15 @@
+class Solution {
+    public int waysToSplitArray(int[] nums) {
+        int n = nums.length, ans = 0;
+        long sum = 0, subSum = 0;
+        for(int num : nums)
+            sum += num;
+        for(int i=0;i<n-1;i++) {
+            subSum += nums[i];
+            long temp = sum - subSum;
+            if(subSum >= temp)
+                ans++;
+        }
+        return ans;
+    }
+}
