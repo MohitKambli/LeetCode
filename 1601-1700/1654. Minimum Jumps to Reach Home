@@ -1,0 +1,32 @@
+class Solution {
+    public int minimumJumps(int[] forbidden, int a, int b, int x) {
+        Set<Integer> set = new HashSet<>();
+        for(int pos : forbidden)
+            set.add(pos);
+        Set<String> visited = new HashSet<>();
+        visited.add("0,0");
+        List<int[]> queue = new ArrayList<>();
+        queue.add(new int[]{0, 0});
+        int ans = 0;
+        while(!queue.isEmpty()) {
+            int size = queue.size();
+            while(size-- > 0) {
+                int[] pair = queue.remove(0);
+                int position = pair[0], direction = pair[1];
+                if(position == x)
+                    return ans;
+                int forward = position + a, backward = position - b;
+                if(forward >= 0 && forward <= 6000 && !visited.contains(forward+",0") && !set.contains(forward)) {
+                    queue.add(new int[]{forward, 0});
+                    visited.add(forward + ",0");
+                }
+                if(backward >= 0 && backward <= 6000 && direction != 1 &&!visited.contains(backward+",1") && !set.contains(backward)) {
+                    queue.add(new int[]{backward, 1});
+                    visited.add(backward + ",1");
+                }
+            }
+            ans++;
+        }
+        return -1;
+    }
+}
