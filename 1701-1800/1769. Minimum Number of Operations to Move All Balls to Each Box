@@ -1,0 +1,32 @@
+class Solution {
+    public int[] minOperations(String boxes) {
+        /*int n = boxes.length();
+        int[] ans = new int[n];
+        for(int i=0;i<n;i++) {
+            int cost = 0;
+            for(int j=0;j<n;j++)
+                if(boxes.charAt(j) == '1')
+                    cost += Math.abs(i-j);
+            ans[i] = cost;
+        }
+        return ans;*/
+
+        int n = boxes.length();
+        int[] forward = new int[n];
+        int prev = boxes.charAt(0) == '0' ? 0 : 1;
+        for(int i=1;i<n;i++) {
+            forward[i] = forward[i-1] + prev;
+            prev += boxes.charAt(i) == '0' ? 0 : 1;
+        }
+        int[] backward = new int[n];
+        prev = boxes.charAt(n-1) == '0' ? 0 : 1;
+        for(int i=n-2;i>=0;i--) {
+            backward[i] = backward[i+1] + prev;
+            prev += boxes.charAt(i) == '0' ? 0 : 1;
+        }
+        int[] ans = new int[n];
+        for(int i=0;i<n;i++)
+            ans[i] = forward[i] + backward[i];
+        return ans;
+    }
+}
