@@ -17,7 +17,6 @@ from cte
 where d_rank <= 3;
 
 
-
 # Write your MySQL query statement below
 select
     d.name as Department,
