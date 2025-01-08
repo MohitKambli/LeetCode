@@ -16,3 +16,24 @@ class Solution {
         return count;
     }
 }
+
+
+class Solution {
+    public int countPrefixSuffixPairs(String[] words) {
+        int ans = 0, n = words.length;
+        Set<String> set = new HashSet<>();
+        for(int i=0;i<n;i++) {
+            String currentWord = words[i];
+            int a = currentWord.length();
+            for(int j=i+1;j<n;j++) {
+                String nextWord = words[j];
+                int b = nextWord.length();
+                if(a <= b) {
+                    if(nextWord.substring(0, a).equals(currentWord) && nextWord.substring(b-a, b).equals(currentWord))
+                        ans++;
+                }
+            }
+        }
+        return ans;
+    }
+}
