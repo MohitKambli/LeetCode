@@ -9,7 +9,7 @@ having count(distinct c.product_key)  = (
 
 # Write your MySQL query statement below
 select
-    distinct customer_id
+    customer_id
 from (
     select
         customer_id,
@@ -17,7 +17,8 @@ from (
     from customer
     group by customer_id
     having count(distinct product_key) = (
-        select count(distinct product_key)
-        from product
+        select 
+            count(distinct product_key)
+        from product 
     )
 ) as temp;
