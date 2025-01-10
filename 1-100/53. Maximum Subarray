@@ -10,3 +10,19 @@ class Solution {
         return ans;
     }
 }
+
+
+
+class Solution(object):
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        add, ans = 0, float('-inf')
+        for num in nums:
+            add += num
+            ans = max(ans, add)
+            if add < 0:
+                add = 0
+        return ans
