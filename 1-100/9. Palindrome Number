@@ -9,3 +9,19 @@ class Solution {
         return xTemp == rev;
     }
 }
+
+
+
+class Solution(object):
+    def isPalindrome(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        xTemp = x
+        rev = 0
+        while xTemp > 0:
+            d = xTemp % 10
+            rev = rev * 10 + d
+            xTemp = xTemp // 10
+        return rev == x
