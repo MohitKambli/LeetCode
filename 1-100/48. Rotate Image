@@ -26,3 +26,36 @@ class Solution {
         reverse(matrix, n);
     }
 }
+
+
+
+
+
+
+class Solution(object):
+    def rotate(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: None Do not return anything, modify matrix in-place instead.
+        """
+        
+        def transpose(matrix):
+            n = len(matrix)
+            for i in range(n):
+                for j in range(i):
+                    matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+
+        def reverse(matrix):
+            for row in matrix:
+                left, right = 0, len(row) - 1
+                while left < right:
+                    row[left], row[right] = row[right], row[left]
+                    left += 1
+                    right -= 1
+
+        transpose(matrix)
+        reverse(matrix)
+
+
+
+
