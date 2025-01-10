@@ -1,0 +1,27 @@
+class Solution {
+    public int[] helper(String word) {
+        int[] count = new int[26];
+        for(char ch : word.toCharArray())
+            count[ch - 'a']++;
+        return count;
+    }
+    public List<String> wordSubsets(String[] words1, String[] words2) {
+        List<String> ans = new ArrayList<>();
+        int[] arr = new int[26];
+        for(String word : words2) {
+            int[] count = helper(word);
+            for(int i=0;i<26;i++)
+                arr[i] = Math.max(arr[i], count[i]);
+        }
+        for(String word : words1) {
+            int[] count = helper(word);
+            int j = 0;
+            for(j=0;j<26;j++)
+                if(count[j] < arr[j])
+                    break;
+            if(j == 26)
+                ans.add(word);
+        }
+        return ans;
+    }
+}
