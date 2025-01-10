@@ -11,3 +11,22 @@ class Solution {
         return ans;
     }
 }
+
+
+
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        n = len(prices)
+        ans = 0
+        left, right = 0, 1
+        while right < n:
+            if prices[right] > prices[left]:
+                ans = max(ans, prices[right] - prices[left])
+            else:
+                left = right
+            right += 1
+        return ans
