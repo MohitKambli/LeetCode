@@ -12,3 +12,21 @@ class Solution {
         return n - count;
     }
 }
+
+
+class Solution(object):
+    def minimumLength(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        hash_map = {}
+        count, n = 0, len(s)
+        for ch in s:
+            if ch not in hash_map:
+                hash_map[ch] = 0
+            hash_map[ch] += 1
+            if hash_map[ch] == 3:
+                hash_map[ch] -= 2
+                count += 2
+        return n - count
