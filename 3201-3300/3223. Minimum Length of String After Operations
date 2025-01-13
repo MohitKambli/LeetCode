@@ -1,0 +1,14 @@
+class Solution {
+    public int minimumLength(String s) {
+        int[] map = new int[26];
+        int n = s.length(), count = 0;
+        for(char ch : s.toCharArray()) {
+            map[ch - 'a']++;
+            if(map[ch - 'a'] == 3) {
+                map[ch - 'a'] -= 2;
+                count += 2;
+            }
+        }
+        return n - count;
+    }
+}
