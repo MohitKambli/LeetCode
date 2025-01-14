@@ -1,0 +1,34 @@
+class Solution {
+    public int helper(int i, int j, int m, int n, int r, int[][] coins, int[][][] dp) {
+        if(i == 0 && j == 0) {
+            if(r > 0 && coins[i][j] < 0)
+                return 0;
+            else
+                return coins[i][j];
+        }
+        if(i < 0 || j < 0)
+            return Integer.MIN_VALUE;
+        if(dp[i][j][r] != Integer.MIN_VALUE)
+            return dp[i][j][r];
+
+        int take = Integer.MIN_VALUE, notTake = Integer.MIN_VALUE;
+        take = coins[i][j] + Math.max(
+            helper(i-1, j, m, n, r, coins, dp),
+            helper(i, j-1, m, n, r, coins, dp)
+        );
+        if(coins[i][j] < 0 && r > 0)
+            notTake = Math.max(
+                helper(i-1, j, m, n, r-1, coins, dp),
+                helper(i, j-1, m, n, r-1, coins, dp)
+            );
+        return dp[i][j][r] = Math.max(take, notTake);
+    }
+    public int maximumAmount(int[][] coins) {
+        int m = coins.length, n = coins[0].length, r = 2;
+        int[][][] dp = new int[m][n][r+1];
+        for(int[][] arr1 : dp)
+            for(int[] arr2 : arr1)
+                Arrays.fill(arr2, Integer.MIN_VALUE);
+        return helper(m-1, n-1, m, n, r, coins, dp);
+    }
+}
