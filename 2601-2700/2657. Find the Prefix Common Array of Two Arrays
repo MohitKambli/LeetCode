@@ -16,3 +16,24 @@ class Solution {
         return ans;
     }
 }
+
+
+class Solution(object):
+    def findThePrefixCommonArray(self, A, B):
+        """
+        :type A: List[int]
+        :type B: List[int]
+        :rtype: List[int]
+        """
+        my_set = set()
+        n, count = len(A), 0
+        ans = []
+        for i in range(n):
+            if A[i] in my_set:
+                count += 1
+            my_set.add(A[i])
+            if B[i] in my_set:
+                count += 1
+            my_set.add(B[i])
+            ans.append(count)
+        return ans
