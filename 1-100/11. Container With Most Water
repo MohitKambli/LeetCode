@@ -33,4 +33,20 @@ class Solution(object):
             else:
                 right -= 1
         return ans
-        
+
+
+
+
+function maxArea(height: number[]): number {
+    let left = 0, right = height.length-1, ans = 0;
+    while(left < right) {
+        let minHeight = Math.min(height[left], height[right]);
+        let width = right - left;
+        ans = Math.max(ans, width * minHeight);
+        if(height[left] < height[right])
+            left++;
+        else
+            right--;
+    }
+    return ans;
+};
