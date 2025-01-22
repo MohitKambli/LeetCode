@@ -32,7 +32,7 @@ from (
         requester_id as id
     from requestaccepted
     union all
-    select
+    select 
         accepter_id as id
     from requestaccepted
 ) as temp
