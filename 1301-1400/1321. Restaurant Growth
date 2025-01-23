@@ -1,6 +1,6 @@
 # Write your MySQL query statement below
 select
-    visited_on,
+    c.visited_on,
     (
         select sum(amount)
         from customer
@@ -14,9 +14,10 @@ select
         )
     , 2) as average_amount
 from customer c
-where visited_on >= (
-    select date_add(min(visited_on), interval 6 day)
+where c.visited_on >= (
+    select
+        date_add(min(visited_on), interval 6 day)
     from customer
 )
-group by visited_on
-order by visited_on;
+group by c.visited_on
+order by c.visited_on;
