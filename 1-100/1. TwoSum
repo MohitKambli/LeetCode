@@ -13,6 +13,7 @@ class Solution {
     }
 }
 
+
 function twoSum(nums: number[], target: number): number[] {
     let map = new Map();
     let n = nums.length;
