@@ -1,0 +1,16 @@
+class Solution {
+    public int countPartitions(int[] nums) {
+        int n = nums.length, ans = 0;
+        for(int i=0;i<n-1;i++) {
+            int left = 0, sumLeft = 0;
+            while(left <= i)
+                sumLeft += nums[left++];
+            int right = i+1, sumRight = 0;
+            while(right < n)
+                sumRight += nums[right++];
+            if(Math.abs(sumLeft - sumRight) % 2 == 0)
+                ans++;
+        }
+        return ans;
+    }
+}
