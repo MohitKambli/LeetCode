@@ -1,32 +1,30 @@
 class Solution {
     public List<Boolean> checkIfPrerequisite(int numCourses, int[][] prerequisites, int[][] queries) {
-        int[] indegree = new int[numCourses];
         Map<Integer, List<Integer>> map = new HashMap<>();
+        int[] indegree = new int[numCourses];
         List<Set<Integer>> reachable = new ArrayList<>();
-        for(int i = 0; i < numCourses; i++) {
+        for(int i=0;i<numCourses;i++) {
             map.put(i, new ArrayList<>());
             reachable.add(new HashSet<>());
         }
         for(int[] prerequisite : prerequisites) {
-            int u = prerequisite[0];
-            int v = prerequisite[1];
+            int u = prerequisite[0], v = prerequisite[1];
             map.get(v).add(u);
             indegree[u]++;
         }
-        List<Integer> queue = new ArrayList<>();
-        for(int i=0;i<numCourses;i++) {
-            if(indegree[i] == 0) {
-                queue.add(i);
-            }
-        }
+        Queue<Integer> queue = new LinkedList<>();
+        for(int i=0;i<numCourses;i++)
+            if(indegree[i] == 0)
+                queue.offer(i);
         while(!queue.isEmpty()) {
-            int node = queue.remove(0);
-            for(int x : map.get(node)) {
-                reachable.get(x).add(node);
-                reachable.get(x).addAll(reachable.get(node));
-                indegree[x]--;
-                if(indegree[x] == 0) {
-                    queue.add(x);
+            int node = queue.poll();
+            if(map.containsKey(node)) {
+                for(int x : map.get(node)) {
+                    reachable.get(x).add(node);
+                    reachable.get(x).addAll(reachable.get(node));
+                    indegree[x]--;
+                    if(indegree[x] == 0)
+                        queue.offer(x);
                 }
             }
         }
