@@ -12,20 +12,20 @@ class Solution {
 }
 
 
+
 class Solution(object):
     def majorityElement(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
-        my_dict = {}
-        for num in nums:
-            if num not in my_dict:
-                my_dict[num] = 0
-            my_dict[num] += 1
+        count_map = {}
         n = len(nums)
-        ans = -1
-        for key, value in my_dict.items():
+        for num in nums:
+            if num not in count_map:
+                count_map[num] = 0
+            count_map[num] += 1
+        for key, value in count_map.items():
             if value > n // 2:
-                ans = key
-        return ans
+                return key
+        return -1
