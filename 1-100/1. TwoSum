@@ -25,3 +25,23 @@ function twoSum(nums: number[], target: number): number[] {
     }
     return [-1, -1];
 };
+
+
+
+
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        n = len(nums)
+        my_dict = {}
+        for i in range(n):
+            diff = target - nums[i]
+            if diff in my_dict:
+                return [my_dict[diff], i]
+            else:
+                my_dict[nums[i]] = i
+        return [-1,-1]
