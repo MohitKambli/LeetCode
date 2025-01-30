@@ -17,3 +17,23 @@ class Solution {
         return ans;
     }
 }
+
+
+
+class Solution(object):
+    def mySqrt(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        left, right, ans = 0, x, -1
+        while left <= right:
+            mid = left + (right - left) // 2
+            if mid * mid > x:
+                right = mid - 1
+            elif mid * mid < x:
+                left = mid + 1
+                ans = mid
+            else:
+                return mid
+        return ans
