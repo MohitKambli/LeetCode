@@ -17,8 +17,8 @@ class Solution(object):
         :type x: int
         :rtype: bool
         """
-        xTemp = x
         rev = 0
+        xTemp = x
         while xTemp > 0:
             d = xTemp % 10
             rev = rev * 10 + d
