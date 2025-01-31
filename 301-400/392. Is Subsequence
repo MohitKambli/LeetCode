@@ -17,3 +17,32 @@ class Solution {
         return helper(m-1, n-1, s, t, dp);
     }
 }
+
+
+
+class Solution(object):
+    def isSubsequence(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        def helper(i, j):
+            if i < 0:
+                return True
+            if j < 0:
+                return False
+            if dp[i][j] != None:
+                return dp[i][j]
+
+
+            if s[i] == t[j]:
+                dp[i][j] = helper(i-1, j-1)
+            else:
+                dp[i][j] = helper(i, j-1)
+            return dp[i][j]
+        
+
+        m, n = len(s), len(t)
+        dp = [[None for j in range(n)] for i in range(m)]
+        return helper(m-1, n-1)
