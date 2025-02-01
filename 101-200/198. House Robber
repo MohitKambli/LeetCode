@@ -30,3 +30,41 @@ class Solution {
         return dp[n-1];
     }
 }
+
+
+
+
+
+
+class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+
+        n = len(nums)
+        dp = [-1 for i in range(n)]
+
+        def helper(index):
+            if index < 0:
+                return 0
+            if index == 0:
+                return nums[0]
+            if dp[index] != -1:
+                return dp[index]
+
+            take = nums[index] + helper(index-2)
+            not_take = helper(index-1)
+            dp[index] = max(take, not_take)
+            return dp[index]
+        
+        return helper(n-1)
+
+
+
+
+
+
+
+
