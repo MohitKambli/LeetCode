@@ -32,3 +32,37 @@ class Solution {
         return Math.min(dp[n-1], dp[n-2]);
     }
 }
+
+
+
+
+
+
+class Solution(object):
+    def minCostClimbingStairs(self, cost):
+        """
+        :type cost: List[int]
+        :rtype: int
+        """
+        
+        n = len(cost)
+        dp = [-1 for i in range(n)]
+
+        def helper(index):
+            if index < 0:
+                return 0
+            if dp[index] != -1:
+                return dp[index]
+
+            one_step = helper(index-1)
+            two_steps = helper(index-2)
+            dp[index] = cost[index] + min(one_step, two_steps)
+            return dp[index]
+        
+        return min(helper(n-1), helper(n-2))
+
+
+
+
+
+
