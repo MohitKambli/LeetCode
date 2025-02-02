@@ -22,3 +22,26 @@ class Solution {
         return ans;
     }
 }
+
+
+
+
+
+class Solution(object):
+    def intersect(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        my_map = {}
+        for num in nums1:
+            if num not in my_map:
+                my_map[num] = 0
+            my_map[num] += 1
+        ans = []
+        for num in nums2:
+            if num in my_map and my_map[num] > 0:
+                ans.append(num)
+                my_map[num] -= 1
+        return ans
