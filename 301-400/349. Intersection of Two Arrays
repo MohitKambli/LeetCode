@@ -14,3 +14,17 @@ class Solution {
         return ans;
     }
 }
+
+
+
+class Solution(object):
+    def intersection(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        first = set(nums1)
+        second = set(nums2)
+        ans = [num for num in first.intersection(second)]
+        return ans
