@@ -11,3 +11,20 @@ class Solution {
         return ans;
     }
 }
+
+
+
+class Solution(object):
+    def findMaxConsecutiveOnes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        ans, add = 0, 0
+        for num in nums:
+            if num == 0:
+                add = 0
+            else:
+                add += 1
+                ans = max(ans, add)
+        return ans
