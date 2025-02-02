@@ -16,3 +16,17 @@ class Solution {
         return -1;
     }
 }
+
+
+class Solution(object):
+    def strStr(self, a, b):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        m, n = len(a), len(b)
+        for i in range(0, m-n+1):
+            if b == a[i:i+n]:
+                return i
+        return -1
