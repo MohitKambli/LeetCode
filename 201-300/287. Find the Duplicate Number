@@ -10,3 +10,19 @@ class Solution {
         return -1;
     }
 }
+
+
+
+class Solution(object):
+    def findDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        my_set = set()
+        for num in nums:
+            if num in my_set:
+                return num
+            else:
+                my_set.add(num)
+        return -1
