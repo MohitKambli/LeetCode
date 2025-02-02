@@ -25,3 +25,41 @@ class Solution {
         return stack.isEmpty();
     }
 }
+
+
+
+
+
+
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        stack = []
+        n = len(s)
+        for i in range(n):
+            ch = s[i]
+            if ch == '(' or ch == '{' or ch == '[':
+                stack.append(ch)
+            else:
+                if len(stack) == 0:
+                    return False
+                top = stack[len(stack)-1]
+                if ch == ')':
+                    if top == '{' or top == '[':
+                        return False
+                    else:
+                        stack.pop(len(stack)-1)
+                elif ch == ']':
+                    if top == '{' or top == '(':
+                        return False
+                    else:
+                        stack.pop(len(stack)-1)
+                elif ch == '}':
+                    if top == '(' or top == '[':
+                        return False
+                    else:
+                        stack.pop(len(stack)-1)
+        return len(stack) == 0
