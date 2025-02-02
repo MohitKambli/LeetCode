@@ -8,3 +8,22 @@ class Solution {
         return ans;
     }
 }
+
+
+class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        strs.sort()
+        first, last = strs[0], strs[len(strs)-1]
+        index, n = 0, min(len(first), len(last))
+        ans = ''
+        while index < n:
+            if first[index] == last[index]:
+                ans += first[index]
+                index += 1
+            else:
+                break
+        return ans
