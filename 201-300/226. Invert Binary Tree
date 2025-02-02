@@ -28,3 +28,31 @@ class Solution {
         return helper(root);
     }
 }
+
+
+
+
+
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def invertTree(self, root):
+        """
+        :type root: Optional[TreeNode]
+        :rtype: Optional[TreeNode]
+        """
+        def helper(node):
+            if not node:
+                return None
+            
+            left_node = helper(node.left)
+            right_node = helper(node.right)
+            node.left, node.right = right_node, left_node
+            return node
+
+        return helper(root)
