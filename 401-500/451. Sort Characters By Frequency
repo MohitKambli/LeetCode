@@ -16,3 +16,25 @@ class Solution {
         return ans;
     }
 }
+
+
+
+class Solution(object):
+    def frequencySort(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        
+        from collections import OrderedDict
+        count = OrderedDict()
+        for ch in s:
+            if ch not in count:
+                count[ch] = 0
+            count[ch] += 1
+        sorted_count = OrderedDict(sorted(count.items(), key = lambda x : x[1], reverse = True))
+        ans = ''
+        for key, value in sorted_count.items():
+            for i in range(value):
+                ans += key
+        return ans
