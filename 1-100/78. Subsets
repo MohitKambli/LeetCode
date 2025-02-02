@@ -15,3 +15,27 @@ class Solution {
         return ans;
     }
 }
+
+
+
+class Solution(object):
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        ans = []
+        subset = []
+        n = len(nums)
+        def helper(index):
+            if index == n:
+                ans.append(subset[:])
+                return
+            
+            subset.append(nums[index])
+            helper(index+1)
+            subset.pop()
+            helper(index+1)
+        
+        helper(0)
+        return ans
