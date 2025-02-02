@@ -8,3 +8,19 @@ class Solution {
             nums[j++] = 0;
     }
 }
+
+
+
+class Solution(object):
+    def moveZeroes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        n, index = len(nums), 0
+        for i in range(n):
+            if nums[i] != 0:
+                nums[index] = nums[i]
+                index += 1
+        for i in range(index, n):
+            nums[i] = 0
