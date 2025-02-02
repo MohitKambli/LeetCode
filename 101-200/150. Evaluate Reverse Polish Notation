@@ -28,7 +28,6 @@ class Solution {
 
 
 
-
 class Solution(object):
     def evalRPN(self, tokens):
         """
@@ -38,21 +37,21 @@ class Solution(object):
         stack = []
         for token in tokens:
             if token == '+':
-                a = stack.pop()
-                b = stack.pop()
-                stack.append(a + b)
+                x = stack.pop()
+                y = stack.pop()
+                stack.append(x + y)
             elif token == '-':
-                a = stack.pop()
-                b = stack.pop()
-                stack.append(b - a)
+                x = stack.pop()
+                y = stack.pop()
+                stack.append(y - x)
             elif token == '*':
-                a = stack.pop()
-                b = stack.pop()
-                stack.append(a * b)
+                x = stack.pop()
+                y = stack.pop()
+                stack.append(x * y)
             elif token == '/':
-                a = stack.pop()
-                b = stack.pop()
-                stack.append(int(float(b) / a))
+                x = stack.pop()
+                y = stack.pop()
+                stack.append(int(float(y) / x))
             else:
                 stack.append(int(token))
         return stack.pop()
