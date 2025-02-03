@@ -1,0 +1,18 @@
+class Solution(object):
+    def maxDifference(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        my_dict = {}
+        max_odd, max_even = -10000, 10000
+        for ch in s:
+            if ch not in my_dict:
+                my_dict[ch] = 0
+            my_dict[ch] += 1
+        for key, value in my_dict.items():
+            if value % 2 == 0:
+                max_even = min(max_even, value)
+            else:
+                max_odd = max(max_odd, value)
+        return max_odd - max_even
