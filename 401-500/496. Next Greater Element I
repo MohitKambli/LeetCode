@@ -1,0 +1,20 @@
+class Solution(object):
+    def nextGreaterElement(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        my_map = {}
+        stack = []
+        for num in nums2:
+            while len(stack) > 0 and stack[len(stack)-1] < num:
+                my_map[stack.pop()] = num
+            stack.append(num)
+        ans = []
+        for num in nums1:
+            if num not in my_map:
+                ans.append(-1)
+            else:
+                ans.append(my_map[num])
+        return ans
