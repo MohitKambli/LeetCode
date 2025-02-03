@@ -1,0 +1,16 @@
+class Solution(object):
+    def findValidPair(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        count = {}
+        for ch in s:
+            if ch not in count:
+                count[ch] = 0
+            count[ch] += 1
+        n = len(s)
+        for i in range(1, n):
+            if s[i] != s[i-1] and count[s[i]] == int(s[i]) and count[s[i-1]] == int(s[i-1]):
+                return s[i-1] + s[i]
+        return ""
