@@ -39,22 +39,21 @@ class Solution(object):
         :rtype: None Do not return anything, modify matrix in-place instead.
         """
         
-        def transpose(matrix):
-            n = len(matrix)
-            for i in range(n):
-                for j in range(i):
-                    matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
-
-        def reverse(matrix):
+        def reverse():
             for row in matrix:
-                left, right = 0, len(row) - 1
+                left, right = 0, len(row)-1
                 while left < right:
                     row[left], row[right] = row[right], row[left]
                     left += 1
                     right -= 1
-
-        transpose(matrix)
-        reverse(matrix)
+        
+        def transpose():
+            for i in range(len(matrix)):
+                for j in range(i):
+                    matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+        
+        transpose()
+        reverse()
 
 
 
