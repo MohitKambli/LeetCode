@@ -15,3 +15,22 @@ class Solution {
         return maxSum;
     }
 }
+
+
+
+
+
+class Solution(object):
+    def maxAscendingSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        ans, add, n = nums[0], nums[0], len(nums)
+        for i in range(1, n):
+            if nums[i] > nums[i-1]:
+                add += nums[i]
+                ans = max(ans, add)
+            else:
+                add = nums[i]
+        return ans
