@@ -1,0 +1,13 @@
+class Solution(object):
+    def areAlmostEqual(self, s1, s2):
+        m, n = len(s1), len(s2)
+        if s1 == s2:
+            return True
+        diff = []
+        for index in range(m):
+            if s1[index] != s2[index]:
+                diff.append(index)
+        if len(diff) == 2:
+            i, j = diff
+            return s1[i] == s2[j] and s1[j] == s2[i]
+        return False
