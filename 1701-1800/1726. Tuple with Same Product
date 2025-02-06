@@ -1,0 +1,19 @@
+class Solution(object):
+    def tupleSameProduct(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n = len(nums)
+        count = {}
+        for i in range(n):
+            for j in range(i+1, n):
+                value = nums[i] * nums[j]
+                if value not in count:
+                    count[value] = 0
+                count[value] += 1
+        ans = 0
+        for key, value in count.items():
+            if value > 1:
+                ans += (value * (value - 1) // 2) * 8
+        return ans
