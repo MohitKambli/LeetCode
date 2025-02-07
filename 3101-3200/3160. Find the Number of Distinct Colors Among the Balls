@@ -1,0 +1,21 @@
+class Solution(object):
+    def queryResults(self, limit, queries):
+        """
+        :type limit: int
+        :type queries: List[List[int]]
+        :rtype: List[int]
+        """
+        distinct = 0
+        count, colors = {}, {}
+        ans = []
+        for ball, color in queries:
+            count[color] = count.get(color, 0) + 1
+            if count[color] == 1:
+                distinct += 1
+            if ball in colors:
+                count[colors[ball]] -= 1
+                if count[colors[ball]] == 0:
+                    distinct -= 1
+            colors[ball] = color
+            ans.append(distinct)
+        return ans
