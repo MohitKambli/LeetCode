@@ -1,0 +1,24 @@
+class Solution {
+    public int helper(int num) {
+        int ans = 0;
+        while(num > 0) {
+            ans += num % 10;
+            num /= 10;
+        }
+        return ans;
+    }
+    public int maximumSum(int[] nums) {
+        Map<Integer, Integer> map = new HashMap<>();
+        int ans = -1;
+        for(int num : nums) {
+            int numSum = helper(num);
+            if(!map.containsKey(numSum))
+                map.put(numSum, num);
+            else {
+                ans = Math.max(ans, map.get(numSum) + num);
+                map.put(numSum, Math.max(map.get(numSum), num));
+            }
+        }
+        return ans;
+    }
+}
