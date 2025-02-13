@@ -9,3 +9,16 @@ class Solution {
         return heap.peek();
     }
 }
+
+
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        pq = list(nums)
+        heapq.heapify(pq)
+        n = len(nums)
+        value = n - k
+        while value > 0:
+            heapq.heappop(pq)
+            value -= 1
+        return heapq.heappop(pq)
