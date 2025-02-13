@@ -38,3 +38,19 @@ class Solution(object):
             for i in range(value):
                 ans += key
         return ans
+
+
+
+
+from collections import OrderedDict
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        frequency = OrderedDict()
+        ans = ''
+        for ch in s:
+            frequency[ch] = frequency.get(ch, 0) + 1
+        sorted_characters = OrderedDict(sorted(frequency.items(), key=lambda item: (-item[1])))
+        for key, value in sorted_characters.items():
+            for i in range(value):
+                ans += key
+        return ans
