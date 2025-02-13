@@ -1,0 +1,18 @@
+class Solution {
+    public int minOperations(int[] nums, int k) {
+        PriorityQueue<Double> heap = new PriorityQueue<>();
+        for(int num : nums)
+            heap.offer((double)num);
+        int count = 0;
+        while(heap.size() >= 2) {
+            double x = heap.poll();
+            double y = heap.poll();
+            if(x >= k)
+                return count;
+            double temp = Math.min(x, y) * 2 + Math.max(x, y);
+            heap.offer(temp);
+            count++;
+        }
+        return count;
+    }
+}
