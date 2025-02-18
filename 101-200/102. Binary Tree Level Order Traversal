@@ -82,13 +82,13 @@ class Solution(object):
 #         self.right = right
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        ans = []
-        queue = [root]
+        ans:List[List[int]] = []
+        queue:List['TreeNode'] = [root]
         while queue:
-            size = len(queue)
-            temp = []
+            size:int = len(queue)
+            temp:List[int] = []
             while size > 0:
-                node = queue.pop(0)
+                node:'TreeNode' = queue.pop(0)
                 if node:
                     if node.left:
                         queue.append(node.left)
@@ -99,7 +99,6 @@ class Solution:
             if temp:
                 ans.append(temp)
         return ans
-
 
 
 
