@@ -1,0 +1,10 @@
+class Solution:
+    def smallestNumber(self, pattern: str) -> str:
+        pattern += 'I'
+        ans, s = '', ''
+        for index, ch in enumerate(pattern):
+            s += str(index+1)
+            if ch == 'I':
+                ans += s[::-1]
+                s = ''
+        return ans
