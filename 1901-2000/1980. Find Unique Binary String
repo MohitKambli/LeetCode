@@ -1,0 +1,16 @@
+class Solution:
+    def findDifferentBinaryString(self, nums: List[str]) -> str:
+        def helper(current):
+            if len(current) == n:
+                if current not in nums:
+                    return current
+                return ''
+            
+            add_zero = helper(current + '0')
+            if add_zero:
+                return add_zero
+            return helper(current + '1')
+        
+        n = len(nums)
+        nums = set(nums)
+        return helper('')
