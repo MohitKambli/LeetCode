@@ -14,3 +14,18 @@ class Solution {
         return ans;
     }
 }
+
+
+
+
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        n = len(temperatures)
+        ans = [0 for i in range(n)]
+        stack = [(temperatures[0], 0)]
+        for i in range(n):
+            while len(stack) > 0 and temperatures[i] > stack[len(stack)-1][0]:
+                temperature, index = stack.pop()
+                ans[index] = i - index
+            stack.append((temperatures[i], i))
+        return ans
