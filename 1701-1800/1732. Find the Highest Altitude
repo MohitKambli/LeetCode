@@ -9,3 +9,14 @@ class Solution {
         return ans;
     }
 }
+
+
+
+class Solution:
+    def largestAltitude(self, gain: List[int]) -> int:
+        add = 0
+        ans = add
+        for g in gain:
+            add += g
+            ans = max(ans, add)
+        return ans
