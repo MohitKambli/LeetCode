@@ -34,3 +34,33 @@ class Solution {
         return ans;
     }
 }
+
+
+
+
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        temp = ListNode(next=head)
+        slow, fast = temp, temp
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+        p, q = None, slow.next
+        slow.next = None
+        while q:
+            r = q.next
+            q.next = p
+            p = q
+            q = r
+        s, t, ans = head, p, 0
+        while s and t:
+            ans = max(ans, s.val + t.val)
+            s = s.next
+            t = t.next
+        return ans
