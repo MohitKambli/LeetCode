@@ -62,3 +62,36 @@ class Solution {
         return ans;
     }
 }
+
+
+
+
+
+
+class Solution:
+    def decodeString(self, s: str) -> str:
+        n = len(s)
+        stack = []
+        ans = ''
+        for i in range(n):
+            if s[i] != ']':
+                stack.append(s[i])
+            else:
+                word = ''
+                while len(stack) > 0 and stack[len(stack)-1] != '[':
+                    ch = stack.pop()
+                    word = ch + word
+                stack.pop()
+                num_str = ''
+                while len(stack) > 0 and stack[len(stack)-1] >= '0' and stack[len(stack)-1] <= '9':
+                    ch = stack.pop()
+                    num_str = ch + num_str
+                num = int(num_str)
+                w = ''
+                for j in range(num):
+                    w += word
+                for ch in w:
+                    stack.append(ch)
+        while len(stack) > 0:
+            ans = stack.pop() + ans
+        return ans
