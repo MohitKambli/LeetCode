@@ -31,3 +31,30 @@ class Solution {
         return arr1.equals(arr2);
     }
 }
+
+
+
+
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+        arr_1, arr_2 = [], []
+        def helper(node, arr):
+            if not node:
+                return
+            if not node.left and not node.right:
+                arr.append(node.val)
+                return
+            helper(node.left, arr)
+            helper(node.right, arr)
+        
+        helper(root1, arr_1)
+        helper(root2, arr_2)
+        return arr_1 == arr_2
