@@ -18,3 +18,25 @@ class StockSpanner {
  * StockSpanner obj = new StockSpanner();
  * int param_1 = obj.next(price);
  */
+
+
+
+
+
+class StockSpanner:
+
+    def __init__(self):
+        self.stack = []
+
+    def next(self, price: int) -> int:
+        span = 1
+        while len(self.stack) > 0 and self.stack[len(self.stack)-1][0] <= price:
+            p, s = self.stack.pop()
+            span += s
+        self.stack.append((price, span))
+        return span
+
+
+# Your StockSpanner object will be instantiated and called as such:
+# obj = StockSpanner()
+# param_1 = obj.next(price)
