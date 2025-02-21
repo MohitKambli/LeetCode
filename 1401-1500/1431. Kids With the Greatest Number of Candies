@@ -11,3 +11,17 @@ class Solution {
         return ans;
     }
 }
+
+
+
+class Solution:
+    def kidsWithCandies(self, candies: List[int], extraCandies: int) -> List[bool]:
+        n = len(candies)
+        ans = []
+        max_num = max(candies)
+        for candy in candies:
+            if candy + extraCandies >= max_num:
+                ans.append(True)
+            else:
+                ans.append(False)
+        return ans
