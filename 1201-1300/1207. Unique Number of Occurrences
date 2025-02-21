@@ -6,3 +6,13 @@ class Solution {
         return map.size() == new HashSet<>(map.values()).size();
     }
 }
+
+
+
+class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+        count = {}
+        for num in arr:
+            count[num] = count.get(num, 0) + 1
+        values = set(count.values())
+        return len(values) == len(count)
