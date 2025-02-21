@@ -25,3 +25,28 @@ class Solution {
         return -1;
     }
 }
+
+
+
+
+
+class Solution:
+    def nearestExit(self, maze: List[List[str]], entrance: List[int]) -> int:
+        queue = [entrance]
+        directions = [[0,1],[0,-1],[1,0],[-1,0]]
+        m, n, level = len(maze), len(maze[0]), 0
+        while queue:
+            size = len(queue)
+            while size > 0:
+                x, y = queue.pop()
+                if (x != entrance[0] or y != entrance[1]) and (x == 0 or x == m-1 or y == 0 or y == n-1):
+                    return level
+                for direction in directions:
+                    new_x, new_y = x + direction[0], y + direction[1]
+                    if new_x < 0 or new_x == m or new_y < 0 or new_y == n or maze[new_x][new_y] == '+':
+                        continue
+                    queue.append([new_x, new_y])
+                    maze[new_x][new_y] = '+'
+                size -= 1
+            level += 1
+        return -1
