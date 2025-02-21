@@ -24,3 +24,21 @@ class Solution(object):
                 index += 1
         for i in range(index, n):
             nums[i] = 0
+
+
+
+
+
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        n, index = len(nums), 0
+        for i in range(n):
+            if nums[i] != 0:
+                nums[index] = nums[i]
+                index += 1
+        while index < n:
+            nums[index] = 0
+            index += 1
