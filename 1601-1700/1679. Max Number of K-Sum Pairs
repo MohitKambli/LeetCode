@@ -17,3 +17,22 @@ class Solution {
         return ans;
     }
 }
+
+
+
+
+class Solution:
+    def maxOperations(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        left, right, ans = 0, len(nums)-1, 0
+        while left < right:
+            add = nums[left] + nums[right]
+            if add == k:
+                ans += 1
+                left += 1
+                right -= 1
+            elif add > k:
+                right -= 1
+            else:
+                left += 1
+        return ans
