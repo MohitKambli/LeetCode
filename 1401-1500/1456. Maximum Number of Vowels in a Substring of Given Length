@@ -21,3 +21,26 @@ class Solution {
         return max;
     }
 }
+
+
+
+
+
+
+
+class Solution:
+    def maxVowels(self, s: str, k: int) -> int:
+        def is_vowel(ch):
+            return ch in 'aeiou'
+        vowels, n = 0, len(s)
+        for i in range(k):
+            if is_vowel(s[i]):
+                vowels += 1
+        ans = vowels
+        for i in range(k, n):
+            if is_vowel(s[i]):
+                vowels += 1
+            if is_vowel(s[i-k]):
+                vowels -= 1
+            ans = max(ans, vowels)
+        return ans
