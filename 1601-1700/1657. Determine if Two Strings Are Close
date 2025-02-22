@@ -17,3 +17,27 @@ class Solution {
         return true;
     }
 }
+
+
+
+
+
+
+class Solution:
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        arr_1 = [0 for i in range(26)]
+        arr_2 = [0 for i in range(26)]
+        m, n = len(word1), len(word2)
+        for i in range(m):
+            arr_1[ord(word1[i]) - ord('a')] += 1
+        for i in range(n):
+            arr_2[ord(word2[i]) - ord('a')] += 1
+        for i in range(26):
+            if(arr_1[i] == 0 and arr_2[i] != 0) or (arr_1[i] != 0 and arr_2[i] == 0):
+                return False
+        arr_1.sort()
+        arr_2.sort()
+        for i in range(26):
+            if arr_1[i] != arr_2[i]:
+                return False
+        return True
