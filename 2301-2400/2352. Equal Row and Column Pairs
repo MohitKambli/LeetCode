@@ -21,3 +21,26 @@ class Solution {
         return ans;
     }
 }
+
+
+
+
+
+class Solution:
+    def equalPairs(self, grid: List[List[int]]) -> int:
+        n =len(grid)
+        rows, cols = [], []
+        for i in range(n):
+            row, col = [], []
+            for j in range(n):
+                row.append(grid[i][j])
+                col.append(grid[j][i])
+            rows.append(row)
+            cols.append(col)
+        ans = 0
+        for row in rows:
+            for col in cols:
+                if row == col:
+                    ans += 1
+        return ans
+        
