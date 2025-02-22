@@ -21,3 +21,26 @@ class Solution {
         return ans;
     }
 }
+
+
+
+
+
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        n, i = len(chars), 0
+        s = ''
+        while i < n:
+            ch = chars[i]
+            frequency = 1
+            s += ch
+            while i+1 < n and chars[i+1] == ch:
+                frequency += 1
+                i += 1
+            if frequency > 1:
+                s += str(frequency)
+            i += 1
+        ans = len(s)
+        for i in range(ans):
+            chars[i] = s[i]
+        return ans
