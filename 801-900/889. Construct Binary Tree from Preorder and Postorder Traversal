@@ -1,0 +1,17 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    preorder_index, postorder_index = 0, 0
+    def constructFromPrePost(self, preorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
+        node = TreeNode(preorder[self.preorder_index])
+        self.preorder_index += 1
+        if node.val != postorder[self.postorder_index]:
+            node.left = self.constructFromPrePost(preorder, postorder)
+        if node.val != postorder[self.postorder_index]:
+            node.right = self.constructFromPrePost(preorder, postorder)
+        self.postorder_index += 1
+        return node
