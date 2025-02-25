@@ -1,0 +1,14 @@
+class Solution:
+    def numOfSubarrays(self, arr: List[int]) -> int:
+        odd_sum, even_sum, current_sum, ans = 0, 1, 0, 0
+        mod = 10 ** 9 + 7
+        for num in arr:
+            current_sum += num
+            if current_sum % 2 == 1:
+                odd_sum += 1
+                ans += even_sum % mod
+            else:
+                even_sum += 1
+                ans += odd_sum % mod
+        ans %= mod
+        return ans
