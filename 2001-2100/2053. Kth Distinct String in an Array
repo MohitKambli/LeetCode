@@ -13,3 +13,22 @@ class Solution {
         return "";
     }
 }
+
+
+
+
+
+class Solution:
+    def kthDistinct(self, arr: List[str], k: int) -> str:
+        from collections import OrderedDict
+        frequency = OrderedDict()
+        for ch in arr:
+            frequency[ch] = frequency.get(ch, 0) + 1
+        for key, value in frequency.items():
+            if value == 1:
+                k -= 1
+            if k < 0:
+                return ''
+            if k == 0:
+                return key
+        return ''
