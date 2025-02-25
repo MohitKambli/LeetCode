@@ -1,0 +1,18 @@
+class Solution:
+    def countCharacters(self, words: List[str], chars: str) -> int:
+        frequency = {}
+        for ch in chars:
+            frequency[ch] = frequency.get(ch, 0) + 1
+        temp = frequency.copy()
+        ans = 0
+        for word in words:
+            can_take = True
+            for ch in word:
+                if ch in temp and temp.get(ch) >= 1:
+                    temp[ch] -= 1
+                else:
+                    can_take = False
+            if can_take:
+                ans += len(word)
+            temp = frequency.copy()
+        return ans
