@@ -3,13 +3,12 @@ class Solution:
         add, max_value, sub, min_value = 0, float(-inf), 0, float(inf)
         for num in nums:
             add += num
-            max_value = max(max_value, add)
+            sub += num
             if add < 0:
                 add = 0
-        for num in nums:
-            sub += num
-            min_value = min(min_value, sub)
             if sub > 0:
                 sub = 0
+            max_value = max(max_value, add)
+            min_value = min(min_value, sub)
         return max(abs(max_value), abs(min_value))
             
