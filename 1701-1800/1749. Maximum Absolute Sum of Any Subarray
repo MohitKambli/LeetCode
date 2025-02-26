@@ -1,0 +1,15 @@
+class Solution:
+    def maxAbsoluteSum(self, nums: List[int]) -> int:
+        add, max_value, sub, min_value = 0, float(-inf), 0, float(inf)
+        for num in nums:
+            add += num
+            max_value = max(max_value, add)
+            if add < 0:
+                add = 0
+        for num in nums:
+            sub += num
+            min_value = min(min_value, sub)
+            if sub > 0:
+                sub = 0
+        return max(abs(max_value), abs(min_value))
+            
