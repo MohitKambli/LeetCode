@@ -13,17 +13,18 @@
  *     }
  * }
  */
+
 class Solution {
     public int helper(TreeNode node) {
         if(node == null)
             return 0;
-        
         return 1 + Math.max(helper(node.left), helper(node.right));
     }
     public int maxDepth(TreeNode root) {
         return helper(root);
     }
 }
+
 
 
 
