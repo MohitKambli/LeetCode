@@ -13,22 +13,22 @@
  *     }
  * }
  */
+
 class Solution {
     public TreeNode helper(TreeNode node) {
         if(node == null)
             return null;
         
-        TreeNode p = helper(node.left);
-        TreeNode q = helper(node.right);
-        node.left = q;
-        node.right = p;
+        TreeNode leftNode = helper(node.left);
+        TreeNode rightNode = helper(node.right);
+        node.left = rightNode;
+        node.right = leftNode;
         return node;
     }
     public TreeNode invertTree(TreeNode root) {
         return helper(root);
     }
 }
-
 
 
 
