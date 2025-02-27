@@ -13,13 +13,13 @@
  *     }
  * }
  */
+
 class Solution {
     public boolean helper(TreeNode p, TreeNode q) {
         if(p == null && q == null)
             return true;
         if(p == null || q == null)
             return false;
-        
         return p.val == q.val && helper(p.left, q.left) && helper(p.right, q.right);
     }
     public boolean isSameTree(TreeNode p, TreeNode q) {
