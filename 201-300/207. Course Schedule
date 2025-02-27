@@ -10,21 +10,21 @@ class Solution {
             map.get(v).add(u);
             indegree[u]++;
         }
-        List<Integer> queue = new ArrayList<>();
         int count = 0;
+        Queue<Integer> queue = new LinkedList<>();
         for(int i=0;i<numCourses;i++) {
             if(indegree[i] == 0) {
-                queue.add(i);
+                queue.offer(i);
                 count++;
             }
         }
         while(!queue.isEmpty()) {
-            int node = queue.remove(0);
+            int node = queue.poll();
             if(map.containsKey(node)) {
-                for(int x : map.get(node)) {
-                    indegree[x]--;
-                    if(indegree[x] == 0) {
-                        queue.add(x);
+                for(int adjNode : map.get(node)) {
+                    indegree[adjNode]--;
+                    if(indegree[adjNode] == 0) {
+                        queue.offer(adjNode);
                         count++;
                     }
                 }
