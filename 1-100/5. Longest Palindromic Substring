@@ -1,23 +1,22 @@
 class Solution {
-    public boolean helper(int left, int right, String s, Boolean[][] dp) {
-        if(s.charAt(left) != s.charAt(right))
-            return false;
+    public boolean helper(String s, int left, int right) {
         if(left >= right)
             return true;
-        if(dp[left][right] != null)
-            return dp[left][right];
+        if(s.charAt(left) != s.charAt(right))
+            return false;
         
-        return dp[left][right] = helper(left+1, right-1, s, dp);
+        return helper(s, left+1, right-1);
     }
     public String longestPalindrome(String s) {
-        int n = s.length(), max = 0;
+        int n = s.length(), len = 0;
         String ans = "";
-        Boolean[][] dp = new Boolean[n][n];
         for(int i=0;i<n;i++) {
             for(int j=i;j<n;j++) {
-                if(helper(i, j, s, dp) && j - i + 1 > max) {
-                    max = j - i + 1;
-                    ans = s.substring(i, j+1);
+                if(helper(s, i, j)) {
+                    if(j - i + 1 > len) {
+                        len = j - i + 1;
+                        ans = s.substring(i, j+1);
+                    }
                 }
             }
         }
