@@ -1,6 +1,6 @@
 class Solution {
     public int helper(int i, int j, int n, int[][] matrix, int[][] dp) {
-        if(j < 0 || j == n)
+        if(j < 0 || j >= n)
             return 50000;
         if(i == 0)
             return matrix[0][j];
@@ -15,13 +15,15 @@ class Solution {
     public int minFallingPathSum(int[][] matrix) {
         int n = matrix.length, ans = 50000;
         int[][] dp = new int[n][n];
+        
         /*for(int[] arr : dp)
             Arrays.fill(arr, -1);
         for(int i=0;i<n;i++)
             ans = Math.min(ans, helper(n-1, i, n, matrix, dp));
         return ans;*/
-        for(int i=0;i<n;i++)
-            dp[0][i] = matrix[0][i];
+
+        for(int j=0;j<n;j++)
+            dp[0][j] = matrix[0][j];
         for(int i=1;i<n;i++) {
             for(int j=0;j<n;j++) {
                 int upLeft = 50000;
