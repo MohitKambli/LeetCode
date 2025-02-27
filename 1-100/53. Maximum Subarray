@@ -1,6 +1,6 @@
 class Solution {
     public int maxSubArray(int[] nums) {
-        int ans = Integer.MIN_VALUE, sum = 0;
+        int sum = 0, ans = Integer.MIN_VALUE;
         for(int num : nums) {
             sum += num;
             ans = Math.max(ans, sum);
@@ -10,6 +10,7 @@ class Solution {
         return ans;
     }
 }
+
 
 
 class Solution(object):
