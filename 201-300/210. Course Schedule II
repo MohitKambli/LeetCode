@@ -2,6 +2,8 @@ class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
         Map<Integer, List<Integer>> map = new HashMap<>();
         int[] indegree = new int[numCourses];
+        int[] ans = new int[numCourses];
+        int j = 0, count = 0;
         for(int[] prerequisite : prerequisites) {
             int u = prerequisite[0];
             int v = prerequisite[1];
@@ -10,25 +12,23 @@ class Solution {
             map.get(v).add(u);
             indegree[u]++;
         }
-        int count = 0, j = 0;
-        List<Integer> queue = new ArrayList<>();
-        int[] ans = new int[numCourses];
+        Queue<Integer> queue = new LinkedList<>();
         for(int i=0;i<numCourses;i++) {
             if(indegree[i] == 0) {
-                queue.add(i);
                 count++;
+                queue.offer(i);
                 ans[j++] = i;
             }
         }
         while(!queue.isEmpty()) {
-            int node = queue.remove(0);
+            int node = queue.poll();
             if(map.containsKey(node)) {
-                for(int x : map.get(node)) {
-                    indegree[x]--;
-                    if(indegree[x] == 0) {
-                        queue.add(x);
+                for(int adjNode : map.get(node)) {
+                    indegree[adjNode]--;
+                    if(indegree[adjNode] == 0) {
                         count++;
-                        ans[j++] = x;
+                        queue.offer(adjNode);
+                        ans[j++] = adjNode;
                     }
                 }
             }
