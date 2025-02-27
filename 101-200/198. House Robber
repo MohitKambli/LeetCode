@@ -7,8 +7,8 @@ class Solution {
         if(dp[index] != -1)
             return dp[index];
 
-        int notTake = helper(index-1, nums, dp);
         int take = nums[index] + helper(index-2, nums, dp);
+        int notTake = helper(index-1, nums, dp);
         return dp[index] = Math.max(take, notTake);
     }
     public int rob(int[] nums) {
