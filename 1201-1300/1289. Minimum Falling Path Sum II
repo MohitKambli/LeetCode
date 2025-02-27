@@ -5,14 +5,14 @@ class Solution {
         if(dp[i][j] != -1)
             return dp[i][j];
 
-        int res = 50000;
-        for(int col=0;col<n;col++)
-            if(col != j)
-                res = Math.min(res, grid[i][j] + helper(i-1, col, n, grid, dp));
-        return dp[i][j] = res;
+        int value = 50000;
+        for(int jj=0;jj<n;jj++)
+            if(j != jj)
+                value = Math.min(value, grid[i][j] + helper(i-1, jj, n, grid, dp));
+        return dp[i][j] = value;
     }
     public int minFallingPathSum(int[][] grid) {
-        int n = grid.length, ans = Integer.MAX_VALUE;
+        int n = grid.length, ans = 50000;
         int[][] dp = new int[n][n];
         for(int[] arr : dp)
             Arrays.fill(arr, -1);
