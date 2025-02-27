@@ -22,3 +22,37 @@ class Solution {
         return helper(m-1, n-1, s, p, dp);
     }
 }
+
+
+
+
+
+
+
+class Solution {
+    public int helper(int i, int j, String s, String p, int[][] dp) {
+        if(i < 0)
+            return j+1;
+        if(j < 0)
+            return i+1;
+        if(dp[i][j] != -1)
+            return dp[i][j];
+
+        if(s.charAt(i) == p.charAt(j))
+            return dp[i][j] = helper(i-1, j-1, s, p, dp);
+        return dp[i][j] = 1 + Math.min(
+            helper(i-1, j-1, s, p, dp),
+            Math.min(
+                helper(i, j-1, s, p, dp),
+                helper(i-1, j, s, p, dp)
+            )
+        );
+    }
+    public int minDistance(String s, String p) {
+        int m = s.length(), n = p.length();
+        int[][] dp = new int[m][n];
+        for(int[] arr : dp)
+            Arrays.fill(arr, -1);
+        return helper(m-1, n-1, s, p, dp);
+    }
+}
