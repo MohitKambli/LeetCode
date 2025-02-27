@@ -1,15 +1,15 @@
 class Solution {
-    public int helper(int index, int[] dp) {
-        if(index < 0)
+    public int helper(int n, int[] dp) {
+        if(n < 0)
             return 0;
-        if(index == 0)
+        if(n == 0)
             return 1;
-        if(dp[index] != -1)
-            return dp[index];
+        if(dp[n] != -1)
+            return dp[n];
 
-        int oneStep = helper(index-1, dp);
-        int twoSteps = helper(index-2, dp);
-        return dp[index] = oneStep + twoSteps;
+        int oneStep = helper(n-1, dp);
+        int twoSteps = helper(n-2, dp);
+        return dp[n] = oneStep + twoSteps;
     }
     public int climbStairs(int n) {
         int[] dp = new int[n+1];
