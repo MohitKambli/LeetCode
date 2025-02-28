@@ -21,3 +21,28 @@ class Solution {
         return helper(n-1, amount, coins, dp);
     }
 }
+
+
+
+
+class Solution {
+    public int helper(int index, int[] coins, int amount, int[][] dp) {
+        if(index < 0 || amount < 0)
+            return 0;
+        if(amount == 0)
+            return 1;
+        if(dp[index][amount] != -1)
+            return dp[index][amount];
+
+        int notTake = helper(index-1, coins, amount, dp);
+        int take = helper(index, coins, amount - coins[index], dp);
+        return dp[index][amount] = take + notTake;
+    }
+    public int change(int amount, int[] coins) {
+        int n = coins.length;
+        int[][] dp = new int[n][amount+1];
+        for(int[] arr : dp)
+            Arrays.fill(arr, -1);
+        return helper(n-1, coins, amount, dp);
+    }
+}
