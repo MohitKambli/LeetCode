@@ -1,21 +1,21 @@
 class Solution {
-    public int helper(int index, int n, int[] nums, int sum, int target, Map<String, Integer> map) {
-        if(index == n && sum == target)
+    public int helper(int index, int[] nums, int target, int sum, Map<String, Integer> map) {
+        if(index < 0 && target == sum)
             return 1;
-        if(index == n)
+        if(index < 0)
             return 0;
-        String key = index + "," + sum;
+        String key = index + ", " + sum;
         if(map.containsKey(key))
             return map.get(key);
 
-        int add = helper(index+1, n, nums, sum + nums[index], target, map);
-        int subtract = helper(index+1, n, nums, sum - nums[index], target, map);
-        map.put(key, add + subtract);
-        return add + subtract;
+        int add = helper(index-1, nums, target, sum + nums[index], map);
+        int sub = helper(index-1, nums, target, sum - nums[index], map);
+        map.put(key, add + sub);
+        return map.get(key);
     }
     public int findTargetSumWays(int[] nums, int target) {
         int n = nums.length;
         Map<String, Integer> map = new HashMap<>();
-        return helper(0, n, nums, 0, target, map);
+        return helper(n-1, nums, target, 0, map);
     }
 }
