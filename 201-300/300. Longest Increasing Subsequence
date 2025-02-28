@@ -18,3 +18,26 @@ class Solution {
         return helper(0, -1, n, nums, dp);
     }
 }
+
+
+
+class Solution {
+    public int helper(int current, int previous, int n, int[] nums, int[][] dp) {
+        if(current == n)
+            return 0;
+        if(dp[current][previous+1] != -1)
+            return dp[current][previous+1];
+        
+        int len = helper(current+1, previous, n, nums, dp);
+        if(previous == -1 || nums[current] > nums[previous])
+            len = Math.max(len, 1 + helper(current+1, current, n, nums, dp));
+        return dp[current][previous+1] = len;
+    }
+    public int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        int[][] dp = new int[n][n+1];
+        for(int[] arr : dp)
+            Arrays.fill(arr, -1);
+        return helper(0, -1, n, nums, dp);
+    }
+}
