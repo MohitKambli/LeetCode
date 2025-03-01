@@ -21,3 +21,25 @@ class KthLargest {
  * KthLargest obj = new KthLargest(k, nums);
  * int param_1 = obj.add(val);
  */
+
+
+
+
+
+class KthLargest {
+    PriorityQueue<Integer> heap;
+    int k;
+    public KthLargest(int k, int[] nums) {
+        this.heap = new PriorityQueue<>((a, b) -> a - b);
+        this.k = k;
+        for(int num : nums)
+            heap.offer(num);
+    }
+    
+    public int add(int val) {
+        heap.offer(val);
+        while(heap.size() > k)
+            heap.poll();
+        return heap.peek();
+    }
+}
