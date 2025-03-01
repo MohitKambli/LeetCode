@@ -31,3 +31,44 @@ class Solution {
                     board[i][j] = 'O';
     }
 }
+
+
+
+
+
+
+class Solution {
+    public void helper(int i, int j, int m, int n, char[][] board) {
+        if(i < 0 || i == m || j < 0 || j == n || board[i][j] != 'O')
+            return;
+        board[i][j] = 'T';
+        helper(i-1, j, m, n, board);
+        helper(i+1, j, m, n, board);
+        helper(i, j-1, m, n, board);
+        helper(i, j+1, m, n, board);
+    }
+    public void solve(char[][] board) {
+        int m = board.length, n = board[0].length;
+        for(int i=0;i<m;i++) {
+            if(board[i][0] == 'O')
+                helper(i, 0, m, n, board);
+            if(board[i][n-1] == 'O')
+                helper(i, n-1, m, n, board);
+        }
+        for(int i=0;i<n;i++) {
+            if(board[0][i] == 'O')
+                helper(0, i, m, n, board);
+            if(board[m-1][i] == 'O')
+                helper(m-1, i, m, n, board);
+        }
+        for(int i=0;i<m;i++)
+            for(int j=0;j<n;j++)
+                if(board[i][j] == 'O')
+                    board[i][j] = 'X';
+        for(int i=0;i<m;i++)
+            for(int j=0;j<n;j++)
+                if(board[i][j] == 'T')
+                    board[i][j] = 'O';
+    }
+}
+
