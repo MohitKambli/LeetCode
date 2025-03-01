@@ -18,6 +18,26 @@ class Solution {
 
 
 
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        List<int[]> stack = new ArrayList<>();
+        stack.add(new int[]{0, temperatures[0]});
+        int n = temperatures.length;
+        int[] ans = new int[n];
+        for(int i=1;i<n;i++) {
+            while(!stack.isEmpty() && stack.get(stack.size()-1)[1] < temperatures[i]) {
+                int[] pair = stack.remove(stack.size()-1);
+                ans[pair[0]] = i - pair[0];
+            }
+            stack.add(new int[]{i, temperatures[i]});
+        }
+        return ans;
+    }
+}
+
+
+
+
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
         n = len(temperatures)
