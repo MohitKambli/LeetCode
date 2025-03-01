@@ -4,7 +4,7 @@ class Solution {
             ans.add(temp);
             return;
         }
-
+        
         if(open < n) {
             temp += "(";
             helper(open+1, close, n, temp, ans);
