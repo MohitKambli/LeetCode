@@ -2,9 +2,9 @@ class Solution {
     public boolean helper(int i, int j, String s, String p, Boolean[][] dp) {
         if(i < 0 && j < 0)
             return true;
-        if(j < 0 && i >= 0)
+        if(i >= 0 && j < 0)
             return false;
-        if(i < 0 && j >= 0) {
+        if(j >= 0 && i < 0) {
             if(p.charAt(j) == '*')
                 return helper(i, j-2, s, p, dp);
             return false;
@@ -13,7 +13,7 @@ class Solution {
             return dp[i][j];
 
         if(s.charAt(i) == p.charAt(j) || p.charAt(j) == '.')
-            return helper(i-1, j-1, s, p, dp);
+            return dp[i][j] = helper(i-1, j-1, s, p, dp);
         if(p.charAt(j) == '*') {
             boolean zeroMatch = helper(i, j-2, s, p, dp);
             boolean oneOrMoreMatch = (s.charAt(i) == p.charAt(j-1) || p.charAt(j-1) == '.') && helper(i-1, j, s, p, dp);
