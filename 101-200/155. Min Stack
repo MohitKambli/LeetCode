@@ -12,19 +12,14 @@ class MinStack {
             minStack.add(val);
             return;
         }
-        int minStackTop = minStack.get(minStack.size()-1);
-        if(val < minStackTop)
-            minStack.add(val);
-        else
-            minStack.add(minStackTop);
+        int temp = minStack.get(minStack.size()-1);
+        minStack.add(val < temp ? val : temp);
         stack.add(val);
     }
     
     public void pop() {
-        if(!stack.isEmpty() && !minStack.isEmpty()) {
-            stack.remove(stack.size()-1);
-            minStack.remove(minStack.size()-1);
-        }
+        stack.remove(stack.size()-1);
+        minStack.remove(minStack.size()-1);
     }
     
     public int top() {
@@ -35,12 +30,3 @@ class MinStack {
         return minStack.get(minStack.size()-1);
     }
 }
-
-/**
- * Your MinStack object will be instantiated and called as such:
- * MinStack obj = new MinStack();
- * obj.push(val);
- * obj.pop();
- * int param_3 = obj.top();
- * int param_4 = obj.getMin();
- */
