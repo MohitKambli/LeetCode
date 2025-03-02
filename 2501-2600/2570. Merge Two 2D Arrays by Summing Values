@@ -1,21 +1,16 @@
 class Solution {
     public int[][] mergeArrays(int[][] nums1, int[][] nums2) {
-        Map<Integer, Integer>  map = new TreeMap<>();
-        for(int[] num : nums1) {
-            int x = num[0];
-            int y = num[1];
-            map.put(x, y);
-        }
+        Map<Integer, Integer> map = new TreeMap<>();
+        for(int[] num : nums1)
+            map.put(num[0], num[1]);
         for(int[] num : nums2) {
-            int x = num[0];
-            int y = num[1];
-            if(!map.containsKey(x))
-                map.put(x, y);
+            if(!map.containsKey(num[0]))
+                map.put(num[0], num[1]);
             else
-                map.put(x, map.get(x) + y);
+                map.put(num[0], map.get(num[0]) + num[1]);
         }
-        int size = map.size(), j = 0;
-        int[][] ans = new int[size][2];
+        int[][] ans = new int[map.size()][2];
+        int j = 0;
         for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
             ans[j][0] = entry.getKey();
             ans[j][1] = entry.getValue();
