@@ -1,0 +1,17 @@
+class Solution {
+    public int[] transformArray(int[] nums) {
+        int n = nums.length, even = 0, odd = 0, j = 0;
+        int[] ans = new int[n];
+        for(int i=0;i<n;i++) {
+            if(nums[i] % 2 == 0)
+                even++;
+            else
+                odd++;
+        }
+        while(even-- > 0)
+            ans[j++] = 0;
+        while(odd-- > 0)
+            ans[j++] = 1;
+        return ans;
+    }
+}
