@@ -1,13 +1,13 @@
 class Solution {
-    public boolean helper(int left, int right, int n, String s, Boolean[][] dp) {
-        if(left >= right)
+    public boolean helper(int i, int j, int n, String s, Boolean[][] dp) {
+        if(i >= j)
             return true;
-        if(s.charAt(left) != s.charAt(right))
+        if(s.charAt(i) != s.charAt(j))
             return false;
-        if(dp[left][right] != null)
-            return dp[left][right];
-        
-        return dp[left][right] = helper(left+1, right-1, n, s, dp);
+        if(dp[i][j] != null)
+            return dp[i][j];
+
+        return dp[i][j] = helper(i+1, j-1, n, s, dp);
     }
     public int countSubstrings(String s) {
         int n = s.length(), count = 0;
@@ -19,4 +19,3 @@ class Solution {
         return count;
     }
 }
-
