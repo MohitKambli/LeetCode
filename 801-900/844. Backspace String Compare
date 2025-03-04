@@ -18,3 +18,30 @@ class Solution {
         return helper(s).equals(helper(t));
     }
 }
+
+
+
+
+class Solution {
+    public String helper(String s, int m) {
+        List<Character> stack = new ArrayList<>();
+        for(char ch : s.toCharArray()) {
+            if(ch == '#') {
+                if(!stack.isEmpty())
+                    stack.remove(stack.size()-1);
+            } else {
+                stack.add(ch);
+            }
+        }
+        String res = "";
+        for(char ch : stack)
+            res += ch;
+        return res;
+    }
+    public boolean backspaceCompare(String s, String t) {
+        int m = s.length(), n = t.length();
+        String s1 = helper(s, m);
+        String s2 = helper(t, n);
+        return s1.equals(s2);
+    }
+}
