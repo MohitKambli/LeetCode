@@ -1,16 +1,16 @@
 class Solution {
     public int minimumLength(String s) {
-        int n = s.length(), count = 0, left = 0, right = s.length()-1;
+        int n = s.length(), left = 0, right = n-1, count = 0;
         while(left < right && s.charAt(left) == s.charAt(right)) {
             char chL = s.charAt(left);
             while(left <= right && s.charAt(left) == chL) {
-                left++;
                 count++;
+                left++;
             }
             char chR = s.charAt(right);
             while(left <= right && s.charAt(right) == chR) {
-                right--;
                 count++;
+                right--;
             }
         }
         return n - count;
