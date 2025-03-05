@@ -8,17 +8,15 @@ class Solution {
             }
             if(stack.isEmpty())
                 return false;
+            char tos = stack.remove(stack.size()-1);
             if(ch == ')') {
-                char ele = stack.remove(stack.size()-1);
-                if(ele == '[' || ele == '{')
-                    return false;
-            } else if(ch == ']') {
-                char ele = stack.remove(stack.size()-1);
-                if(ele == '(' || ele == '{')
+                if(tos == '[' || tos == '{')
                     return false;
             } else if(ch == '}') {
-                char ele = stack.remove(stack.size()-1);
-                if(ele == '[' || ele == '(')
+                if(tos == '[' || tos == '(')
+                    return false;
+            } else if(ch == ']') {
+                if(tos == '(' || tos == '{')
                     return false;
             }
         }
