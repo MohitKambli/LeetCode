@@ -1,7 +1,7 @@
 class Solution {
     public int minMovesToCaptureTheQueen(int a, int b, int c, int d, int e, int f) {
-        int[][] rookDirection = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
-        for(int[] direction : rookDirection) {
+        int[][] rookDirections = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+        for(int[] direction : rookDirections) {
             for(int i=0;i<8;i++) {
                 int newE = e + (i * direction[0]);
                 int newF = f + (i * direction[1]);
@@ -11,8 +11,8 @@ class Solution {
                     return 1;
             }
         }
-        int[][] bishopDirection = new int[][]{{-1,-1},{-1,1},{1,-1},{1,1}};
-        for(int[] direction : bishopDirection) {
+        int[][] bishopDirections = new int[][]{{-1,-1},{-1,1},{1,-1},{1,1}};
+        for(int[] direction : bishopDirections) {
             for(int i=0;i<8;i++) {
                 int newE = e + (i * direction[0]);
                 int newF = f + (i * direction[1]);
