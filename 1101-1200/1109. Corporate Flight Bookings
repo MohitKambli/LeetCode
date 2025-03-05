@@ -2,9 +2,7 @@ class Solution {
     public int[] corpFlightBookings(int[][] bookings, int n) {
         int[] ans = new int[n];
         for(int[] booking : bookings) {
-            int first = booking[0]-1;
-            int last = booking[1];
-            int score = booking[2];
+            int first = booking[0]-1, last = booking[1], score = booking[2];
             ans[first] += score;
             if(last != n)
                 ans[last] -= score;
