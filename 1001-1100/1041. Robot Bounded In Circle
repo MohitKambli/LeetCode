@@ -1,42 +1,42 @@
 class Solution {
     public boolean isRobotBounded(String instructions) {
-        int n = instructions.length(), x = 0, y = 0;
         char direction = 'N';
+        int x = 0, y = 0, n = instructions.length();
         for(int i=0;i<n;i++) {
             char ch = instructions.charAt(i);
             if(ch == 'G') {
-                if(direction == 'E')
-                    x++;
-                else if(direction == 'W')
-                    x--;
-                else if(direction == 'N')
+                if(direction == 'N')
                     y++;
                 else if(direction == 'S')
                     y--;
+                else if(direction == 'E')
+                    x++;
+                else if(direction == 'W')
+                    x--;
             } else if(ch == 'L') {
-                if(direction == 'E')
-                    direction = 'N';
-                else if(direction == 'W')
-                    direction = 'S';
-                else if(direction == 'N')
+                if(direction == 'N')
                     direction = 'W';
                 else if(direction == 'S')
                     direction = 'E';
+                else if(direction == 'E')
+                    direction = 'N';
+                else if(direction == 'W')
+                    direction = 'S';
             } else if(ch == 'R') {
-                if(direction == 'E')
-                    direction = 'S';
-                else if(direction == 'W')
-                    direction = 'N';
-                else if(direction == 'N')
+                if(direction == 'N')
                     direction = 'E';
                 else if(direction == 'S')
                     direction = 'W';
+                else if(direction == 'E')
+                    direction = 'S';
+                else if(direction == 'W')
+                    direction = 'N';
             }
         }
         if(x == 0 && y == 0)
             return true;
         if(direction == 'N')
             return false;
-        return true;        
+        return true;
     }
 }
