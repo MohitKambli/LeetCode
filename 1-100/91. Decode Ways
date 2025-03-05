@@ -7,19 +7,20 @@ class Solution {
         if(dp[index] != -1)
             return dp[index];
         
-        int notPick = helper(index+1, n, s, dp);
-        int pick = 0;
-        if(index+1 < n)
+        int notTake = helper(index+1, n, s, dp);
+        int take = 0;
+        if(index+1 < n) {
             if(
                 s.charAt(index) == '1' ||
                 (
                     s.charAt(index) == '2' &&
-                    s.charAt(index+1) >= '0' &&
+                    s.charAt(index+1) >= '0' && 
                     s.charAt(index+1) <= '6'
                 )
             )
-                pick += helper(index+2, n, s, dp);
-        return dp[index] = pick + notPick;
+                take = helper(index+2, n, s, dp);
+        }
+        return dp[index] = take + notTake;
     }
     public int numDecodings(String s) {
         int n = s.length();
