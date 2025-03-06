@@ -5,10 +5,10 @@ class Solution {
         Set<Integer> set = new HashSet<>();
         for(int i=0;i<n;i++) {
             for(int j=0;j<n;j++) {
-                int element = grid[i][j];
-                if(set.contains(element))
-                    ans[0] = element;
-                set.add(element);
+                int num = grid[i][j];
+                if(set.contains(num))
+                    ans[0] = num;
+                set.add(num);
             }
         }
         for(int i=1;i<=n*n;i++) {
