@@ -8,19 +8,18 @@ class Solution {
         return true;
     }
     public int[] closestPrimes(int left, int right) {
-        int[] ans = new int[]{-1, -1};
         List<Integer> arr = new ArrayList<>();
-        int diff = Integer.MAX_VALUE;
         for(int i=left;i<=right;i++)
             if(isPrime(i))
                 arr.add(i);
-        for(int i=1;i<arr.size();i++) {
-            if(arr.get(i)-arr.get(i-1) < diff) {
-                diff = arr.get(i)-arr.get(i-1);
-                ans[0] = arr.get(i-1);
-                ans[1] = arr.get(i);
+        int minDiff = Integer.MAX_VALUE, n = arr.size(), a = -1, b = -1;
+        for(int i=1;i<n;i++) {
+            if(Math.abs(arr.get(i) - arr.get(i-1)) < minDiff) {
+                a = arr.get(i-1);
+                b = arr.get(i);
+                minDiff = Math.abs(arr.get(i) - arr.get(i-1));
             }
         }
-        return ans;
+        return new int[]{a, b};
     }
 }
