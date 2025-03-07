@@ -1,15 +1,13 @@
 class Solution {
     public boolean find132pattern(int[] nums) {
-        List<Integer> stack = new ArrayList<>();
-        int n = nums.length, num3 = Integer.MIN_VALUE;
+        int n = nums.length, third = Integer.MIN_VALUE;
+        Stack<Integer> stack = new Stack<>();
         for(int i=n-1;i>=0;i--) {
-            if(nums[i] < num3)
+            if(nums[i] < third)
                 return true;
-            while(!stack.isEmpty() && nums[i] > stack.get(stack.size()-1)) {
-                num3 = stack.get(stack.size()-1);
-                stack.remove(stack.size()-1);
-            }
-            stack.add(nums[i]);
+            while(!stack.isEmpty() && nums[i] > stack.peek())
+                third = stack.pop();
+            stack.push(nums[i]);
         }
         return false;
     }
