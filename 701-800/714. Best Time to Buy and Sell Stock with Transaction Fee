@@ -8,12 +8,12 @@ class Solution {
         if(isBuyable == 1) {
             return dp[index][isBuyable] = Math.max(
                 -prices[index] + helper(index+1, 0, n, prices, fee, dp),
-                0 + helper(index+1, 1, n, prices, fee, dp)
+                helper(index+1, 1, n, prices, fee, dp)
             );
         } else {
             return dp[index][isBuyable] = Math.max(
                 (prices[index] - fee) + helper(index+1, 1, n, prices, fee, dp),
-                0 + helper(index+1, 0, n, prices, fee, dp)
+                helper(index+1, 0, n, prices, fee, dp)
             );
         }
     }
