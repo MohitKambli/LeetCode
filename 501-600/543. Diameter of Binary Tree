@@ -13,7 +13,6 @@
  *     }
  * }
  */
-
 class Solution {
     int ans = Integer.MIN_VALUE;
     public int helper(TreeNode node) {
