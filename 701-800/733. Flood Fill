@@ -1,19 +1,19 @@
 class Solution {
-    public void helper(int i, int j, int sr, int sc, int m, int n, int[][] image, int color, boolean[][] visited, int originalColor) {
-        if(i < 0 || i == m || j < 0 || j == n || visited[i][j] || originalColor != image[i][j])
+    public void helper(int i, int j, int m, int n, int color, int prev, int[][] image) {
+        if(i < 0 || i == m || j < 0 || j == n || prev != image[i][j])
             return;
         
-        visited[i][j] = true;
         image[i][j] = color;
-        helper(i-1, j, sr, sc, m, n, image, color, visited, originalColor);
-        helper(i+1, j, sr, sc, m, n, image, color, visited, originalColor);
-        helper(i, j-1, sr, sc, m, n, image, color, visited, originalColor);
-        helper(i, j+1, sr, sc, m, n, image, color, visited, originalColor);
+        helper(i-1, j, m, n, color, prev, image);
+        helper(i+1, j, m, n, color, prev, image);
+        helper(i, j-1, m, n, color, prev, image);
+        helper(i, j+1, m, n, color, prev, image);
     }
     public int[][] floodFill(int[][] image, int sr, int sc, int color) {
         int m = image.length, n = image[0].length;
-        boolean[][] visited = new boolean[m][n];
-        helper(sr, sc, sr, sc, m, n, image, color, visited, image[sr][sc]);
+        if(color == image[sr][sc])
+            return image;
+        helper(sr, sc, m, n, color, image[sr][sc], image);
         return image;
     }
 }
