@@ -20,22 +20,21 @@ class Solution {
 
 
 
-
 class Solution {
     public boolean isValidSudoku(char[][] board) {
-        Set<String> seen = new HashSet<>();
+        Set<String> set = new HashSet<>();
         for(int i=0;i<9;i++) {
             for(int j=0;j<9;j++) {
                 char ch = board[i][j];
                 if(ch != '.') {
-                    String row = ch + "present in row: " + i;
-                    String col = ch + "present in col: " + j;
-                    String box = ch + "present in box: " + (i/3) + " - " + (j/3);
-                    if(seen.contains(row) || seen.contains(col) || seen.contains(box))
+                    String row = "Value " +ch+ " present in row " + i;
+                    String col = "Value " +ch+ " present in col " + j;
+                    String box = "Value " +ch+ " present in box " + (i/3) + ", " + (j/3);
+                    if(set.contains(row) || set.contains(col) || set.contains(box))
                         return false;
-                    seen.add(row);
-                    seen.add(col);
-                    seen.add(box);
+                    set.add(row);
+                    set.add(col);
+                    set.add(box);
                 }
             }
         }
