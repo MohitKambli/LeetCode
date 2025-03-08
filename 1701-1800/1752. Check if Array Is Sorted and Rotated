@@ -9,6 +9,7 @@ class Solution {
 }
 
 
+
 class Solution(object):
     def check(self, nums):
         """
