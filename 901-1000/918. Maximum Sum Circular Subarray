@@ -1,33 +1,33 @@
 class Solution {
-    public int findKadaneMaxSum(int[] nums) {
-        int sum = 0, max = Integer.MIN_VALUE;
+    public int findMaxSum(int[] nums) {
+        int add = 0, ans = Integer.MIN_VALUE;
         for(int num : nums) {
-            sum += num;
-            max = Math.max(max, sum);
-            if(sum < 0)
-                sum = 0;
+            add += num;
+            ans = Math.max(ans, add);
+            if(add < 0)
+                add = 0;
         }
-        return max;
+        return ans;
     }
-    public int findKadaneMinSum(int[] nums) {
-        int sum = 0, min = Integer.MAX_VALUE;
+    public int findMinSum(int[] nums) {
+        int add = 0, ans = Integer.MAX_VALUE;
         for(int num : nums) {
-            sum += num;
-            min = Math.min(min, sum);
-            if(sum > 0)
-                sum = 0;
+            add += num;
+            ans = Math.min(ans, add);
+            if(add > 0)
+                add = 0;
         }
-        return min;
+        return ans;
     }
     public int maxSubarraySumCircular(int[] nums) {
-        int totalSum = 0;
+        int sum = 0;
         for(int num : nums)
-            totalSum += num;
-        int kadaneMaxSum = findKadaneMaxSum(nums);
-        int kadaneMinSum = findKadaneMinSum(nums);
-        int circularSum = totalSum - kadaneMinSum;
-        if(kadaneMaxSum > 0)
-            return Math.max(kadaneMaxSum, circularSum);
-        return kadaneMaxSum;
+            sum += num;
+        int maxSum = findMaxSum(nums);
+        int minSum = findMinSum(nums);
+        int circularSum = sum - minSum;
+        if(maxSum > 0)
+            return Math.max(maxSum, circularSum);
+        return maxSum;
     }
 }
