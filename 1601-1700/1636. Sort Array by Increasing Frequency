@@ -1,7 +1,5 @@
 class Solution {
     public int[] frequencySort(int[] nums) {
-        int n = nums.length, j = 0;
-        int[] ans = new int[n];
         Map<Integer, Integer> map = new HashMap<>();
         for(int num : nums)
             map.put(num, map.getOrDefault(num, 0) + 1);
@@ -9,9 +7,11 @@ class Solution {
         Collections.sort(arr, (a, b) -> {
             return map.get(a) == map.get(b) ? b - a : map.get(a) - map.get(b);
         });
+        int n = nums.length, j = 0;
+        int[] ans = new int[n];
         for(int key : arr) {
             int value = map.get(key);
-            for(int i=1;i<=value;i++)
+            for(int i=0;i<value;i++)
                 ans[j++] = key;
         }
         return ans;
