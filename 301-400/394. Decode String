@@ -30,35 +30,30 @@ class Solution {
 class Solution {
     public String decodeString(String s) {
         int n = s.length();
-        List<Character> stack = new ArrayList<>();
+        Stack<Character> stack = new Stack<>();
         for(int i=0;i<n;i++) {
             char ch = s.charAt(i);
-            if(ch != ']') {
-                stack.add(ch);
-            } else {
+            if(ch != ']')
+                stack.push(ch);
+            else {
                 String temp = "";
-                while(!stack.isEmpty() && stack.get(stack.size()-1) != '[') {
-                    char x = stack.remove(stack.size()-1);
-                    temp = x + temp;
-                }
-                stack.remove(stack.size()-1);
-                String num = "";
-                while(!stack.isEmpty() && Character.isDigit(stack.get(stack.size()-1))) {
-                    char x = stack.remove(stack.size()-1);
-                    num = x + num;
-                }
-                int number = Integer.parseInt(num);
+                while(!stack.isEmpty() && stack.peek() != '[')
+                    temp = stack.pop() + temp;
+                stack.pop();
+                String numStr = "";
+                while(!stack.isEmpty() && Character.isDigit(stack.peek()))
+                    numStr = stack.pop() + numStr;
+                int num = Integer.parseInt(numStr);
                 String p = "";
-                for(int j=0;j<number;j++)
+                for(int j=0;j<num;j++)
                     p += temp;
                 for(char c : p.toCharArray())
-                    stack.add(c);
+                    stack.push(c);
             }
         }
         String ans = "";
-        int len = stack.size();
-        for(int i=0;i<len;i++)
-            ans += stack.get(i);
+        while(!stack.isEmpty())
+            ans = stack.pop() + ans;
         return ans;
     }
 }
