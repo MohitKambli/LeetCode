@@ -1,21 +1,23 @@
 class Solution {
-    public void helper(int index, int n, Map<Character, String> map, String digits, String temp, List<String> ans) {
-        if(index == n) {
+    public void helper(int index, int n, String temp, String digits, Map<Character, String> map, List<String> ans) {
+        if(temp.length() == n) {
             ans.add(temp);
             return;
         }
 
-        String s = map.get(digits.charAt(index));
-        int len = s.length();
+        String value = map.get(digits.charAt(index));
+        int len = value.length();
         for(int i=0;i<len;i++) {
-            temp += s.charAt(i);
-            helper(index+1, n, map, digits, temp, ans);
+            temp += value.charAt(i);
+            helper(index+1, n, temp, digits, map, ans);
             temp = temp.substring(0, temp.length()-1);
         }
     }
     public List<String> letterCombinations(String digits) {
-        int n = digits.length();
         Map<Character, String> map = new HashMap<>();
+        List<String> ans = new ArrayList<>();
+        if(digits.length() == 0)
+            return ans;
         map.put('2', "abc");
         map.put('3', "def");
         map.put('4', "ghi");
@@ -24,10 +26,8 @@ class Solution {
         map.put('7', "pqrs");
         map.put('8', "tuv");
         map.put('9', "wxyz");
-        List<String> ans = new ArrayList<>();
-        if(digits.isEmpty())
-            return ans;
-        helper(0, n, map, digits, "", ans);
+        int n = digits.length();
+        helper(0, n, "", digits, map, ans);
         return ans;
     }
 }
