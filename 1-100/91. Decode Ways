@@ -9,7 +9,7 @@ class Solution {
         
         int notTake = helper(index+1, n, s, dp);
         int take = 0;
-        if(index+1 < n) {
+        if(index+1 < n)
             if(
                 s.charAt(index) == '1' ||
                 (
@@ -19,7 +19,6 @@ class Solution {
                 )
             )
                 take = helper(index+2, n, s, dp);
-        }
         return dp[index] = take + notTake;
     }
     public int numDecodings(String s) {
