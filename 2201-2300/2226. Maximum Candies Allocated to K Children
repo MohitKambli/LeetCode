@@ -1,0 +1,22 @@
+class Solution {
+    public boolean helper(int[] candies, int mid, int n, long k) {
+        for(int i=0;i<n;i++) {
+            int temp = (int) (candies[i] / mid);
+            k -= temp;
+            if(k <= 0)
+                return true;
+        }
+        return false;
+    }
+    public int maximumCandies(int[] candies, long k) {
+        int n = candies.length, left = 1, right = (int) Math.pow(10, 7);
+        while(left <= right) {
+            int mid = left + (right - left) / 2;
+            if(helper(candies, mid, n, k))
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+        return right;
+    }
+}
