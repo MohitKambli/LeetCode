@@ -4,7 +4,7 @@ with cte as (
         d.name as Department,
         e.name as Employee,
         e.salary as Salary,
-        dense_rank() over(partition by d.name order by e.salary desc) as d_rank
+        dense_rank() over (partition by d.name order by e.salary desc) as dnk_rank
     from employee e
     join department d
     on e.departmentId = d.id
@@ -14,7 +14,7 @@ select
     Employee,
     Salary
 from cte
-where d_rank <= 3;
+where dnk_rank <= 3;
 
 
 
