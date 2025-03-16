@@ -7,7 +7,7 @@ where primary_flag = 'Y' or (employee_id, primary_flag) in (
     select employee_id, primary_flag
     from employee
     group by employee_id
-    having count(primary_flag) = 1
+    having count(employee_id) = 1
 );
 
 
