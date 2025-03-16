@@ -8,6 +8,7 @@ having count(distinct product_key) = (
     from product
 );
 
+
 # Write your MySQL query statement below
 select
     customer_id
