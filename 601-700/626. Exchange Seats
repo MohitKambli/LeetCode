@@ -2,7 +2,7 @@
 select
     (
         case
-            when id % 2 = 1 and id < (select count(*) from seat)
+            when id < (select count(*) from seat) and id % 2 = 1
                 then id + 1
             when id % 2 = 0
                 then id - 1
