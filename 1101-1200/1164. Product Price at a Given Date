@@ -12,7 +12,7 @@ where (product_id, change_date) in (
 union
 select
     product_id,
-    10
+    10 as price
 from products
 where product_id not in (
     select product_id
