@@ -9,10 +9,13 @@ class Solution {
 
         if(s.charAt(i) == p.charAt(j))
             return dp[i][j] = helper(i-1, j-1, s, p, dp);
-        int insert = helper(i-1, j, s, p, dp);
-        int delete = helper(i, j-1, s, p, dp);
-        int replace = helper(i-1, j-1, s, p, dp);
-        return dp[i][j] = 1 + Math.min(insert, Math.min(delete, replace));
+        return dp[i][j] = 1 + Math.min(
+            helper(i-1, j-1, s, p, dp),
+            Math.min(
+                helper(i-1, j, s, p, dp),
+                helper(i, j-1, s, p, dp)
+            )
+        );
     }
     public int minDistance(String s, String p) {
         int m = s.length(), n = p.length();
@@ -22,6 +25,7 @@ class Solution {
         return helper(m-1, n-1, s, p, dp);
     }
 }
+
 
 
 
