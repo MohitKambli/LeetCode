@@ -4,7 +4,7 @@ class Solution {
             return 0;
         if(dp[index] != -1)
             return dp[index];
-
+        
         int oneStep = helper(index-1, cost, dp);
         int twoSteps = helper(index-2, cost, dp);
         return dp[index] = cost[index] + Math.min(oneStep, twoSteps);
