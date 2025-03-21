@@ -41,3 +41,27 @@ class Solution {
         return helper(0, -1, n, nums, dp);
     }
 }
+
+
+
+
+class Solution {
+    public int helper(int index, int prev, int n, int[] nums, int[][] dp) {
+        if(index == n)
+            return 0;
+        if(dp[index][prev+1] != -1)
+            return dp[index][prev+1];
+
+        int ans = helper(index+1, prev, n, nums, dp);
+        if(prev == -1 || nums[index] > nums[prev])
+            ans = Math.max(ans, 1 + helper(index+1, index, n, nums, dp));
+        return dp[index][prev+1] = ans;
+    }
+    public int lengthOfLIS(int[] nums) {
+        int n = nums.length;
+        int[][] dp = new int[n][n+1];
+        for(int[] arr : dp)
+            Arrays.fill(arr, -1);
+        return helper(0, -1, n, nums, dp);
+    }
+}
