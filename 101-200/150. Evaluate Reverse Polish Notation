@@ -1,30 +1,31 @@
 class Solution {
     public int evalRPN(String[] tokens) {
-        List<Integer> stack = new ArrayList<>();
+        Stack<Integer> stack = new Stack<>();
         for(String token : tokens) {
             if(token.equals("+")) {
-                int x = stack.remove(stack.size()-1);
-                int y = stack.remove(stack.size()-1);
-                stack.add(x + y);
+                int x = stack.pop();
+                int y = stack.pop();
+                stack.push(x + y);
             } else if(token.equals("-")) {
-                int x = stack.remove(stack.size()-1);
-                int y = stack.remove(stack.size()-1);
-                stack.add(y - x);
+                int x = stack.pop();
+                int y = stack.pop();
+                stack.push(y - x);
             } else if(token.equals("*")) {
-                int x = stack.remove(stack.size()-1);
-                int y = stack.remove(stack.size()-1);
-                stack.add(x * y);
+                int x = stack.pop();
+                int y = stack.pop();
+                stack.push(x * y);
             } else if(token.equals("/")) {
-                int x = stack.remove(stack.size()-1);
-                int y = stack.remove(stack.size()-1);
-                stack.add(y / x);
+                int x = stack.pop();
+                int y = stack.pop();
+                stack.push(y / x);
             } else {
-                stack.add(Integer.parseInt(token));
+                stack.push(Integer.parseInt(token));
             }
         }
-        return stack.get(0);
+        return stack.peek();
     }
 }
+
 
 
 
