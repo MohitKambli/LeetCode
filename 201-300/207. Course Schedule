@@ -1,18 +1,17 @@
 class Solution {
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
+    public boolean canFinish(int n, int[][] prerequisites) {
         Map<Integer, List<Integer>> map = new HashMap<>();
-        int[] indegree = new int[numCourses];
+        int[] indegree = new int[n];
         for(int[] prerequisite : prerequisites) {
-            int u = prerequisite[0];
-            int v = prerequisite[1];
+            int u = prerequisite[0], v = prerequisite[1];
             if(!map.containsKey(v))
                 map.put(v, new ArrayList<>());
             map.get(v).add(u);
             indegree[u]++;
         }
-        int count = 0;
         Queue<Integer> queue = new LinkedList<>();
-        for(int i=0;i<numCourses;i++) {
+        int count = 0;
+        for(int i=0;i<n;i++) {
             if(indegree[i] == 0) {
                 queue.offer(i);
                 count++;
@@ -30,6 +29,6 @@ class Solution {
                 }
             }
         }
-        return count == numCourses;
+        return count == n;
     }
 }
