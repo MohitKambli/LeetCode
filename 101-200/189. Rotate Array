@@ -19,6 +19,7 @@ class Solution {
 
 
 
+
 class Solution(object):
     def rotate(self, nums, k):
         """
