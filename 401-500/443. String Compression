@@ -2,23 +2,24 @@ class Solution {
     public int compress(char[] chars) {
         int n = chars.length;
         StringBuilder sb = new StringBuilder();
-        for(int i=0;i<n;i++) {
-            int frequency = 1;
-            char ch = chars[i];
-            while(i+1 < n && chars[i+1] == ch) {
+        sb.append(chars[0]);
+        for(int i=1;i<n;i++) {
+            int count = 1;
+            while(i < n && chars[i] == chars[i-1]) {
+                count++;
                 i++;
-                frequency++;
             }
-            sb.append(ch);
-            if(frequency > 1)
-                sb.append(String.valueOf(frequency));
+            if(count != 1)
+                sb.append(String.valueOf(count));
+            if(i < n)
+                sb.append(chars[i]);
         }
-        int ans = sb.length();
-        if(ans > n)
-            return n;
-        for(int i=0;i<ans;i++)
-            chars[i] = sb.charAt(i);
-        return ans;
+        int k = 0;
+        while(k < sb.length()) {
+            chars[k] = sb.charAt(k);
+            k++;
+        }
+        return sb.length();
     }
 }
 
