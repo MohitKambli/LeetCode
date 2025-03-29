@@ -1,9 +1,9 @@
 class Solution {
     public int helper(int i, int j, int[][] grid, int[][] dp) {
-        if(i == 0 && j == 0)
-            return grid[0][0];
         if(i < 0 || j < 0)
             return 50000;
+        if(i == 0 && j == 0)
+            return grid[i][j];
         if(dp[i][j] != -1)
             return dp[i][j];
 
