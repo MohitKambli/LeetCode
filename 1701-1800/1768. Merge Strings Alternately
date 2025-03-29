@@ -16,6 +16,23 @@ class Solution {
 
 
 
+class Solution {
+    public String mergeAlternately(String s, String p) {
+        int m = s.length(), n = p.length(), i = 0, j = 0;
+        StringBuilder sb = new StringBuilder();
+        while(i < m && j < n) {
+            sb.append(s.charAt(i++));
+            sb.append(p.charAt(j++));
+        }
+        while(i < m)
+            sb.append(s.charAt(i++));
+        while(j < n)
+            sb.append(p.charAt(j++));
+        return sb.toString();
+    }
+}
+
+
 
 
 class Solution:
