@@ -7,7 +7,7 @@ class Solution {
         
         int ans = Integer.MAX_VALUE;
         for(int i=1;i*i<=n;i++)
-            ans = Math.min(ans, 1 + helper(n-(i * i), dp));
+            ans = Math.min(ans, 1 + helper(n - (i * i), dp));
         return dp[n] = ans;
     }
     public int numSquares(int n) {
