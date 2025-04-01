@@ -9,6 +9,7 @@ class Solution {
         long take = questions[index][0] + helper(index + questions[index][1] + 1, n, questions, dp);
         return dp[index] = Math.max(take, notTake);
     }
+
     public long mostPoints(int[][] questions) {
         int n = questions.length;
 
