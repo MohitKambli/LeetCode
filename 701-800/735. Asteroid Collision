@@ -25,7 +25,6 @@ class Solution {
 }
 
 
-
 class Solution {
     public int[] asteroidCollision(int[] asteroids) {
         Stack<Integer> stack = new Stack<>();
@@ -44,10 +43,10 @@ class Solution {
             if(asteroid != 0)
                 stack.push(asteroid);
         }
-        int len = stack.size(), i = len-1;
+        int len = stack.size(), j = len-1;
         int[] ans = new int[len];
         while(!stack.isEmpty())
-            ans[i--] = stack.pop();
+            ans[j--] = stack.pop();
         return ans;
     }
 }
