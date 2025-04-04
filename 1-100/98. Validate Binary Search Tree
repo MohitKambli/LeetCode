@@ -15,7 +15,7 @@
  */
 
 class Solution {
-    public boolean helper(TreeNode node, int leftBoundary, int rightBoundary) {
+    public boolean helper(TreeNode node, long leftBoundary, long rightBoundary) {
         if(node == null)
             return true;
         if(!(node.val > leftBoundary && node.val < rightBoundary))
@@ -24,7 +24,7 @@ class Solution {
         return helper(node.left, leftBoundary, node.val) && helper(node.right, node.val, rightBoundary);
     }
     public boolean isValidBST(TreeNode root) {
-        return helper(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        return helper(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
 }
 
