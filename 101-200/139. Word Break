@@ -12,10 +12,10 @@ class Solution {
     }
     public boolean wordBreak(String s, List<String> wordDict) {
         int n = s.length();
+        Boolean[] dp = new Boolean[n];
         Set<String> set = new HashSet<>();
         for(String word : wordDict)
             set.add(word);
-        Boolean[] dp = new Boolean[n];
         return helper(0, n, s, set, dp);
     }
 }
