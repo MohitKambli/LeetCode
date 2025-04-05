@@ -1,12 +1,12 @@
 class Solution {
     public int helper(int weight, int n, int[] weights) {
-        int days = 1, tempWeight = 0;
+        int days = 1, temp = 0;
         for(int i=0;i<n;i++) {
-            if(tempWeight + weights[i] <= weight)
-                tempWeight += weights[i];
+            if(temp + weights[i] <= weight)
+                temp += weights[i];
             else {
                 days++;
-                tempWeight = weights[i];
+                temp = weights[i];
             }
         }
         return days;
@@ -17,12 +17,12 @@ class Solution {
             return -1;
         int sum = weights[0], max = weights[0];
         for(int i=1;i<n;i++) {
-            max = Math.max(max, weights[i]);
             sum += weights[i];
+            max = Math.max(max, weights[i]);
         }
         int left = max, right = sum;
         while(left <= right) {
-            int mid = (left + right) / 2;
+            int mid = left + (right - left) / 2;
             int d = helper(mid, n, weights);
             if(d > days)
                 left = mid + 1;
