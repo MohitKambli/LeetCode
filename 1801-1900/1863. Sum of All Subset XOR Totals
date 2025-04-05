@@ -23,3 +23,28 @@ class Solution {
         return sum;
     }
 }
+
+
+class Solution {
+    public void helper(int index, int n, int[] nums, List<Integer> pair, List<List<Integer>> pairs) {
+        pairs.add(new ArrayList<>(pair));
+        for(int i=index;i<n;i++) {
+            pair.add(nums[i]);
+            helper(i+1, n, nums, pair, pairs);
+            pair.remove(pair.size()-1);
+        }
+    }
+    public int subsetXORSum(int[] nums) {
+        int n = nums.length, xor = 0;
+        List<List<Integer>> pairs = new ArrayList<>();
+        List<Integer> pair = new ArrayList<>();
+        helper(0, n, nums, pair, pairs);
+        for(List<Integer> p : pairs) {
+            int value = 0;
+            for(int val : p)
+                value ^= val;
+            xor += value;
+        }
+        return xor;
+    }
+}
