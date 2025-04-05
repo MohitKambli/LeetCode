@@ -2,11 +2,9 @@ class Solution {
     public List<List<Integer>> fourSum(int[] nums, int target) {
         if(target == -294967296 || target == 294967296 || target == -294967297 || target == 294967297)
             return new ArrayList<>();
-        List<List<Integer>> ans = new ArrayList<>();
-        Arrays.sort(nums);
         int n = nums.length;
-        if(n < 4)
-            return ans;
+        Arrays.sort(nums);
+        List<List<Integer>> ans = new ArrayList<>();
         for(int i=0;i<n;i++) {
             if(i > 0 && nums[i] == nums[i-1])
                 continue;
@@ -15,21 +13,21 @@ class Solution {
                     continue;
                 int left = j+1, right = n-1;
                 while(left < right) {
-                    if(nums[left] + nums[right] + nums[i] + nums[j] > target)
+                    if(nums[i] + nums[j] + nums[left] + nums[right] > target)
                         right--;
-                    else if(nums[left] + nums[right] + nums[i] + nums[j] < target)
+                    else if(nums[i] + nums[j] + nums[left] + nums[right] < target)
                         left++;
                     else {
                         while(left < right && nums[left] == nums[left+1])
                             left++;
                         while(left < right && nums[right] == nums[right-1])
                             right--;
-                        List<Integer> temp = new ArrayList<>();
-                        temp.add(nums[i]);
-                        temp.add(nums[j]);
-                        temp.add(nums[left]);
-                        temp.add(nums[right]);
-                        ans.add(temp);
+                        List<Integer> arr = new ArrayList<>();
+                        arr.add(nums[i]);
+                        arr.add(nums[j]);
+                        arr.add(nums[left]);
+                        arr.add(nums[right]);
+                        ans.add(arr);
                         left++;
                         right--;
                     }
