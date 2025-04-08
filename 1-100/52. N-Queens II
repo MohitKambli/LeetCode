@@ -17,23 +17,23 @@ class Solution {
             return;
         }
 
-        for(int i=0;i<n;i++) {
-            if(isValid(row, i, n, board)) {
-                board.get(row).setCharAt(i, 'Q');
+        for(int col=0;col<n;col++) {
+            if(isValid(row, col, n, board)) {
+                board.get(row).setCharAt(col, 'Q');
                 helper(row+1, n, board, ans);
-                board.get(row).setCharAt(i, '.');
+                board.get(row).setCharAt(col, '.');
             }
         }
     }
     public int totalNQueens(int n) {
+        int[] ans = new int[]{0};
         List<StringBuilder> board = new ArrayList<>();
         for(int i=0;i<n;i++) {
-            StringBuilder sb = new StringBuilder("");
+            StringBuilder sb = new StringBuilder();
             for(int j=0;j<n;j++)
                 sb.append(".");
             board.add(sb);
         }
-        int[] ans = new int[]{0};
         helper(0, n, board, ans);
         return ans[0];
     }
