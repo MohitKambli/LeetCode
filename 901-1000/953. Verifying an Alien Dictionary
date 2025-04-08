@@ -1,0 +1,26 @@
+class Solution {
+    public boolean helper(String s, String p, Map<Character, Integer> map) {
+        int m = s.length(), n = p.length();
+        for(int i=0,j=0;i<m && j<n;i++,j++) {
+            if(s.charAt(i) != p.charAt(j)) {
+                if(map.get(s.charAt(i)) > map.get(p.charAt(j)))
+                    return false;
+                else
+                    return true;
+            }
+        }
+        if(m > n)
+            return false;
+        return true;
+    }
+    public boolean isAlienSorted(String[] words, String order) {
+        Map<Character, Integer> map = new HashMap<>();
+        int m = words.length, n = order.length();
+        for(int i=0;i<n;i++)
+            map.put(order.charAt(i), i);
+        for(int i=0;i<m-1;i++)
+            if(!helper(words[i], words[i+1], map))
+                return false;
+        return true;
+    }
+}
