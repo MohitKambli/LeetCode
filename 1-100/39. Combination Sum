@@ -28,13 +28,12 @@ class Solution {
 
 class Solution {
     public void helper(int index, int n, int[] nums, int target, List<Integer> arr, List<List<Integer>> ans) {
-        if(target < 0)
-            return;
         if(target == 0) {
             ans.add(new ArrayList<>(arr));
             return;
         }
-
+        if(target < 0)
+            return;
 
         for(int i=index;i<n;i++) {
             if(i > index && nums[i] == nums[i-1])
@@ -45,11 +44,11 @@ class Solution {
         }
     }
     public List<List<Integer>> combinationSum(int[] nums, int target) {
-        int n = nums.length;
-        Arrays.sort(nums);
         List<List<Integer>> ans = new ArrayList<>();
         List<Integer> arr = new ArrayList<>();
+        int n = nums.length;
         helper(0, n, nums, target, arr, ans);
         return ans;
     }
 }
+
