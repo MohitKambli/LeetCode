@@ -1,29 +1,31 @@
 class Solution {
     public boolean isPalindrome(int left, int right, String s) {
-        while(left < right)
-            if(s.charAt(left++) != s.charAt(right--))
-                return false;
-        return true;
+        if(s.charAt(left) != s.charAt(right))
+            return false;
+        if(left >= right)
+            return true;
+        
+        return isPalindrome(left+1, right-1, s);
     }
-    public void helper(int index, int n, String s, List<String> temp, List<List<String>> ans) {
+    public void helper(int index, int n, String s, List<String> arr, List<List<String>> ans) {
         if(index == n) {
-            ans.add(new ArrayList<>(temp));
+            ans.add(new ArrayList<>(arr));
             return;
         }
 
         for(int i=index;i<n;i++) {
             if(isPalindrome(index, i, s)) {
-                temp.add(s.substring(index, i+1));
-                helper(i+1, n, s, temp, ans);
-                temp.remove(temp.size()-1);
+                arr.add(s.substring(index, i+1));
+                helper(i+1, n, s, arr, ans);
+                arr.remove(arr.size()-1);
             }
         }
     }
     public List<List<String>> partition(String s) {
         int n = s.length();
         List<List<String>> ans = new ArrayList<>();
-        List<String> temp = new ArrayList<>();
-        helper(0, n, s, temp, ans);
+        List<String> arr = new ArrayList<>();
+        helper(0, n, s, arr, ans);
         return ans;
     }
 }
