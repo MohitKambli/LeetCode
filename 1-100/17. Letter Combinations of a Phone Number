@@ -1,5 +1,5 @@
 class Solution {
-    public void helper(int index, int n, String digits, Map<Character, String> map, String temp, List<String> ans) {
+    public void helper(int index, int n, String digits, String temp, Map<Character, String> map, List<String> ans) {
         if(index == n) {
             ans.add(temp);
             return;
@@ -9,14 +9,11 @@ class Solution {
         int len = value.length();
         for(int i=0;i<len;i++) {
             temp += value.charAt(i);
-            helper(index+1, n, digits, map, temp, ans);
+            helper(index+1, n, digits, temp, map, ans);
             temp = temp.substring(0, temp.length()-1);
         }
     }
     public List<String> letterCombinations(String digits) {
-        List<String> ans = new ArrayList<>();
-        if(digits.isEmpty())
-            return ans;
         Map<Character, String> map = new HashMap<>();
         map.put('2', "abc");
         map.put('3', "def");
@@ -27,7 +24,10 @@ class Solution {
         map.put('8', "tuv");
         map.put('9', "wxyz");
         int n = digits.length();
-        helper(0, n, digits, map, "", ans);
+        List<String> ans = new ArrayList<>();
+        if(n == 0)
+            return ans;
+        helper(0, n, digits, "", map, ans);
         return ans;
     }
 }
