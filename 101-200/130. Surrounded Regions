@@ -41,6 +41,7 @@ class Solution {
     public void helper(int i, int j, int m, int n, char[][] board) {
         if(i < 0 || i == m || j < 0 || j == n || board[i][j] != 'O')
             return;
+        
         board[i][j] = 'T';
         helper(i-1, j, m, n, board);
         helper(i+1, j, m, n, board);
@@ -71,4 +72,5 @@ class Solution {
                     board[i][j] = 'O';
     }
 }
+
 
