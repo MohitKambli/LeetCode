@@ -1,26 +1,25 @@
 class Solution {
-    public boolean helper(int index, int target, int[] nums, Boolean[][] dp) {
+    public boolean helper(int index, int[] nums, int target, Boolean[][] dp) {
         if(target == 0)
             return true;
         if(index == 0)
-            return nums[index] == target;
+            return nums[0] == target;
         if(dp[index][target] != null)
             return dp[index][target];
 
-        boolean notPick = helper(index-1, target, nums, dp);
+        boolean notPick = helper(index-1, nums, target, dp);
         boolean pick = false;
         if(nums[index] <= target)
-            pick = helper(index-1, target - nums[index], nums, dp);
-        return dp[index][target] = pick || notPick;
+            pick = helper(index-1, nums, target - nums[index], dp);
+        return dp[index][target] = pick | notPick;
     }
     public boolean canPartition(int[] nums) {
-        int n = nums.length;
-        int sum = 0;
+        int n = nums.length, sum = 0;
         for(int num : nums)
             sum += num;
         if(sum % 2 != 0)
             return false;
-        Boolean[][] dp = new Boolean[n][sum+1];
-        return helper(n-1, sum / 2, nums, dp);
+        Boolean[][] dp = new Boolean[n][sum / 2 + 1];
+        return helper(n-1, nums, sum / 2, dp);
     }
 }
