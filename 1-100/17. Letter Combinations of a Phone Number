@@ -1,19 +1,23 @@
 class Solution {
-    public void helper(int index, int n, String digits, String temp, Map<Character, String> map, List<String> ans) {
+    public void helper(int index, int n, String temp, String digits, Map<Character, String> map, List<String> ans) {
         if(index == n) {
             ans.add(temp);
             return;
         }
 
-        String value = map.get(digits.charAt(index));
-        int len = value.length();
+        String word = map.get(digits.charAt(index));
+        int len = word.length();
         for(int i=0;i<len;i++) {
-            temp += value.charAt(i);
-            helper(index+1, n, digits, temp, map, ans);
+            temp += word.charAt(i);
+            helper(index+1, n, temp, digits, map, ans);
             temp = temp.substring(0, temp.length()-1);
         }
     }
     public List<String> letterCombinations(String digits) {
+        List<String> ans = new ArrayList<>();
+        int n = digits.length();
+        if(n == 0)
+            return ans;
         Map<Character, String> map = new HashMap<>();
         map.put('2', "abc");
         map.put('3', "def");
@@ -23,11 +27,7 @@ class Solution {
         map.put('7', "pqrs");
         map.put('8', "tuv");
         map.put('9', "wxyz");
-        int n = digits.length();
-        List<String> ans = new ArrayList<>();
-        if(n == 0)
-            return ans;
-        helper(0, n, digits, "", map, ans);
+        helper(0, n, "", digits, map, ans);
         return ans;
     }
 }
