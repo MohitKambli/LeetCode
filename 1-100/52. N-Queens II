@@ -26,7 +26,6 @@ class Solution {
         }
     }
     public int totalNQueens(int n) {
-        int[] ans = new int[]{0};
         List<StringBuilder> board = new ArrayList<>();
         for(int i=0;i<n;i++) {
             StringBuilder sb = new StringBuilder();
@@ -34,6 +33,7 @@ class Solution {
                 sb.append(".");
             board.add(sb);
         }
+        int[] ans = new int[]{0};
         helper(0, n, board, ans);
         return ans[0];
     }
