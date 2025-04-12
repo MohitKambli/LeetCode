@@ -1,20 +1,20 @@
 class Solution {
-    public void merge(int[] a, int m, int[] b, int n) {
-        int i = 0, j = 0, k = 0;
-        int[] arr = new int[m+n];
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int N = nums1.length, i = 0, j = 0, k = 0;
+        int[] arr = new int[N];
         while(i < m && j < n) {
-            if(a[i] < b[j])
-                arr[k++] = a[i++];
+            if(nums1[i] < nums2[j])
+                arr[k++] = nums1[i++];
             else
-                arr[k++] = b[j++];
+                arr[k++] = nums2[j++];
         }
         while(i < m)
-            arr[k++] = a[i++];
+            arr[k++] = nums1[i++];
         while(j < n)
-            arr[k++] = b[j++];
+            arr[k++] = nums2[j++];
         int p = 0;
-        while(p < m+n) {
-            a[p] = arr[p];
+        while(p < N) {
+            nums1[p] = arr[p];
             p++;
         }
     }
