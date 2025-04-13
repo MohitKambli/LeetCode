@@ -1,13 +1,13 @@
 class Solution {
-    public void helper(int source, int target, int[][] graph, List<Integer> arr, List<List<Integer>> ans) {
-        if(source == target) {
+    public void helper(int node, int target, int[][] graph, List<Integer> arr, List<List<Integer>> ans) {
+        if(node == target) {
             ans.add(new ArrayList<>(arr));
             return;
         }
 
-        for(int node : graph[source]) {
-            arr.add(node);
-            helper(node, target, graph, arr, ans);
+        for(int adjNode : graph[node]) {
+            arr.add(adjNode);
+            helper(adjNode, target, graph, arr, ans);
             arr.remove(arr.size()-1);
         }
     }
