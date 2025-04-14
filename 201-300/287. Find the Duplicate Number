@@ -12,6 +12,18 @@ class Solution {
 
 
 
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int n = nums.length, i = 0;
+        while(nums[i] > 0) {
+            int j = nums[i];
+            nums[i] *= -1;
+            i = j;
+        }
+        return i;
+    }
+}
+
 
 
 class Solution(object):
