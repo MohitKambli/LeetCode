@@ -1,5 +1,5 @@
 class Solution {
-    public boolean helper(String s, int left, int right, Boolean[][] dp) {
+    public boolean isPalindrome(int left, int right, String s, Boolean[][] dp) {
         if(left >= right)
             return true;
         if(s.charAt(left) != s.charAt(right))
@@ -7,19 +7,17 @@ class Solution {
         if(dp[left][right] != null)
             return dp[left][right];
 
-        return dp[left][right] = helper(s, left+1, right-1, dp);
+        return dp[left][right] = isPalindrome(left+1, right-1, s, dp);
     }
     public String longestPalindrome(String s) {
         int n = s.length(), len = 0;
-        String ans = "";
         Boolean[][] dp = new Boolean[n][n];
+        String ans = "";
         for(int i=0;i<n;i++) {
             for(int j=i;j<n;j++) {
-                if(helper(s, i, j, dp)) {
-                    if(j - i + 1 > len) {
-                        len = j - i + 1;
-                        ans = s.substring(i, j+1);
-                    }
+                if(isPalindrome(i, j, s, dp) && j - i + 1 > len) {
+                    len = j - i + 1;
+                    ans = s.substring(i, j+1);
                 }
             }
         }
