@@ -2,6 +2,8 @@ class Solution {
     public boolean canFinish(int n, int[][] prerequisites) {
         Map<Integer, List<Integer>> map = new HashMap<>();
         int[] indegree = new int[n];
+        int count = 0;
+        Queue<Integer> queue = new LinkedList<>();
         for(int[] prerequisite : prerequisites) {
             int u = prerequisite[0], v = prerequisite[1];
             if(!map.containsKey(v))
@@ -9,8 +11,6 @@ class Solution {
             map.get(v).add(u);
             indegree[u]++;
         }
-        Queue<Integer> queue = new LinkedList<>();
-        int count = 0;
         for(int i=0;i<n;i++) {
             if(indegree[i] == 0) {
                 queue.offer(i);
