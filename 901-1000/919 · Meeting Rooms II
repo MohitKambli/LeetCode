@@ -19,14 +19,14 @@ class Solution {
         }
         Collections.sort(start);
         Collections.sort(end);
-        int s = 0, e = 0, n = intervals.size(), ans = 0, count = 0;
+        int s = 0, e = 0, count = 0, n = intervals.size(), ans = 0;
         while(s < n) {
             if(start.get(s) < end.get(e)) {
-                s++;
                 count++;
+                s++;
             } else {
-                e++;
                 count--;
+                e++;
             }
             ans = Math.max(ans, count);
         }
