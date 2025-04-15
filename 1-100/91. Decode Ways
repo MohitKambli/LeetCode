@@ -14,8 +14,7 @@ class Solution {
                 s.charAt(index) == '1' ||
                 (
                     s.charAt(index) == '2' &&
-                    s.charAt(index+1) >= '0' &&
-                    s.charAt(index+1) <= '6'
+                    s.charAt(index+1) >= '0' && s.charAt(index+1) <= '6'
                 )
             )
                 take = helper(index+2, n, s, dp);
