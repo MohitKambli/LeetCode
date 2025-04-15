@@ -1,6 +1,7 @@
 class Solution {
     public int[][] insert(int[][] intervals, int[] newInterval) {
         int n = intervals.length, i = 0;
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
         Stack<int[]> stack = new Stack<>();
         while(i < n) {
             int[] currentInterval = intervals[i];
