@@ -1,21 +1,22 @@
 class Solution {
-    public void helper(int i, int j, int m, int n, char[][] grid) {
-        if(i < 0 || i == m || j < 0 || j == n || grid[i][j] == '0')
+    public void helper(int i, int j, int m, int n, char[][] grid, boolean[][] visited) {
+        if(i < 0 || i == m || j < 0 || j == n || visited[i][j] || grid[i][j] == '0')
             return;
-
-        grid[i][j] = '0';
-        helper(i-1, j, m, n, grid);
-        helper(i+1, j, m, n, grid);
-        helper(i, j-1, m, n, grid);
-        helper(i, j+1, m, n, grid);
+        
+        visited[i][j] = true;
+        helper(i-1, j, m, n, grid, visited);
+        helper(i+1, j, m, n, grid, visited);
+        helper(i, j-1, m, n, grid, visited);
+        helper(i, j+1, m, n, grid, visited);
     }
     public int numIslands(char[][] grid) {
         int m = grid.length, n = grid[0].length, count = 0;
+        boolean[][] visited = new boolean[m][n];
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
-                if(grid[i][j] == '1') {
+                if(!visited[i][j] && grid[i][j] == '1') {
                     count++;
-                    helper(i, j, m, n, grid);
+                    helper(i, j, m, n, grid, visited);
                 }
             }
         }
