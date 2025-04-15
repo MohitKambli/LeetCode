@@ -25,9 +25,9 @@ class Solution {
         TreeNode rightNode = helper(node.right, p, q);
         if(leftNode != null && rightNode != null)
             return node;
-        if(leftNode != null)
-            return leftNode;
-        return rightNode;
+        if(leftNode == null)
+            return rightNode;
+        return leftNode;
     }
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         return helper(root, p, q);
