@@ -15,3 +15,27 @@ class Solution {
         return ans;
     }
 }
+
+
+
+
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int num : nums)
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        PriorityQueue<Integer> heap = new PriorityQueue<>((a, b) -> {
+            return map.get(a) - map.get(b);
+        });
+        int[] ans = new int[k];
+        for(int key : map.keySet()) {
+            heap.offer(key);
+            if(heap.size() > k)
+                heap.poll();
+        }
+        int j = 0;
+        while(!heap.isEmpty())
+            ans[j++] = heap.poll();
+        return ans;
+    }
+}
