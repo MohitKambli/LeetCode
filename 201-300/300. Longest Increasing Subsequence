@@ -1,17 +1,17 @@
 class Solution {
-    public int helper(int current, int previous, int n, int[] nums, int[][] dp) {
-        if(current == n)
+    public int helper(int curr, int prev, int n, int[] nums, int[][] dp) {
+        if(curr == n)
             return 0;
-        if(dp[current][previous+1] != -1)
-            return dp[current][previous+1];
+        if(dp[curr][prev+1] != -1)
+            return dp[curr][prev+1];
 
-        int len = helper(current+1, previous, n, nums, dp);
-        if(previous == -1 || nums[current] > nums[previous])
-            len = Math.max(len, 1 + helper(current+1, current, n, nums, dp));
-        return dp[current][previous+1] = len;
+        int ans = helper(curr+1, prev, n, nums, dp);
+        if(prev == -1 || nums[curr] > nums[prev])
+            ans = Math.max(ans, 1 + helper(curr+1, curr, n, nums, dp));
+        return dp[curr][prev+1] = ans;
     }
     public int lengthOfLIS(int[] nums) {
-        int n = nums.length, ans = Integer.MIN_VALUE;
+        int n = nums.length;
         int[][] dp = new int[n][n+1];
         for(int[] arr : dp)
             Arrays.fill(arr, -1);
