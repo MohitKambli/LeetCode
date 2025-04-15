@@ -1,14 +1,14 @@
 class Solution {
     public int helper(int index, int[] nums, int[] dp) {
-        if(index < 0)
-            return 0;
         if(index == 0)
             return nums[0];
+        if(index < 0)
+            return 0;
         if(dp[index] != -1)
             return dp[index];
 
-        int notTake = helper(index-1, nums, dp);
         int take = nums[index] + helper(index-2, nums, dp);
+        int notTake = helper(index-1, nums, dp);
         return dp[index] = Math.max(take, notTake);
     }
 
