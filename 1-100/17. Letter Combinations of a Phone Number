@@ -1,5 +1,5 @@
 class Solution {
-    public void helper(int index, int n, String temp, String digits, Map<Character, String> map, List<String> ans) {
+    public void helper(int index, int n, String digits, Map<Character, String> map, String temp, List<String> ans) {
         if(index == n) {
             ans.add(temp);
             return;
@@ -9,7 +9,7 @@ class Solution {
         int len = word.length();
         for(int i=0;i<len;i++) {
             temp += word.charAt(i);
-            helper(index+1, n, temp, digits, map, ans);
+            helper(index+1, n, digits, map, temp, ans);
             temp = temp.substring(0, temp.length()-1);
         }
     }
@@ -27,7 +27,7 @@ class Solution {
         map.put('7', "pqrs");
         map.put('8', "tuv");
         map.put('9', "wxyz");
-        helper(0, n, "", digits, map, ans);
+        helper(0, n, digits, map, "", ans);
         return ans;
     }
 }
