@@ -4,16 +4,16 @@ class Solution {
             return 0;
         if(dp[index][isBuyable] != -1)
             return dp[index][isBuyable];
-        
+
         if(isBuyable == 1) {
             return dp[index][isBuyable] = Math.max(
                 -prices[index] + helper(index+1, 0, n, prices, dp),
-                helper(index+1, 1, n, prices, dp)
+                0 + helper(index+1, 1, n, prices, dp)
             );
         } else {
             return dp[index][isBuyable] = Math.max(
                 prices[index] + helper(index+2, 1, n, prices, dp),
-                helper(index+1, 0, n, prices, dp)
+                0 + helper(index+1, 0, n, prices, dp)
             );
         }
     }
