@@ -13,8 +13,9 @@
  *     }
  * }
  */
+
 class Solution {
-    int ans = 0;
+    int ans = Integer.MIN_VALUE;
     public int helper(TreeNode node) {
         if(node == null)
             return 0;
@@ -23,10 +24,9 @@ class Solution {
         int rightHeight = helper(node.right);
         ans = Math.max(ans, leftHeight + rightHeight);
         return 1 + Math.max(leftHeight, rightHeight);
-
     }
     public int diameterOfBinaryTree(TreeNode root) {
-        int height = helper(root);
+        helper(root);
         return ans;
     }
 }
