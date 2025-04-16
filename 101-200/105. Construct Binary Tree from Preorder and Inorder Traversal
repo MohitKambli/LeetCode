@@ -20,11 +20,11 @@ class Solution {
             return null;
         
         TreeNode node = new TreeNode(preorder[index[0]]);
-        int i=left;
-        for(i=left;i<=right;i++)
-            if(inorder[i] == node.val)
-                break;
         index[0]++;
+        int i = left;
+        for(;i<=right;i++)
+            if(node.val == inorder[i])
+                break;
         node.left = helper(index, preorder, inorder, left, i-1);
         node.right = helper(index, preorder, inorder, i+1, right);
         return node;
