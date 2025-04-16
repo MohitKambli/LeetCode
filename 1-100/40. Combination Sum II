@@ -4,21 +4,22 @@ class Solution {
             ans.add(new ArrayList<>(arr));
             return;
         }
-        if(target < 0)
+        if(target < 0) {
             return;
+        }
 
         for(int i=index;i<n;i++) {
             if(i > index && candidates[i] == candidates[i-1])
                 continue;
             arr.add(candidates[i]);
-            helper(i+1, n, candidates, target-candidates[i], arr, ans);
+            helper(i+1, n, candidates, target - candidates[i], arr, ans);
             arr.remove(arr.size()-1);
         }
     }
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        List<List<Integer>> ans = new ArrayList<>();
-        Arrays.sort(candidates);
         int n = candidates.length;
+        Arrays.sort(candidates);
+        List<List<Integer>> ans = new ArrayList<>();
         List<Integer> arr = new ArrayList<>();
         helper(0, n, candidates, target, arr, ans);
         return ans;
