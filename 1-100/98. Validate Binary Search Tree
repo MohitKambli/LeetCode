@@ -48,6 +48,7 @@ class Solution {
  *     }
  * }
  */
+
 class Solution {
     public boolean helper(TreeNode node, long leftBoundary, long rightBoundary) {
         if(node == null)
@@ -61,3 +62,4 @@ class Solution {
         return helper(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
 }
+
