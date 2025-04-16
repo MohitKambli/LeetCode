@@ -8,7 +8,6 @@ where salary < (
 );
 
 
-
 /*with cte as (
     select
         id,
