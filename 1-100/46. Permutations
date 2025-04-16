@@ -1,5 +1,5 @@
 class Solution {
-    public void helper(int index, int n, int[] nums, boolean[] visited, List<Integer> arr, List<List<Integer>> ans) {
+    public void helper(int n, int[] nums, boolean[] visited, List<Integer> arr, List<List<Integer>> ans) {
         if(arr.size() == n) {
             ans.add(new ArrayList<>(arr));
             return;
@@ -9,18 +9,18 @@ class Solution {
             if(!visited[i]) {
                 visited[i] = true;
                 arr.add(nums[i]);
-                helper(i+1, n, nums, visited, arr, ans);
+                helper(n, nums, visited, arr, ans);
                 arr.remove(arr.size()-1);
                 visited[i] = false;
             }
         }
     }
     public List<List<Integer>> permute(int[] nums) {
-        int n = nums.length;
         List<List<Integer>> ans = new ArrayList<>();
         List<Integer> arr = new ArrayList<>();
+        int n = nums.length;
         boolean[] visited = new boolean[n];
-        helper(0, n, nums, visited, arr, ans);
+        helper(n, nums, visited, arr, ans);
         return ans;
     }
 }
