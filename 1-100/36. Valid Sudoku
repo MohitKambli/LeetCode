@@ -23,18 +23,18 @@ class Solution {
 class Solution {
     public boolean isValidSudoku(char[][] board) {
         int m = board.length, n = board[0].length;
-        Set<String> visited = new HashSet<>();
+        Set<String> set = new HashSet<>();
         for(int i=0;i<m;i++) {
             for(int j=0;j<n;j++) {
                 if(board[i][j] != '.') {
-                    String row = board[i][j] + " present in row " + i;
-                    String col = board[i][j] + " present in col " + j;
-                    String box = board[i][j] + " present in box " + (i/3) + "-" + (j/3);
-                    if(visited.contains(row) || visited.contains(col) || visited.contains(box))
+                    String row = board[i][j] + " - row " + i;
+                    String col = board[i][j] + " - col " + j;
+                    String box = board[i][j] + " - box " + (i / 3) + " - " + (j / 3);
+                    if(set.contains(row) || set.contains(col) || set.contains(box))
                         return false;
-                    visited.add(row);
-                    visited.add(col);
-                    visited.add(box);
+                    set.add(row);
+                    set.add(col);
+                    set.add(box);
                 }
             }
         }
