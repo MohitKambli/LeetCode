@@ -4,7 +4,7 @@ class Solution {
         for(int i=0,j=n-1;i<j;i++) {
             while(i < j && nums[i] + nums[j] > sum)
                 j--;
-            ans += (j-i);
+            ans += (j - i);
         }
         return ans;
     }
