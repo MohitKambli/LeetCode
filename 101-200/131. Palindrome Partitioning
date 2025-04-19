@@ -1,9 +1,9 @@
 class Solution {
     public boolean isPalindrome(int left, int right, String s) {
-        if(s.charAt(left) != s.charAt(right))
-            return false;
         if(left >= right)
             return true;
+        if(s.charAt(left) != s.charAt(right))
+            return false;
         
         return isPalindrome(left+1, right-1, s);
     }
@@ -22,9 +22,9 @@ class Solution {
         }
     }
     public List<List<String>> partition(String s) {
-        int n = s.length();
         List<List<String>> ans = new ArrayList<>();
         List<String> arr = new ArrayList<>();
+        int n = s.length();
         helper(0, n, s, arr, ans);
         return ans;
     }
