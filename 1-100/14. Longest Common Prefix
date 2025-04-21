@@ -27,6 +27,22 @@ class Solution {
     }
 }
 
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        Arrays.sort(strs);
+        int n = strs.length, i = 0;
+        String first = strs[0], last = strs[n-1];
+        int len = Math.min(first.length(), last.length());
+        StringBuilder sb = new StringBuilder();
+        while(i < len) {
+            if(first.charAt(i) != last.charAt(i))
+                return sb.toString();
+            sb.append(first.charAt(i++));
+        }
+        return sb.toString();
+    }
+}
+
 
 class Solution(object):
     def longestCommonPrefix(self, strs):
