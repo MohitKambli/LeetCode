@@ -15,23 +15,21 @@ class Solution {
 }
 
 
-
 class Solution {
-    public String mergeAlternately(String s, String p) {
-        int m = s.length(), n = p.length(), i = 0, j = 0;
+    public String mergeAlternately(String p, String q) {
+        int i = 0, j = 0, m = p.length(), n = q.length();
         StringBuilder sb = new StringBuilder();
         while(i < m && j < n) {
-            sb.append(s.charAt(i++));
-            sb.append(p.charAt(j++));
+            sb.append(p.charAt(i++));
+            sb.append(q.charAt(j++));
         }
         while(i < m)
-            sb.append(s.charAt(i++));
+            sb.append(p.charAt(i++));
         while(j < n)
-            sb.append(p.charAt(j++));
+            sb.append(q.charAt(j++));
         return sb.toString();
     }
 }
-
 
 
 
