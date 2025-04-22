@@ -20,10 +20,10 @@ class Solution {
         if(node == null)
             return 0;
         
-        int leftHeight = Math.max(0, helper(node.left));
-        int rightHeight = Math.max(0, helper(node.right));
-        ans = Math.max(ans, node.val + leftHeight + rightHeight);
-        return node.val + Math.max(leftHeight, rightHeight);
+        int leftMaxSum = Math.max(0, helper(node.left));
+        int rightMaxSum = Math.max(0, helper(node.right));
+        ans = Math.max(ans, leftMaxSum + rightMaxSum + node.val);
+        return node.val + Math.max(leftMaxSum, rightMaxSum);
     }
     public int maxPathSum(TreeNode root) {
         helper(root);
