@@ -60,6 +60,38 @@ class Solution {
 
 
 
+class Solution {
+    public String decodeString(String s) {
+        int n = s.length();
+        Stack<Character> stack = new Stack<>();
+        for(int i=0;i<n;i++) {
+            char ch = s.charAt(i);
+            if(ch != ']') {
+                stack.push(ch);
+                continue;
+            } else {
+                StringBuilder chars = new StringBuilder();
+                while(!stack.isEmpty() && stack.peek() != '[')
+                    chars.insert(0, stack.pop());
+                stack.pop();
+                StringBuilder nums = new StringBuilder();
+                while(!stack.isEmpty() && Character.isDigit(stack.peek()))
+                    nums.insert(0, stack.pop());
+                int num = Integer.parseInt(nums.toString());
+                StringBuilder sb = new StringBuilder();
+                for(int j=0;j<num;j++)
+                    sb.append(chars);
+                for(char c : sb.toString().toCharArray())
+                    stack.push(c);
+            }
+        }
+        StringBuilder ans = new StringBuilder();
+        while(!stack.isEmpty())
+            ans.insert(0, stack.pop());
+        return ans.toString();
+    }
+}
+
 
 
 
