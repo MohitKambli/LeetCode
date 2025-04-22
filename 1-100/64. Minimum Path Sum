@@ -6,7 +6,7 @@ class Solution {
             return grid[0][0];
         if(dp[i][j] != -1)
             return dp[i][j];
-
+        
         int up = helper(i-1, j, grid, dp);
         int left = helper(i, j-1, grid, dp);
         return dp[i][j] = grid[i][j] + Math.min(up, left);
