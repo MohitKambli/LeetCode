@@ -33,7 +33,7 @@ class Solution {
                 sb.append(".");
             board.add(sb);
         }
-        int[] ans = new int[]{0};
+        int[] ans = {0};
         helper(0, n, board, ans);
         return ans[0];
     }
