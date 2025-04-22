@@ -1,10 +1,10 @@
 class Solution {
     public List<List<Integer>> fourSum(int[] nums, int target) {
-        if(target == -294967296 || target == 294967296 || target == -294967297 || target == 294967297)
-            return new ArrayList<>();
         int n = nums.length;
         Arrays.sort(nums);
         List<List<Integer>> ans = new ArrayList<>();
+        if(target == -294967296 || target == 294967296 || target == -294967297 || target == 294967297)
+            return ans;
         for(int i=0;i<n;i++) {
             if(i > 0 && nums[i] == nums[i-1])
                 continue;
@@ -13,9 +13,10 @@ class Solution {
                     continue;
                 int left = j+1, right = n-1;
                 while(left < right) {
-                    if(nums[i] + nums[j] + nums[left] + nums[right] > target)
+                    int sum = nums[i] + nums[j] + nums[left] + nums[right];
+                    if(sum > target)
                         right--;
-                    else if(nums[i] + nums[j] + nums[left] + nums[right] < target)
+                    else if(sum < target)
                         left++;
                     else {
                         while(left < right && nums[left] == nums[left+1])
