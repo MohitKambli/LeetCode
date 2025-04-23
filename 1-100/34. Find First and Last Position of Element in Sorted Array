@@ -1,26 +1,26 @@
 class Solution {
     public int[] searchRange(int[] nums, int target) {
-        if(nums.length == 1 && target == nums[0])
-            return new int[] {0,0};
-        int[] res = new int[2];
-        boolean found = false;
-        for(int i=0;i<nums.length;i++) {
-            if(!found && nums[i] == target) {
-                res[0] = i;
-                found = true;
-            } else {
-                if (found) {
-                    if (nums[i] != target) {
-                        res[1] = i-1;
-                        return res;
-                    }
-                    if(i == nums.length-1) {
-                        res[1] = i;
-                        return res;
-                    }      
-                }
-            }
+        int n = nums.length, left = 0, right = n-1, min = -1, max = -1;
+        while(left <= right) {
+            int mid = left + (right - left) / 2;
+            if(nums[mid] == target)
+                min = mid;
+            if(nums[mid] >= target)
+                right = mid - 1;
+            else
+                left = mid + 1;
         }
-        return !found ? new int[] {-1,-1} : new int[] {res[0], res[0]};
+        left = 0;
+        right = n-1;
+        while(left <= right) {
+            int mid = left + (right - left) / 2;
+            if(nums[mid] == target)
+                max = mid;
+            if(nums[mid] <= target)
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+        return new int[]{min, max};
     }
 }
