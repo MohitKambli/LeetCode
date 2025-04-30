@@ -1,0 +1,16 @@
+class Solution {
+    public int findNumbers(int[] nums) {
+        int ans = 0;
+        for(int num : nums) {
+            int count = 0, temp = num;
+            while(num > 0) {
+                int d = num % 10;
+                count++;
+                num /= 10;
+            }
+            if(count % 2 == 0)
+                ans++;
+        }
+        return ans;
+    }
+}
