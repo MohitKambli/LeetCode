@@ -1,0 +1,17 @@
+class Solution {
+    public String findCommonResponse(List<List<String>> responses) {
+        List<Set<String>> newResponses = new ArrayList<>();
+        for(List<String> response : responses)
+            newResponses.add(new HashSet<>(response));
+        Map<String, Integer> map = new HashMap<>();
+        for(Set<String> newResponse : newResponses)
+            for(String response : newResponse)
+                map.put(response, map.getOrDefault(response, 0) + 1);
+        PriorityQueue<String> heap = new PriorityQueue<>((a, b) -> {
+            return map.get(a) == map.get(b) ? a.compareTo(b) : map.get(b) - map.get(a);
+        });
+        for(String key : map.keySet())
+            heap.offer(key);
+        return heap.peek();
+    }
+}
