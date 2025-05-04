@@ -7,19 +7,20 @@ class Solution {
             prod *= nums[i-1];
             leftProducts[i] = prod;
         }
+        prod = 1;
         int[] rightProducts = new int[n];
         rightProducts[n-1] = 1;
-        prod = 1;
         for(int i=n-2;i>=0;i--) {
             prod *= nums[i+1];
             rightProducts[i] = prod;
         }
         int[] ans = new int[n];
-        for(int i=0;i<n;i++)
+        for(int i=0;i<n;i++) 
             ans[i] = leftProducts[i] * rightProducts[i];
         return ans;
     }
 }  
+
 
 
 
