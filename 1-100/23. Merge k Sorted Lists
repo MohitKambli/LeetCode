@@ -8,39 +8,40 @@
  *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
+
 class Solution {
-    public ListNode merge(ListNode p, ListNode q) {
+    public ListNode merge(ListNode left, ListNode right, ListNode[] lists) {
         ListNode dummy = new ListNode(-1);
         ListNode current = dummy;
-        while(p != null && q != null) {
-            if(p.val < q.val) {
-                current.next = p;
-                p = p.next;
+        while(left != null && right != null) {
+            if(left.val < right.val) {
+                current.next = left;
+                left = left.next;
             } else {
-                current.next = q;
-                q = q.next;
+                current.next = right;
+                right = right.next;
             }
             current = current.next;
         }
-        if(p != null)
-            current.next = p;
-        if(q != null)
-            current.next = q;
+        if(left != null)
+            current.next = left;
+        if(right != null)
+            current.next = right;
         return dummy.next;
     }
-    public ListNode partition(int left, int right, ListNode[] lists) {
+    public ListNode helper(int left, int right, ListNode[] lists) {
         if(left == right)
             return lists[left];
         if(left > right)
             return null;
-        
+
         int mid = left + (right - left) / 2;
-        ListNode p = partition(left, mid, lists);
-        ListNode q = partition(mid+1, right, lists);
-        return merge(p, q);
+        ListNode leftNode = helper(left, mid, lists);
+        ListNode rightNode = helper(mid+1, right, lists);
+        return merge(leftNode, rightNode, lists);
     }
     public ListNode mergeKLists(ListNode[] lists) {
         int n = lists.length;
-        return partition(0, n-1, lists);
+        return helper(0, n-1, lists);
     }
 }
