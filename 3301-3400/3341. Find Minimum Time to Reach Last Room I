@@ -1,0 +1,31 @@
+class Solution {
+    public int minTimeToReach(int[][] moveTime) {
+        int m = moveTime.length, n = moveTime[0].length;
+        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+        int[][] time = new int[m][n];
+        for(int[] row : time)
+            Arrays.fill(row, Integer.MAX_VALUE);
+        heap.offer(new int[]{0, 0, 0});
+        time[0][0] = 0;
+        int[][] directions = new int[][]{{0,1},{0,-1},{1,0},{-1,0}};
+        while(!heap.isEmpty()) {
+            int[] pair = heap.poll();
+            int currentTime = pair[0], x = pair[1], y = pair[2];
+            if(x == m-1 && y == n-1)
+                return currentTime;
+            
+            for(int[] direction : directions) {
+                int newX = x + direction[0], newY = y + direction[1];
+                if(newX < 0 || newX == m || newY < 0 || newY == n)
+                    continue;
+                int waitTime = Math.max(moveTime[newX][newY] - currentTime, 0);
+                int newTime = currentTime + 1 + waitTime;
+                if(newTime < time[newX][newY]) {
+                    time[newX][newY] = newTime;
+                    heap.offer(new int[]{newTime, newX, newY});
+                }
+            }
+        }
+        return -1;
+    }
+}
