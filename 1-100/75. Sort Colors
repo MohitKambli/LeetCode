@@ -11,9 +11,9 @@ class Solution {
             } else if(nums[mid] == 1) {
                 mid++;
             } else if(nums[mid] == 2) {
-                int temp = nums[mid];
-                nums[mid] = nums[right];
-                nums[right] = temp;
+                int temp = nums[right];
+                nums[right] = nums[mid];
+                nums[mid] = temp;
                 right--;
             }
         }
