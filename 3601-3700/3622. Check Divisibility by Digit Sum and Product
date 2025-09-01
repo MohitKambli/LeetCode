@@ -1,0 +1,23 @@
+class Solution {
+    public int findDigitProduct(int n) {
+        int prod = 1, nTemp = n;
+        while(n > 0) {
+            int d = n % 10;
+            prod *= d;
+            n /= 10;
+        }
+        return prod;
+    }
+    public int findDigitSum(int n) {
+        int sum = 0, nTemp = n;
+        while(n > 0) {
+            int d = n % 10;
+            sum += d;
+            n /= 10;
+        }
+        return sum;
+    }
+    public boolean checkDivisibility(int n) {
+        return n % (findDigitSum(n) + findDigitProduct(n)) == 0;
+    }
+}
