@@ -1,0 +1,17 @@
+class Solution {
+    public int getLeastFrequentDigit(int n) {
+        String num = String.valueOf(n);
+        Map<Character, Integer> map = new TreeMap<>();
+        for(char ch : num.toCharArray())
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        int min = Integer.MAX_VALUE;
+        char minChar = '0';
+        for(char ch : map.keySet()) {
+            if(map.get(ch) < min) {
+                min = map.get(ch);
+                minChar = ch;
+            }
+        }
+        return minChar - '0';
+    }
+}
